@@ -1,0 +1,1840 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ethiopia Bishan Beke — Reviews — Grounded</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #FAF7F2;
+      --card: #F0E8DC;
+      --espresso: #3B1F0E;
+      --brown: #5C3317;
+      --caramel: #C47B3A;
+      --mocha: #7A6152;
+      --border: #E8DDD4;
+      --white: #ffffff;
+      --shadow: rgba(59,31,14,0.08);
+      --shadow-hover: rgba(59,31,14,0.15);
+      --green: #3a7a3a;
+      --green-bg: #EEF7EE;
+      --green-border: #c3e0c3;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--espresso);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: 68px;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-inner {
+      max-width: 1728px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 48px;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .nav-logo-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--brown);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-logo-icon i { color: var(--caramel); font-size: 15px; }
+
+    .nav-logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--espresso);
+      letter-spacing: -0.3px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-left: 48px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--mocha);
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--brown); background: var(--card); }
+    .nav-links a.active { color: var(--espresso); font-weight: 600; }
+
+    .nav-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      border: none;
+      background: transparent;
+      color: var(--mocha);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .btn-icon:hover { color: var(--brown); background: var(--card); }
+
+    .btn-ghost {
+      padding: 8px 20px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border);
+      background: transparent;
+      color: var(--espresso);
+      font-family: 'Inter', sans-serif;
+      font-size: 13.5px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
+    }
+
+    .btn-ghost:hover { border-color: var(--brown); color: var(--brown); background: var(--card); }
+
+    .btn-cta {
+      padding: 8px 22px;
+      border-radius: 8px;
+      border: 1.5px solid var(--caramel);
+      background: var(--caramel);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+    }
+
+    .btn-cta:hover {
+      background: #b36b2c;
+      border-color: #b36b2c;
+      box-shadow: 0 4px 12px rgba(196,123,58,0.3);
+      transform: translateY(-1px);
+    }
+
+    /* ── PAGE WRAP ── */
+    .page-wrap {
+      max-width: 1728px;
+      margin: 0 auto;
+      padding: 32px 48px 60px;
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 0 28px;
+    }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      grid-column: 1 / 3;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      color: var(--mocha);
+    }
+
+    .breadcrumb a {
+      color: var(--mocha);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .breadcrumb a:hover { color: var(--caramel); }
+
+    .breadcrumb-sep { color: var(--border); font-size: 11px; }
+
+    .breadcrumb-current { color: var(--espresso); font-weight: 500; }
+
+    /* ── BEAN HEADER (CONDENSED) ── */
+    .bean-header {
+      grid-column: 1 / 2;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 36px;
+      box-shadow: 0 2px 16px var(--shadow);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .bean-header-img {
+      width: 80px;
+      height: 80px;
+      border-radius: 12px;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+    }
+
+    .bean-header-info { flex: 1; min-width: 0; }
+
+    .bean-header-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+
+    .bean-header-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--espresso);
+      line-height: 1.2;
+    }
+
+    .roast-pill {
+      flex-shrink: 0;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    .roast-light { background: #FEF5E7; color: #C47B3A; border: 1px solid #F5DEB3; }
+
+    .bean-header-sub {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13.5px;
+      color: var(--mocha);
+      flex-wrap: wrap;
+    }
+
+    .bean-header-roaster {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+      color: var(--brown);
+    }
+
+    .bean-header-roaster img {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      object-fit: cover;
+    }
+
+    .bean-header-origin {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .header-divider { color: var(--border); }
+
+    .flavor-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .flavor-tag {
+      padding: 3px 10px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      font-size: 11.5px;
+      color: var(--mocha);
+      font-weight: 500;
+    }
+
+    .bean-header-rating {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+      padding: 0 0 0 32px;
+      border-left: 1px solid var(--border);
+    }
+
+    .rating-big {
+      font-family: 'Playfair Display', serif;
+      font-size: 40px;
+      font-weight: 700;
+      color: var(--espresso);
+      line-height: 1;
+    }
+
+    .rating-stars-big {
+      display: flex;
+      gap: 3px;
+    }
+
+    .rating-stars-big i { font-size: 14px; color: var(--caramel); }
+
+    .rating-total {
+      font-size: 12px;
+      color: var(--mocha);
+    }
+
+    /* ── TABS ── */
+    .tabs-row {
+      grid-column: 1 / 2;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 24px;
+    }
+
+    .tab {
+      padding: 10px 22px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--mocha);
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      border-radius: 6px 6px 0 0;
+      transition: color 0.2s, background 0.2s;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tab:hover { color: var(--brown); background: var(--card); }
+
+    .tab.active {
+      color: var(--espresso);
+      font-weight: 600;
+      border-bottom-color: var(--caramel);
+    }
+
+    .tab-count {
+      background: var(--card);
+      color: var(--mocha);
+      border-radius: 20px;
+      padding: 2px 8px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .tab.active .tab-count {
+      background: rgba(196,123,58,0.15);
+      color: var(--caramel);
+    }
+
+    /* ── MAIN CONTENT ── */
+    .main-content { grid-column: 1 / 2; }
+
+    /* ── WRITE REVIEW CARD ── */
+    .write-review-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px 28px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 12px var(--shadow);
+    }
+
+    .write-review-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .user-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--brown);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 15px;
+      font-weight: 700;
+      flex-shrink: 0;
+      font-family: 'Playfair Display', serif;
+      overflow: hidden;
+    }
+
+    .user-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .write-review-body { flex: 1; }
+
+    .star-picker {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 10px;
+    }
+
+    .star-picker-label {
+      font-size: 12.5px;
+      color: var(--mocha);
+      margin-right: 8px;
+      font-weight: 500;
+    }
+
+    .star-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 2px;
+      font-size: 22px;
+      color: var(--border);
+      transition: color 0.15s, transform 0.15s;
+      line-height: 1;
+    }
+
+    .star-btn:hover { transform: scale(1.15); }
+    .star-btn.lit { color: var(--caramel); }
+
+    .review-textarea {
+      width: 100%;
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: var(--espresso);
+      resize: none;
+      height: 90px;
+      line-height: 1.6;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+
+    .review-textarea::placeholder { color: #b5a89d; }
+
+    .review-textarea:focus {
+      border-color: var(--caramel);
+      box-shadow: 0 0 0 3px rgba(196,123,58,0.1);
+    }
+
+    .write-review-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 14px;
+    }
+
+    .write-review-tools {
+      display: flex;
+      gap: 8px;
+    }
+
+    .tool-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border);
+      background: var(--white);
+      color: var(--mocha);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+
+    .tool-btn:hover { color: var(--caramel); border-color: var(--caramel); background: rgba(196,123,58,0.06); }
+
+    .btn-post-review {
+      padding: 9px 24px;
+      border-radius: 8px;
+      border: none;
+      background: var(--caramel);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .btn-post-review:hover {
+      background: #b36b2c;
+      box-shadow: 0 4px 12px rgba(196,123,58,0.3);
+      transform: translateY(-1px);
+    }
+
+    /* ── REVIEW CARDS ── */
+    .review-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px 24px 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 10px var(--shadow);
+      transition: box-shadow 0.2s;
+    }
+
+    .review-card:hover { box-shadow: 0 4px 18px var(--shadow-hover); }
+
+    .review-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .review-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      overflow: hidden;
+      border: 2px solid var(--border);
+    }
+
+    .review-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .review-user-info { flex: 1; min-width: 0; }
+
+    .review-user-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .review-username {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--espresso);
+    }
+
+    .badge-verified-purchase {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--green-bg);
+      color: var(--green);
+      border-radius: 20px;
+      padding: 2px 9px;
+      font-size: 10.5px;
+      font-weight: 600;
+      border: 1px solid var(--green-border);
+    }
+
+    .badge-top-reviewer {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(196,123,58,0.12);
+      color: var(--caramel);
+      border-radius: 20px;
+      padding: 2px 9px;
+      font-size: 10.5px;
+      font-weight: 600;
+      border: 1px solid rgba(196,123,58,0.25);
+    }
+
+    .review-meta {
+      font-size: 12px;
+      color: var(--mocha);
+      margin-top: 3px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .review-stars {
+      display: flex;
+      gap: 2px;
+    }
+
+    .review-stars i { font-size: 12px; color: var(--caramel); }
+
+    .review-body {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    /* Voting column */
+    .vote-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+      min-width: 36px;
+      margin-top: 2px;
+    }
+
+    .vote-btn {
+      width: 32px;
+      height: 28px;
+      border-radius: 6px;
+      border: 1.5px solid var(--border);
+      background: transparent;
+      color: var(--mocha);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      transition: all 0.15s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .vote-btn:hover { background: var(--card); border-color: var(--caramel); color: var(--caramel); }
+
+    .vote-btn.upvoted {
+      background: rgba(196,123,58,0.12);
+      border-color: var(--caramel);
+      color: var(--caramel);
+    }
+
+    .vote-btn.downvoted {
+      background: rgba(122,97,82,0.1);
+      border-color: var(--mocha);
+      color: var(--mocha);
+    }
+
+    .vote-count {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--espresso);
+      line-height: 1;
+      text-align: center;
+      min-width: 24px;
+    }
+
+    /* Review text area */
+    .review-text-area { flex: 1; min-width: 0; }
+
+    .review-text {
+      font-size: 14.5px;
+      color: var(--brown);
+      line-height: 1.75;
+      margin-bottom: 14px;
+    }
+
+    .review-method-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 3px 10px;
+      font-size: 11.5px;
+      color: var(--mocha);
+      font-weight: 500;
+      margin-bottom: 14px;
+    }
+
+    .review-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: none;
+      background: transparent;
+      color: var(--mocha);
+      font-family: 'Inter', sans-serif;
+      font-size: 12.5px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .action-btn:hover { color: var(--brown); background: var(--card); }
+    .action-btn.report:hover { color: #c0392b; background: rgba(192,57,43,0.07); }
+
+    .action-divider { width: 1px; height: 14px; background: var(--border); }
+
+    /* ── NESTED COMMENTS ── */
+    .comments-section {
+      margin-top: 16px;
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+    }
+
+    .comment-thread { display: flex; flex-direction: column; gap: 0; }
+
+    .comment {
+      display: flex;
+      gap: 12px;
+      position: relative;
+      padding: 10px 0 10px 0;
+    }
+
+    .comment-line {
+      position: absolute;
+      left: 15px;
+      top: 52px;
+      bottom: 0;
+      width: 2px;
+      background: var(--border);
+      border-radius: 2px;
+    }
+
+    .comment-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      overflow: hidden;
+      border: 1.5px solid var(--border);
+      z-index: 1;
+    }
+
+    .comment-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .comment-content { flex: 1; min-width: 0; }
+
+    .comment-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 5px;
+    }
+
+    .comment-username {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--espresso);
+    }
+
+    .comment-time {
+      font-size: 11.5px;
+      color: var(--mocha);
+    }
+
+    .comment-text {
+      font-size: 13.5px;
+      color: var(--brown);
+      line-height: 1.65;
+      margin-bottom: 8px;
+    }
+
+    .comment-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .comment-vote {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .comment-vote-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--mocha);
+      font-size: 13px;
+      padding: 2px 4px;
+      border-radius: 4px;
+      transition: color 0.15s, background 0.15s;
+      line-height: 1;
+    }
+
+    .comment-vote-btn:hover { color: var(--caramel); background: rgba(196,123,58,0.1); }
+    .comment-vote-btn.upvoted { color: var(--caramel); }
+
+    .comment-vote-count {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--espresso);
+      min-width: 18px;
+      text-align: center;
+    }
+
+    .comment-action-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--mocha);
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 2px 7px;
+      border-radius: 4px;
+      transition: color 0.15s, background 0.15s;
+    }
+
+    .comment-action-btn:hover { color: var(--brown); background: var(--card); }
+
+    /* Nested comment (level 2) */
+    .nested-comment {
+      margin-left: 44px;
+      border-left: 2.5px solid rgba(196,123,58,0.35);
+      padding-left: 16px;
+      margin-top: 4px;
+    }
+
+    .load-more-comments {
+      margin-left: 44px;
+      margin-top: 8px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--caramel);
+      font-family: 'Inter', sans-serif;
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 4px 0;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: color 0.2s;
+    }
+
+    .load-more-comments:hover { color: var(--brown); }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      grid-column: 2 / 3;
+      grid-row: 1 / 10;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding-top: 0;
+    }
+
+    .sidebar-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px 22px 20px;
+      box-shadow: 0 2px 12px var(--shadow);
+    }
+
+    .sidebar-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--espresso);
+      margin-bottom: 16px;
+    }
+
+    /* Sort options */
+    .sort-options {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .sort-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: 8px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--mocha);
+      text-align: left;
+      width: 100%;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .sort-option:hover { background: var(--bg); color: var(--brown); }
+
+    .sort-option.active {
+      background: rgba(196,123,58,0.1);
+      color: var(--caramel);
+      font-weight: 600;
+    }
+
+    .sort-option i { width: 18px; text-align: center; font-size: 13px; }
+
+    .sort-option-desc {
+      font-size: 11px;
+      color: var(--mocha);
+      font-weight: 400;
+      margin-top: 1px;
+    }
+
+    /* Community Rules */
+    .rules-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .rule-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .rule-num {
+      width: 20px;
+      height: 20px;
+      background: var(--card);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--brown);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .rule-text {
+      font-size: 12.5px;
+      color: var(--mocha);
+      line-height: 1.5;
+    }
+
+    .rule-text strong {
+      color: var(--espresso);
+      font-weight: 600;
+    }
+
+    /* Active members */
+    .members-count-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .members-pulse {
+      width: 10px;
+      height: 10px;
+      background: #3a7a3a;
+      border-radius: 50%;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .members-pulse::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      background: rgba(58,122,58,0.3);
+      border-radius: 50%;
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.5); }
+    }
+
+    .members-count-text {
+      font-size: 13px;
+      color: var(--espresso);
+    }
+
+    .members-count-text strong { font-weight: 700; }
+
+    .members-avatars {
+      display: flex;
+      margin-bottom: 14px;
+    }
+
+    .member-ava {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 2.5px solid var(--white);
+      overflow: hidden;
+      margin-left: -8px;
+      flex-shrink: 0;
+    }
+
+    .member-ava:first-child { margin-left: 0; }
+
+    .member-ava img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .member-ava-more {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 2.5px solid var(--white);
+      background: var(--card);
+      margin-left: -8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--mocha);
+      flex-shrink: 0;
+    }
+
+    .members-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+    }
+
+    .members-stat {
+      text-align: center;
+      padding: 8px;
+      background: var(--bg);
+      border-radius: 8px;
+    }
+
+    .members-stat-val {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--espresso);
+      line-height: 1.2;
+    }
+
+    .members-stat-label {
+      font-size: 10.5px;
+      color: var(--mocha);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 2px;
+    }
+
+    /* Load more reviews */
+    .load-more-reviews {
+      display: flex;
+      justify-content: center;
+      margin-top: 8px;
+    }
+
+    .btn-load-more {
+      padding: 11px 32px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border);
+      background: var(--white);
+      color: var(--espresso);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: border-color 0.2s, color 0.2s, background 0.2s, transform 0.15s;
+    }
+
+    .btn-load-more:hover {
+      border-color: var(--caramel);
+      color: var(--caramel);
+      background: rgba(196,123,58,0.05);
+      transform: translateY(-1px);
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .page-wrap { padding: 24px 28px 48px; grid-template-columns: 1fr 260px; }
+    }
+
+    @media (max-width: 900px) {
+      .page-wrap { grid-template-columns: 1fr; }
+      .sidebar { grid-column: 1; grid-row: auto; }
+      .bean-header { flex-wrap: wrap; }
+      .nav-links { display: none; }
+      .breadcrumb { grid-column: 1; }
+      .tabs-row { grid-column: 1; }
+    }
+
+    @media (max-width: 600px) {
+      .page-wrap { padding: 14px 16px 40px; }
+      .nav-inner { padding: 0 16px; }
+      .bean-header { padding: 20px; gap: 16px; }
+      .bean-header-rating { padding-left: 0; border-left: none; border-top: 1px solid var(--border); padding-top: 14px; flex-direction: row; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVIGATION ── -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <div class="nav-logo-icon">
+          <i class="fas fa-coffee"></i>
+        </div>
+        <span class="nav-logo-text">Grounded</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#">Discover</a></li>
+        <li><a href="#" class="active">Roasters</a></li>
+        <li><a href="#">Recipes</a></li>
+        <li><a href="#">Community</a></li>
+      </ul>
+      <div class="nav-right">
+        <button class="btn-icon" title="Search"><i class="fas fa-search"></i></button>
+        <button class="btn-ghost">Log In</button>
+        <button class="btn-cta">Join Free</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── PAGE ── -->
+  <div class="page-wrap">
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="#">Roasters</a>
+      <span class="breadcrumb-sep"><i class="fas fa-chevron-right"></i></span>
+      <a href="#">Onyx Coffee Lab</a>
+      <span class="breadcrumb-sep"><i class="fas fa-chevron-right"></i></span>
+      <span class="breadcrumb-current">Ethiopia Bishan Beke</span>
+    </div>
+
+    <!-- ── BEAN HEADER CONDENSED ── -->
+    <div class="bean-header">
+      <img src="ethiopia_bishan_beke_coffee_bag.jpg" alt="A premium specialty coffee bag for Ethiopia Bishan Beke, elegant matte packaging with warm earth tones and botanical illustrations on a cream background" width="80" height="80" class="bean-header-img">
+      <div class="bean-header-info">
+        <div class="bean-header-top">
+          <span class="bean-header-name">Ethiopia Bishan Beke</span>
+          <span class="roast-pill roast-light">Light Roast</span>
+        </div>
+        <div class="bean-header-sub">
+          <div class="bean-header-roaster">
+            <img src="onyx_coffee_lab_logo_small.png" alt="Onyx Coffee Lab logo" width="20" height="20">
+            Onyx Coffee Lab
+          </div>
+          <span class="header-divider">·</span>
+          <div class="bean-header-origin">🇪🇹 Ethiopia · Gedeo Zone</div>
+          <span class="header-divider">·</span>
+          <span style="font-size:13px; color:var(--mocha);">Washed Process</span>
+          <span class="header-divider">·</span>
+          <span style="font-size:13px; color:var(--mocha);">Heirloom Varietal</span>
+        </div>
+        <div class="flavor-tags">
+          <span class="flavor-tag">🫐 Blueberry</span>
+          <span class="flavor-tag">🌸 Jasmine</span>
+          <span class="flavor-tag">🍫 Dark Chocolate</span>
+          <span class="flavor-tag">🍵 Bergamot</span>
+          <span class="flavor-tag">🍋 Lemon Curd</span>
+        </div>
+      </div>
+      <div class="bean-header-rating">
+        <div class="rating-big">4.9</div>
+        <div class="rating-stars-big">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+        </div>
+        <div class="rating-total">312 reviews</div>
+      </div>
+    </div>
+
+    <!-- ── TABS ── -->
+    <div class="tabs-row">
+      <button class="tab">Overview</button>
+      <button class="tab">Brew Guides <span class="tab-count">8</span></button>
+      <button class="tab active">Reviews <span class="tab-count">312</span></button>
+      <button class="tab">Similar Beans</button>
+    </div>
+
+    <!-- ── MAIN: REVIEWS ── -->
+    <div class="main-content">
+
+      <!-- Write Review Card -->
+      <div class="write-review-card">
+        <div class="write-review-top">
+          <div class="user-avatar">
+            <img src="user_coffee_enthusiast_avatar.jpg" alt="Current user profile photo, friendly coffee enthusiast" width="42" height="42">
+          </div>
+          <div class="write-review-body">
+            <div class="star-picker">
+              <span class="star-picker-label">Your rating:</span>
+              <button class="star-btn" data-star="1" title="1 star">★</button>
+              <button class="star-btn" data-star="2" title="2 stars">★</button>
+              <button class="star-btn" data-star="3" title="3 stars">★</button>
+              <button class="star-btn" data-star="4" title="4 stars">★</button>
+              <button class="star-btn" data-star="5" title="5 stars">★</button>
+              <span class="star-picker-label" id="star-label" style="margin-left:6px; opacity:0; transition:opacity 0.2s;"></span>
+            </div>
+            <textarea class="review-textarea" placeholder="How did this bean taste to you? Share your brewing method, tasting notes, grind setting…" id="review-input"></textarea>
+            <div class="write-review-footer">
+              <div class="write-review-tools">
+                <button class="tool-btn" title="Attach photo"><i class="fas fa-image"></i></button>
+                <button class="tool-btn" title="Tag brewing method"><i class="fas fa-mug-hot"></i></button>
+                <button class="tool-btn" title="Add grind size"><i class="fas fa-sliders-h"></i></button>
+              </div>
+              <button class="btn-post-review" id="post-btn">
+                <i class="fas fa-paper-plane"></i>
+                Post Review
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── REVIEW 1 (with expanded nested comments) ── -->
+      <div class="review-card">
+        <div class="review-header">
+          <div class="review-avatar">
+            <img src="coffee_reviewer_maya_chen_avatar.jpg" alt="Maya Chen coffee reviewer avatar, warm smile, casual portrait" width="44" height="44">
+          </div>
+          <div class="review-user-info">
+            <div class="review-user-top">
+              <span class="review-username">maya_chenbrews</span>
+              <span class="badge-verified-purchase"><i class="fas fa-check-circle" style="font-size:9px;"></i> Verified Purchase</span>
+              <span class="badge-top-reviewer"><i class="fas fa-award" style="font-size:9px;"></i> Top Reviewer</span>
+            </div>
+            <div class="review-meta">
+              <div class="review-stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+              </div>
+              <span>5.0 · Joined Mar 2021 · 148 reviews</span>
+            </div>
+          </div>
+          <span style="font-size:12px; color:var(--mocha); flex-shrink:0; margin-top:2px;">2 days ago</span>
+        </div>
+
+        <div class="review-body">
+          <div class="vote-col">
+            <button class="vote-btn upvoted" id="v1-up" title="Upvote">▲</button>
+            <span class="vote-count" id="v1-count">142</span>
+            <button class="vote-btn" id="v1-down" title="Downvote">▼</button>
+          </div>
+          <div class="review-text-area">
+            <div class="review-method-tag"><i class="fas fa-mug-hot" style="font-size:10px;"></i> Brewed with: Hario V60 · 1:16 ratio · 93°C</div>
+            <p class="review-text">
+              This is genuinely one of the most expressive Ethiopians I've had in years. On the first pour, a wave of fresh blueberry and jasmine hit me immediately — not the diffuse, hazy blueberry you often get with natural-processed Ethiopian, but something sharper and more precise. As it cooled, lemon curd and dark chocolate emerged in the finish. The clarity is extraordinary. If you love florals and fruit with real structure, this is required drinking.
+            </p>
+            <div class="review-actions">
+              <button class="action-btn reply-btn" data-review="1">
+                <i class="far fa-comment-alt" style="font-size:12px;"></i> Reply
+              </button>
+              <div class="action-divider"></div>
+              <button class="action-btn">
+                <i class="fas fa-share" style="font-size:11px;"></i> Share
+              </button>
+              <div class="action-divider"></div>
+              <button class="action-btn report">
+                <i class="far fa-flag" style="font-size:11px;"></i> Report
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nested Comments -->
+        <div class="comments-section">
+          <div class="comment-thread">
+
+            <!-- Comment Level 1 -->
+            <div class="comment" style="position:relative;">
+              <div class="comment-line"></div>
+              <div class="comment-avatar">
+                <img src="coffee_enthusiast_james_avatar.jpg" alt="James profile avatar, coffee enthusiast" width="32" height="32">
+              </div>
+              <div class="comment-content">
+                <div class="comment-header">
+                  <span class="comment-username">james.v60</span>
+                  <span class="comment-time">1 day ago</span>
+                </div>
+                <p class="comment-text">Completely agree on the clarity. I've been doing a longer bloom time (45 seconds) and it opens up the jasmine note even more. What grind size were you at on the Comandante?</p>
+                <div class="comment-actions">
+                  <div class="comment-vote">
+                    <button class="comment-vote-btn upvoted">▲</button>
+                    <span class="comment-vote-count">24</span>
+                    <button class="comment-vote-btn">▼</button>
+                  </div>
+                  <button class="comment-action-btn">Reply</button>
+                  <button class="comment-action-btn">Share</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Nested Level 2 reply to james -->
+            <div class="nested-comment">
+              <div class="comment">
+                <div class="comment-avatar">
+                  <img src="coffee_reviewer_maya_chen_avatar.jpg" alt="Maya Chen avatar reply" width="32" height="32">
+                </div>
+                <div class="comment-content">
+                  <div class="comment-header">
+                    <span class="comment-username">maya_chenbrews</span>
+                    <span style="font-size:10.5px; color:var(--caramel); font-weight:600;">OP</span>
+                    <span class="comment-time">22 hours ago</span>
+                  </div>
+                  <p class="comment-text">I was at 25 clicks — felt a touch fine for this one actually, might go 27 next time to let the sweetness breathe a little more. The 45s bloom tip is gold, trying that this weekend.</p>
+                  <div class="comment-actions">
+                    <div class="comment-vote">
+                      <button class="comment-vote-btn">▲</button>
+                      <span class="comment-vote-count">18</span>
+                      <button class="comment-vote-btn">▼</button>
+                    </div>
+                    <button class="comment-action-btn">Reply</button>
+                    <button class="comment-action-btn">Share</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Nested Level 2 reply from new user -->
+            <div class="nested-comment">
+              <div class="comment">
+                <div class="comment-avatar">
+                  <img src="coffee_user_sophie_avatar.jpg" alt="SophieBrewed profile avatar" width="32" height="32">
+                </div>
+                <div class="comment-content">
+                  <div class="comment-header">
+                    <span class="comment-username">sophiebrewed</span>
+                    <span class="comment-time">18 hours ago</span>
+                  </div>
+                  <p class="comment-text">Just chiming in — I've been brewing this on an AeroPress inverted and the blueberry/jasmine combo is just as pronounced. So it's not just a V60 thing, this bean genuinely has incredible aromatics.</p>
+                  <div class="comment-actions">
+                    <div class="comment-vote">
+                      <button class="comment-vote-btn">▲</button>
+                      <span class="comment-vote-count">11</span>
+                      <button class="comment-vote-btn">▼</button>
+                    </div>
+                    <button class="comment-action-btn">Reply</button>
+                    <button class="comment-action-btn">Share</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Load more comments -->
+            <button class="load-more-comments">
+              <i class="fas fa-chevron-down" style="font-size:10px;"></i>
+              Load 5 more comments
+            </button>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ── REVIEW 2 ── -->
+      <div class="review-card">
+        <div class="review-header">
+          <div class="review-avatar">
+            <img src="coffee_reviewer_tom_okafor_avatar.jpg" alt="Tom Okafor coffee reviewer, thoughtful portrait with warm lighting" width="44" height="44">
+          </div>
+          <div class="review-user-info">
+            <div class="review-user-top">
+              <span class="review-username">tomasokafor_coffee</span>
+              <span class="badge-verified-purchase"><i class="fas fa-check-circle" style="font-size:9px;"></i> Verified Purchase</span>
+            </div>
+            <div class="review-meta">
+              <div class="review-stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+              </div>
+              <span>4.5 · Joined Sep 2022 · 67 reviews</span>
+            </div>
+          </div>
+          <span style="font-size:12px; color:var(--mocha); flex-shrink:0; margin-top:2px;">5 days ago</span>
+        </div>
+
+        <div class="review-body">
+          <div class="vote-col">
+            <button class="vote-btn" id="v2-up" title="Upvote">▲</button>
+            <span class="vote-count" id="v2-count">89</span>
+            <button class="vote-btn" id="v2-down" title="Downvote">▼</button>
+          </div>
+          <div class="review-text-area">
+            <div class="review-method-tag"><i class="fas fa-mug-hot" style="font-size:10px;"></i> Brewed with: Chemex · 1:15 ratio · 91°C</div>
+            <p class="review-text">
+              The bergamot note is what sets this apart from every other washed Ethiopian I've tried this year. There's something almost Earl Grey–like about the aromatic profile — deeply floral and tea-forward but with a fruit backbone that keeps things from feeling too delicate. At room temperature, the dark chocolate becomes the dominant note and it's genuinely lovely. The one tiny quibble: a touch high for my wallet, but honestly worth it for a special weekend brew.
+            </p>
+            <div class="review-actions">
+              <button class="action-btn">
+                <i class="far fa-comment-alt" style="font-size:12px;"></i> Reply <span style="font-size:11px; color:var(--mocha);">(7)</span>
+              </button>
+              <div class="action-divider"></div>
+              <button class="action-btn">
+                <i class="fas fa-share" style="font-size:11px;"></i> Share
+              </button>
+              <div class="action-divider"></div>
+              <button class="action-btn report">
+                <i class="far fa-flag" style="font-size:11px;"></i> Report
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── REVIEW 3 ── -->
+      <div class="review-card">
+        <div class="review-header">
+          <div class="review-avatar" style="background: linear-gradient(135deg, #5C3317, #C47B3A); display:flex; align-items:center; justify-content:center;">
+            <img src="coffee_reviewer_priya_sharma_avatar.jpg" alt="Priya Sharma coffee reviewer avatar, warm portrait" width="44" height="44">
+          </div>
+          <div class="review-user-info">
+            <div class="review-user-top">
+              <span class="review-username">priya_tastes</span>
+              <span class="badge-verified-purchase"><i class="fas fa-check-circle" style="font-size:9px;"></i> Verified Purchase</span>
+            </div>
+            <div class="review-meta">
+              <div class="review-stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+              </div>
+              <span>5.0 · Joined Jan 2020 · 203 reviews</span>
+            </div>
+          </div>
+          <span style="font-size:12px; color:var(--mocha); flex-shrink:0; margin-top:2px;">1 week ago</span>
+        </div>
+
+        <div class="review-body">
+          <div class="vote-col">
+            <button class="vote-btn" id="v3-up" title="Upvote">▲</button>
+            <span class="vote-count" id="v3-count">73</span>
+            <button class="vote-btn" id="v3-down" title="Downvote">▼</button>
+          </div>
+          <div class="review-text-area">
+            <div class="review-method-tag"><i class="fas fa-mug-hot" style="font-size:10px;"></i> Brewed with: Origami Dripper · 1:16.5 ratio · 94°C</div>
+            <p class="review-text">
+              A genuinely benchmark-setting light roast. The sourcing story — micro-lots from the Bishan Beke washing station in Yirgacheffe — shows up clearly in the cup. This is everything a washed Ethiopian should be: pristine clarity, layered fruit and floral notes, and a clean dry finish that leaves you immediately reaching for another sip. My fourth bag this season and it's the most consistent high-performer in my rotation right now.
+            </p>
+            <div class="review-actions">
+              <button class="action-btn">
+                <i class="far fa-comment-alt" style="font-size:12px;"></i> Reply <span style="font-size:11px; color:var(--mocha);">(3)</span>
+              </button>
+              <div class="action-divider"></div>
+              <button class="action-btn">
+                <i class="fas fa-share" style="font-size:11px;"></i> Share
+              </button>
+              <div class="action-divider"></div>
+              <button class="action-btn report">
+                <i class="far fa-flag" style="font-size:11px;"></i> Report
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Load more reviews -->
+      <div class="load-more-reviews">
+        <button class="btn-load-more">
+          Load more reviews
+          <i class="fas fa-chevron-down" style="font-size:11px;"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- ── SIDEBAR ── -->
+    <aside class="sidebar">
+
+      <!-- Sort Options -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">Sort Reviews</div>
+        <div class="sort-options">
+          <button class="sort-option active">
+            <div>
+              <i class="fas fa-trophy"></i>
+            </div>
+            <div>
+              <div>Best</div>
+              <div class="sort-option-desc">Highest voted, most helpful</div>
+            </div>
+          </button>
+          <button class="sort-option">
+            <div>
+              <i class="fas fa-clock"></i>
+            </div>
+            <div>
+              <div>New</div>
+              <div class="sort-option-desc">Most recently posted</div>
+            </div>
+          </button>
+          <button class="sort-option">
+            <div>
+              <i class="fas fa-fire"></i>
+            </div>
+            <div>
+              <div>Top</div>
+              <div class="sort-option-desc">All-time most upvoted</div>
+            </div>
+          </button>
+          <button class="sort-option">
+            <div>
+              <i class="fas fa-star"></i>
+            </div>
+            <div>
+              <div>Highest Rated</div>
+              <div class="sort-option-desc">5-star reviews first</div>
+            </div>
+          </button>
+          <button class="sort-option">
+            <div>
+              <i class="fas fa-exclamation-circle"></i>
+            </div>
+            <div>
+              <div>Controversial</div>
+              <div class="sort-option-desc">Most discussed</div>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Active Members -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">Community</div>
+        <div class="members-count-row">
+          <div class="members-pulse"></div>
+          <div class="members-count-text"><strong>24 members</strong> brewing this right now</div>
+        </div>
+        <div class="members-avatars">
+          <div class="member-ava">
+            <img src="community_member_1_avatar.jpg" alt="Community member avatar 1" width="34" height="34">
+          </div>
+          <div class="member-ava">
+            <img src="community_member_2_avatar.jpg" alt="Community member avatar 2" width="34" height="34">
+          </div>
+          <div class="member-ava">
+            <img src="community_member_3_avatar.jpg" alt="Community member avatar 3" width="34" height="34">
+          </div>
+          <div class="member-ava">
+            <img src="community_member_4_avatar.jpg" alt="Community member avatar 4" width="34" height="34">
+          </div>
+          <div class="member-ava-more">+20</div>
+        </div>
+        <div class="members-stats">
+          <div class="members-stat">
+            <div class="members-stat-val">312</div>
+            <div class="members-stat-label">Reviews</div>
+          </div>
+          <div class="members-stat">
+            <div class="members-stat-val">1.4k</div>
+            <div class="members-stat-label">Saves</div>
+          </div>
+          <div class="members-stat">
+            <div class="members-stat-val">847</div>
+            <div class="members-stat-label">Comments</div>
+          </div>
+          <div class="members-stat">
+            <div class="members-stat-val">98%</div>
+            <div class="members-stat-label">Recommend</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Community Rules -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">Community Rules</div>
+        <div class="rules-list">
+          <div class="rule-item">
+            <div class="rule-num">1</div>
+            <div class="rule-text"><strong>Be specific.</strong> Include your brewing method, grind size, and water temp when possible.</div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-num">2</div>
+            <div class="rule-text"><strong>Stay honest.</strong> Share genuine tasting notes — flowery prose is great, empty hype is not.</div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-num">3</div>
+            <div class="rule-text"><strong>Respect all palates.</strong> Taste is personal — critique ideas, never people.</div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-num">4</div>
+            <div class="rule-text"><strong>No spam or promotion.</strong> Reviews must be based on personal experience only.</div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-num">5</div>
+            <div class="rule-text"><strong>Verified purchases</strong> receive a badge and are weighted more heavily in rankings.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick CTA -->
+      <div class="sidebar-card" style="background: linear-gradient(135deg, #5C3317 0%, #3B1F0E 100%); border-color: transparent; padding:22px;">
+        <div style="font-family:'Playfair Display',serif; font-size:15px; font-weight:700; color:#FAF7F2; margin-bottom:8px;">
+          Track Your Collection
+        </div>
+        <p style="font-size:12px; color:rgba(240,232,220,0.8); line-height:1.65; margin-bottom:16px;">
+          Log every bean you brew, build tasting notes over time, and see how your palate evolves.
+        </p>
+        <button style="width:100%; padding:10px; border-radius:8px; background:var(--caramel); border:none; color:#fff; font-family:'Inter',sans-serif; font-size:13px; font-weight:600; cursor:pointer; transition:background 0.2s, transform 0.15s;" onmouseover="this.style.background='#b36b2c';this.style.transform='translateY(-1px)'" onmouseout="this.style.background='#C47B3A';this.style.transform='none'">
+          Start for Free
+        </button>
+      </div>
+
+    </aside>
+  </div>
+
+  <script>
+    // ── STAR PICKER ──
+    const starBtns = document.querySelectorAll('.star-btn');
+    const starLabel = document.getElementById('star-label');
+    const starLabels = ['', 'Poor', 'Fair', 'Good', 'Great', 'Outstanding'];
+    let currentRating = 0;
+
+    starBtns.forEach(btn => {
+      btn.addEventListener('mouseover', () => {
+        const hoverVal = parseInt(btn.dataset.star);
+        starBtns.forEach((b, i) => {
+          b.classList.toggle('lit', i < hoverVal);
+        });
+        starLabel.textContent = starLabels[hoverVal];
+        starLabel.style.opacity = '1';
+      });
+
+      btn.addEventListener('mouseout', () => {
+        starBtns.forEach((b, i) => {
+          b.classList.toggle('lit', i < currentRating);
+        });
+        if (currentRating === 0) {
+          starLabel.style.opacity = '0';
+        } else {
+          starLabel.textContent = starLabels[currentRating];
+        }
+      });
+
+      btn.addEventListener('click', () => {
+        currentRating = parseInt(btn.dataset.star);
+        starBtns.forEach((b, i) => {
+          b.classList.toggle('lit', i < currentRating);
+        });
+        starLabel.textContent = starLabels[currentRating];
+        starLabel.style.opacity = '1';
+      });
+    });
+
+    // ── VOTE BUTTONS ──
+    function setupVote(upId, downId, countId) {
+      const up = document.getElementById(upId);
+      const down = document.getElementById(downId);
+      const countEl = document.getElementById(countId);
+      let count = parseInt(countEl.textContent);
+      let state = up.classList.contains('upvoted') ? 'up' : 'none';
+
+      if (state === 'up') count; // already factored in
+
+      up.addEventListener('click', () => {
+        if (state === 'up') {
+          state = 'none';
+          count -= 1;
+          up.classList.remove('upvoted');
+        } else if (state === 'down') {
+          state = 'up';
+          count += 2;
+          up.classList.add('upvoted');
+          down.classList.remove('downvoted');
+        } else {
+          state = 'up';
+          count += 1;
+          up.classList.add('upvoted');
+        }
+        countEl.textContent = count;
+      });
+
+      down.addEventListener('click', () => {
+        if (state === 'down') {
+          state = 'none';
+          count += 1;
+          down.classList.remove('downvoted');
+        } else if (state === 'up') {
+          state = 'down';
+          count -= 2;
+          down.classList.add('downvoted');
+          up.classList.remove('upvoted');
+        } else {
+          state = 'down';
+          count -= 1;
+          down.classList.add('downvoted');
+        }
+        countEl.textContent = count;
+      });
+    }
+
+    setupVote('v1-up', 'v1-down', 'v1-count');
+    setupVote('v2-up', 'v2-down', 'v2-count');
+    setupVote('v3-up', 'v3-down', 'v3-count');
+
+    // Comment vote buttons
+    document.querySelectorAll('.comment-vote').forEach(vote => {
+      const btns = vote.querySelectorAll('.comment-vote-btn');
+      const countEl = vote.querySelector('.comment-vote-count');
+      let count = parseInt(countEl.textContent);
+      let state = btns[0].classList.contains('upvoted') ? 'up' : 'none';
+
+      btns[0].addEventListener('click', () => {
+        if (state === 'up') { state = 'none'; count--; btns[0].classList.remove('upvoted'); }
+        else { state = 'up'; count++; btns[0].classList.add('upvoted'); btns[1].classList.remove('downvoted'); }
+        countEl.textContent = count;
+      });
+
+      btns[1].addEventListener('click', () => {
+        if (state === 'down') { state = 'none'; count++; btns[1].classList.remove('downvoted'); }
+        else { state = 'down'; count--; btns[1].classList.add('downvoted'); btns[0].classList.remove('upvoted'); }
+        countEl.textContent = count;
+      });
+    });
+
+    // ── SORT OPTIONS ──
+    document.querySelectorAll('.sort-option').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.sort-option').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    // ── TABS ──
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+      });
+    });
+
+    // ── POST REVIEW ──
+    document.getElementById('post-btn').addEventListener('click', () => {
+      const textarea = document.getElementById('review-input');
+      if (!textarea.value.trim() || currentRating === 0) {
+        textarea.style.borderColor = '#c0392b';
+        textarea.style.boxShadow = '0 0 0 3px rgba(192,57,43,0.1)';
+        setTimeout(() => {
+          textarea.style.borderColor = '';
+          textarea.style.boxShadow = '';
+        }, 2000);
+        return;
+      }
+      const btn = document.getElementById('post-btn');
+      const original = btn.innerHTML;
+      btn.innerHTML = '<i class="fas fa-check"></i> Posted!';
+      btn.style.background = '#3a7a3a';
+      setTimeout(() => {
+        btn.innerHTML = original;
+        btn.style.background = '';
+        textarea.value = '';
+        currentRating = 0;
+        starBtns.forEach(b => b.classList.remove('lit'));
+        starLabel.style.opacity = '0';
+      }, 2000);
+    });
+
+    // ── LOAD MORE COMMENTS ──
+    document.querySelectorAll('.load-more-comments').forEach(btn => {
+      btn.addEventListener('click', function() {
+        this.innerHTML = '<i class="fas fa-spinner fa-spin" style="font-size:10px;"></i> Loading…';
+        setTimeout(() => {
+          this.style.opacity = '0.4';
+          this.style.pointerEvents = 'none';
+          this.innerHTML = 'No more comments';
+        }, 1200);
+      });
+    });
+
+    // ── LOAD MORE REVIEWS ──
+    document.querySelector('.btn-load-more').addEventListener('click', function() {
+      const original = this.innerHTML;
+      this.innerHTML = '<i class="fas fa-spinner fa-spin" style="font-size:11px;"></i> Loading reviews…';
+      setTimeout(() => {
+        this.innerHTML = original;
+      }, 1500);
+    });
+
+    // ── SCROLL ANIMATIONS ──
+    const reviewCards = document.querySelectorAll('.review-card, .write-review-card');
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }, i * 80);
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.05 });
+
+    reviewCards.forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(14px)';
+      card.style.transition = 'opacity 0.4s ease, transform 0.4s ease, box-shadow 0.2s ease';
+      obs.observe(card);
+    });
+  </script>
+
+</body></html>

@@ -1,0 +1,1907 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ethiopia Bishan Beke — Recipes · Grounded</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #FAF7F2;
+      --card: #F0E8DC;
+      --espresso: #3B1F0E;
+      --brown: #5C3317;
+      --caramel: #C47B3A;
+      --mocha: #7A6152;
+      --border: #E8DDD4;
+      --white: #ffffff;
+      --shadow: rgba(59,31,14,0.08);
+      --shadow-hover: rgba(59,31,14,0.15);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--espresso);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: 68px;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-inner {
+      max-width: 1728px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 48px;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .nav-logo-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--brown);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-logo-icon i { color: var(--caramel); font-size: 15px; }
+
+    .nav-logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--espresso);
+      letter-spacing: -0.3px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-left: 48px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--mocha);
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--brown); background: var(--card); }
+    .nav-links a.active { color: var(--espresso); font-weight: 600; }
+
+    .nav-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-icon {
+      width: 38px; height: 38px;
+      border-radius: 8px; border: none;
+      background: transparent; color: var(--mocha);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .btn-icon:hover { color: var(--brown); background: var(--card); }
+
+    .btn-ghost {
+      padding: 8px 20px; border-radius: 8px;
+      border: 1.5px solid var(--border);
+      background: transparent; color: var(--espresso);
+      font-family: 'Inter', sans-serif; font-size: 13.5px; font-weight: 500;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--brown); color: var(--brown); background: var(--card); }
+
+    .btn-cta {
+      padding: 8px 22px; border-radius: 8px;
+      border: 1.5px solid var(--caramel);
+      background: var(--caramel); color: var(--white);
+      font-family: 'Inter', sans-serif; font-size: 13.5px; font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+    }
+    .btn-cta:hover {
+      background: #b36b2c; border-color: #b36b2c;
+      box-shadow: 0 4px 12px rgba(196,123,58,0.3);
+      transform: translateY(-1px);
+    }
+
+    /* ── PAGE LAYOUT ── */
+    .page-wrap {
+      max-width: 1728px;
+      margin: 0 auto;
+      padding: 32px 48px 60px;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 0 28px;
+    }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      grid-column: 1 / 3;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      color: var(--mocha);
+    }
+    .breadcrumb a {
+      color: var(--mocha);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .breadcrumb a:hover { color: var(--caramel); }
+    .breadcrumb i { font-size: 10px; color: var(--border); }
+
+    /* ── BEAN HEADER (condensed) ── */
+    .bean-header {
+      grid-column: 1 / 2;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 2px 14px var(--shadow);
+      padding: 24px 32px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 24px;
+    }
+
+    .bean-header-left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .bean-header-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .bean-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--espresso);
+      line-height: 1.2;
+    }
+
+    .roast-pill {
+      flex-shrink: 0;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+    .roast-light { background: #FEF5E7; color: #C47B3A; border: 1px solid #F5DEB3; }
+    .roast-medium { background: #F9EDE0; color: #8B4513; border: 1px solid #DEB887; }
+
+    .bean-header-meta {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--mocha);
+    }
+    .meta-item i { font-size: 12px; color: var(--caramel); }
+
+    .meta-divider {
+      width: 1px; height: 14px;
+      background: var(--border);
+    }
+
+    .flavor-tags-inline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .flavor-tag {
+      padding: 3px 10px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      font-size: 11.5px;
+      color: var(--mocha);
+      font-weight: 500;
+    }
+
+    .bean-header-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .bean-rating-block {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+    }
+
+    .rating-big {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--espresso);
+      line-height: 1;
+    }
+
+    .stars {
+      display: flex;
+      gap: 3px;
+    }
+    .stars i { font-size: 13px; color: var(--caramel); }
+
+    .rating-sub {
+      font-size: 12px;
+      color: var(--mocha);
+    }
+
+    /* ── BEAN TABS ── */
+    .bean-tabs {
+      grid-column: 1 / 2;
+      display: flex;
+      gap: 0;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 24px;
+    }
+
+    .bean-tab {
+      padding: 10px 22px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--mocha);
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: color 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .bean-tab:hover { color: var(--brown); }
+    .bean-tab.active {
+      color: var(--espresso);
+      font-weight: 600;
+      border-bottom-color: var(--caramel);
+    }
+
+    /* ── MAIN COLUMN ── */
+    .main-col { grid-column: 1 / 2; }
+
+    /* ── SHARE RECIPE CTA ── */
+    .share-recipe-cta {
+      background: var(--card);
+      border: 1.5px dashed #D4BFA8;
+      border-radius: 12px;
+      padding: 22px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 28px;
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+    .share-recipe-cta:hover {
+      box-shadow: 0 4px 16px var(--shadow);
+      border-color: #C47B3A;
+      border-style: solid;
+    }
+
+    .share-cta-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .share-cta-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      background: rgba(196,123,58,0.12);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .share-cta-icon i { color: var(--caramel); font-size: 20px; }
+
+    .share-cta-text h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--espresso);
+      margin-bottom: 3px;
+    }
+
+    .share-cta-text p {
+      font-size: 13px;
+      color: var(--mocha);
+    }
+
+    .btn-share-recipe {
+      padding: 10px 24px;
+      border-radius: 8px;
+      border: 1.5px solid var(--caramel);
+      background: var(--caramel);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+    }
+    .btn-share-recipe:hover {
+      background: #b36b2c; border-color: #b36b2c;
+      box-shadow: 0 4px 12px rgba(196,123,58,0.3);
+      transform: translateY(-1px);
+    }
+
+    /* ── RECIPE SORT ROW ── */
+    .recipes-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .recipes-count {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--espresso);
+    }
+
+    .recipes-count span {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: var(--mocha);
+      font-weight: 400;
+      margin-left: 8px;
+    }
+
+    .sort-select {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--mocha);
+    }
+
+    .sort-select select {
+      padding: 7px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      background: var(--white);
+      color: var(--espresso);
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .sort-select select:hover { border-color: var(--caramel); }
+
+    /* ── RECIPE CARD ── */
+    .recipe-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 2px 12px var(--shadow);
+      margin-bottom: 20px;
+      overflow: hidden;
+      transition: box-shadow 0.2s;
+    }
+    .recipe-card:hover { box-shadow: 0 6px 24px var(--shadow-hover); }
+
+    .recipe-card-inner {
+      padding: 24px 28px 20px;
+    }
+
+    /* ── RECIPE HEADER ROW ── */
+    .recipe-header-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .recipe-user {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .user-avatar {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 2px solid var(--border);
+    }
+
+    .user-info { flex: 1; }
+
+    .user-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--espresso);
+      line-height: 1.3;
+    }
+
+    .user-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--mocha);
+      margin-top: 1px;
+    }
+
+    .user-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      background: rgba(196,123,58,0.1);
+      color: var(--caramel);
+      border-radius: 20px;
+      padding: 2px 8px;
+      font-size: 10.5px;
+      font-weight: 600;
+    }
+
+    /* ── UPVOTE ── */
+    .vote-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .vote-btn {
+      width: 32px; height: 28px;
+      border-radius: 6px;
+      border: 1.5px solid var(--border);
+      background: transparent;
+      color: var(--mocha);
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .vote-btn:hover { border-color: var(--caramel); color: var(--caramel); background: rgba(196,123,58,0.06); }
+    .vote-btn.upvoted { background: var(--caramel); border-color: var(--caramel); color: var(--white); }
+    .vote-btn.downvoted { background: #F0E6E0; border-color: #C4A882; color: var(--brown); }
+
+    .vote-count {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--espresso);
+      font-family: 'Playfair Display', serif;
+      line-height: 1;
+    }
+
+    /* ── TAG SECTION ── */
+    .tag-section {
+      margin-bottom: 16px;
+    }
+
+    .tag-section-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--mocha);
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      margin-bottom: 8px;
+    }
+
+    .tag-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .tag-pill {
+      padding: 5px 13px;
+      border-radius: 20px;
+      border: 1.5px solid var(--border);
+      background: var(--bg);
+      color: var(--mocha);
+      font-size: 12.5px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: default;
+      transition: all 0.2s;
+    }
+    .tag-pill.active {
+      background: var(--caramel);
+      border-color: var(--caramel);
+      color: var(--white);
+      font-weight: 600;
+    }
+    .tag-pill.tool {
+      background: var(--white);
+      border-color: var(--border);
+      color: var(--brown);
+    }
+    .tag-pill.tool:hover {
+      border-color: #C4A882;
+      background: var(--card);
+    }
+
+    .tag-pill-icon { font-size: 14px; }
+
+    /* ── RECIPE TITLE ── */
+    .recipe-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--espresso);
+      margin-bottom: 4px;
+      line-height: 1.3;
+    }
+
+    .recipe-tagline {
+      font-size: 13.5px;
+      color: var(--mocha);
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+
+    /* ── BREWING PROCESS ── */
+    .brewing-section {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin-bottom: 16px;
+    }
+
+    .brewing-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--mocha);
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .brewing-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .brewing-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .brewing-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .step-num {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: var(--caramel);
+      color: var(--white);
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .step-content { flex: 1; }
+
+    .step-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--espresso);
+      margin-bottom: 1px;
+    }
+
+    .step-detail {
+      font-size: 13px;
+      color: var(--mocha);
+      line-height: 1.5;
+    }
+
+    .step-highlight {
+      font-weight: 600;
+      color: var(--brown);
+    }
+
+    /* ── TASTING NOTES ── */
+    .tasting-section {
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+      margin-bottom: 16px;
+    }
+
+    .tasting-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--mocha);
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      margin-bottom: 8px;
+    }
+
+    .tasting-text {
+      font-size: 13.5px;
+      color: var(--brown);
+      line-height: 1.65;
+      font-style: italic;
+    }
+
+    /* ── RECIPE ACTIONS ── */
+    .recipe-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+
+    .action-btn {
+      padding: 7px 14px;
+      border-radius: 7px;
+      border: 1.5px solid transparent;
+      background: transparent;
+      color: var(--mocha);
+      font-family: 'Inter', sans-serif;
+      font-size: 12.5px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .action-btn:hover { background: var(--bg); color: var(--brown); border-color: var(--border); }
+    .action-btn i { font-size: 12px; }
+
+    .action-btn.saved {
+      color: var(--caramel);
+      background: rgba(196,123,58,0.08);
+    }
+
+    .reply-count {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12.5px;
+      color: var(--mocha);
+      font-weight: 500;
+      margin-left: 2px;
+    }
+
+    /* ── COMMENTS ── */
+    .comments-section {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+    }
+
+    .comments-header {
+      padding: 14px 28px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .comments-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--espresso);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .comment-count-badge {
+      background: var(--caramel);
+      color: var(--white);
+      border-radius: 20px;
+      padding: 1px 8px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .comments-list {
+      padding: 0 28px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .comment {
+      display: flex;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .comment:last-child { border-bottom: none; }
+
+    .comment-avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 1.5px solid var(--border);
+    }
+
+    .comment-body { flex: 1; }
+
+    .comment-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .comment-author {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--espresso);
+    }
+
+    .comment-time {
+      font-size: 11.5px;
+      color: var(--mocha);
+    }
+
+    .comment-text {
+      font-size: 13px;
+      color: var(--brown);
+      line-height: 1.6;
+      margin-bottom: 6px;
+    }
+
+    .comment-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .comment-action {
+      font-size: 11.5px;
+      color: var(--mocha);
+      cursor: pointer;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: none;
+      border: none;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+    }
+    .comment-action:hover { color: var(--caramel); }
+
+    .comment-vote {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .comment-vote-btn {
+      font-size: 11px;
+      color: var(--mocha);
+      cursor: pointer;
+      transition: color 0.2s;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+    .comment-vote-btn:hover { color: var(--caramel); }
+
+    .comment-vote-count {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--espresso);
+    }
+
+    /* nested reply */
+    .comment.nested {
+      margin-left: 44px;
+      background: rgba(240,232,220,0.4);
+      border-radius: 8px;
+      padding: 10px 14px;
+      border-bottom: none;
+      border: 1px solid var(--border);
+      margin-bottom: 8px;
+    }
+
+    .nested-comments {
+      padding: 0 28px 4px;
+    }
+
+    /* ── WRITE COMMENT ── */
+    .write-comment {
+      padding: 12px 28px 20px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .comment-input-wrap { flex: 1; }
+
+    .comment-input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      background: var(--white);
+      color: var(--espresso);
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      resize: none;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      min-height: 42px;
+    }
+    .comment-input::placeholder { color: var(--mocha); }
+    .comment-input:focus {
+      border-color: var(--caramel);
+      box-shadow: 0 0 0 3px rgba(196,123,58,0.08);
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      grid-column: 2 / 3;
+      grid-row: 1 / 10;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .sidebar-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px;
+      box-shadow: 0 2px 12px var(--shadow);
+    }
+
+    .sidebar-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--espresso);
+      margin-bottom: 16px;
+    }
+
+    /* Bean stats in sidebar */
+    .bean-stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .bean-stat-item {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .bean-stat-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--espresso);
+      line-height: 1.2;
+    }
+
+    .bean-stat-label {
+      font-size: 11px;
+      color: var(--mocha);
+      font-weight: 500;
+      margin-top: 2px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    /* Similar beans */
+    .similar-bean-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .similar-bean-item:hover { background: var(--bg); }
+
+    .similar-bean-flag { font-size: 22px; flex-shrink: 0; }
+
+    .similar-bean-info { flex: 1; min-width: 0; }
+
+    .similar-bean-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--espresso);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .similar-bean-roast {
+      font-size: 11.5px;
+      color: var(--mocha);
+      margin-top: 1px;
+    }
+
+    .similar-bean-rating {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--espresso);
+      flex-shrink: 0;
+    }
+    .similar-bean-rating i { color: var(--caramel); font-size: 11px; }
+
+    /* Popular brewers */
+    .brewer-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .brewer-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+    .brewer-avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .brewer-info { flex: 1; min-width: 0; }
+    .brewer-name { font-size: 13px; font-weight: 600; color: var(--espresso); }
+    .brewer-recipes { font-size: 11.5px; color: var(--mocha); margin-top: 1px; }
+
+    .brewer-follow {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1.5px solid var(--border);
+      background: transparent;
+      color: var(--brown);
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .brewer-follow:hover { border-color: var(--caramel); color: var(--caramel); background: rgba(196,123,58,0.06); }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .page-wrap { padding: 24px 24px 48px; gap: 0 20px; grid-template-columns: 1fr 280px; }
+    }
+    @media (max-width: 900px) {
+      .page-wrap { grid-template-columns: 1fr; padding: 20px 20px 40px; }
+      .sidebar { grid-column: 1; grid-row: auto; }
+      .nav-links { display: none; }
+      .breadcrumb { grid-column: 1; }
+    }
+    @media (max-width: 600px) {
+      .page-wrap { padding: 14px 14px 36px; }
+      .bean-title { font-size: 20px; }
+      .nav-inner { padding: 0 16px; }
+      .recipe-card-inner { padding: 18px 16px 14px; }
+      .bean-header { flex-direction: column; padding: 18px; }
+      .bean-header-right { align-items: flex-start; flex-direction: row; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVIGATION ── -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <div class="nav-logo-icon"><i class="fas fa-coffee"></i></div>
+        <span class="nav-logo-text">Grounded</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#">Discover</a></li>
+        <li><a href="#">Roasters</a></li>
+        <li><a href="#" class="active">Recipes</a></li>
+        <li><a href="#">Community</a></li>
+      </ul>
+      <div class="nav-right">
+        <button class="btn-icon" title="Search"><i class="fas fa-search"></i></button>
+        <button class="btn-ghost">Log In</button>
+        <button class="btn-cta">Join Free</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-wrap">
+
+    <!-- ── BREADCRUMB ── -->
+    <div class="breadcrumb">
+      <a href="#">Roasters</a>
+      <i class="fas fa-chevron-right"></i>
+      <a href="#">Onyx Coffee Lab</a>
+      <i class="fas fa-chevron-right"></i>
+      <a href="#">Ethiopia Bishan Beke</a>
+      <i class="fas fa-chevron-right"></i>
+      <span style="color:var(--espresso); font-weight:500;">Recipes</span>
+    </div>
+
+    <!-- ── BEAN HEADER (condensed) ── -->
+    <div class="bean-header">
+      <div class="bean-header-left">
+        <div class="bean-header-top">
+          <h1 class="bean-title">Ethiopia Bishan Beke</h1>
+          <span class="roast-pill roast-light">Light Roast</span>
+        </div>
+        <div class="bean-header-meta">
+          <div class="meta-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>🇪🇹 Ethiopia · Gedeo Zone</span>
+          </div>
+          <div class="meta-divider"></div>
+          <div class="meta-item">
+            <i class="fas fa-store"></i>
+            <span>Onyx Coffee Lab</span>
+          </div>
+          <div class="meta-divider"></div>
+          <div class="meta-item">
+            <i class="fas fa-leaf"></i>
+            <span>Natural Process</span>
+          </div>
+          <div class="meta-divider"></div>
+          <div class="meta-item">
+            <i class="fas fa-mountain"></i>
+            <span>1,900–2,200m altitude</span>
+          </div>
+        </div>
+        <div class="flavor-tags-inline">
+          <span class="flavor-tag">Blueberry</span>
+          <span class="flavor-tag">Jasmine</span>
+          <span class="flavor-tag">Dark Chocolate</span>
+          <span class="flavor-tag">Bergamot</span>
+          <span class="flavor-tag">Wild Honey</span>
+        </div>
+      </div>
+      <div class="bean-header-right">
+        <div class="bean-rating-block">
+          <div class="rating-big">4.9</div>
+          <div class="stars">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <div class="rating-sub">312 reviews</div>
+        </div>
+        <button class="btn-cta" style="font-size:13px; padding:8px 18px;">
+          <i class="fas fa-plus" style="font-size:11px;"></i> Add to Collection
+        </button>
+      </div>
+    </div>
+
+    <!-- ── TABS ── -->
+    <div class="bean-tabs">
+      <button class="bean-tab">Overview</button>
+      <button class="bean-tab">Reviews</button>
+      <button class="bean-tab active">Recipes <span style="background:var(--caramel);color:#fff;border-radius:20px;padding:1px 8px;font-size:11px;font-weight:700;margin-left:4px;">18</span></button>
+      <button class="bean-tab">Discussions</button>
+    </div>
+
+    <!-- ── MAIN COLUMN ── -->
+    <div class="main-col">
+
+      <!-- Share Recipe CTA -->
+      <div class="share-recipe-cta">
+        <div class="share-cta-left">
+          <div class="share-cta-icon">
+            <i class="fas fa-flask"></i>
+          </div>
+          <div class="share-cta-text">
+            <h3>Share how you brew this bean</h3>
+            <p>Help the community discover the best way to enjoy Ethiopia Bishan Beke — share your recipe, ratios, and tasting notes.</p>
+          </div>
+        </div>
+        <button class="btn-share-recipe">
+          <i class="fas fa-plus" style="font-size:12px;"></i>
+          Share a Recipe
+        </button>
+      </div>
+
+      <!-- Recipes Header -->
+      <div class="recipes-header">
+        <div class="recipes-count">
+          Community Recipes
+          <span>18 recipes shared</span>
+        </div>
+        <div class="sort-select">
+          <span>Sort by</span>
+          <select>
+            <option>Most Upvoted</option>
+            <option>Newest First</option>
+            <option>Most Discussed</option>
+            <option>Saved Count</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- ══ RECIPE CARD 1 (Expanded with comments) ══ -->
+      <div class="recipe-card">
+        <div class="recipe-card-inner">
+
+          <!-- Header Row -->
+          <div class="recipe-header-row">
+            <div class="recipe-user">
+              <img class="user-avatar" src="coffee_enthusiast_profile_1.jpg" alt="Profile photo of James Whitfield, coffee enthusiast with short dark hair and warm smile" width="42" height="42">
+              <div class="user-info">
+                <div class="user-name">James Whitfield</div>
+                <div class="user-meta">
+                  <span class="user-badge"><i class="fas fa-award" style="font-size:9px;"></i> Top Brewer</span>
+                  <span>·</span>
+                  <span>Posted 3 days ago</span>
+                </div>
+              </div>
+            </div>
+            <div class="vote-block">
+              <button class="vote-btn upvoted" onclick="handleVote(this, 'up', 'r1')">▲</button>
+              <div class="vote-count" id="r1-count">247</div>
+              <button class="vote-btn" onclick="handleVote(this, 'down', 'r1')">▼</button>
+            </div>
+          </div>
+
+          <!-- Recipe Title -->
+          <div class="recipe-title">The Perfect V60 pour-over — fruity &amp; floral forward</div>
+          <div class="recipe-tagline">After 3 weeks of dialing in this Ethiopian, here's what really lets the blueberry and jasmine shine.</div>
+
+          <!-- Coffee Type Tags -->
+          <div class="tag-section">
+            <div class="tag-section-label">Coffee Type</div>
+            <div class="tag-pills">
+              <span class="tag-pill active">☕ V60 Pour-over</span>
+              <span class="tag-pill">Espresso</span>
+              <span class="tag-pill">Americano</span>
+              <span class="tag-pill">French Press</span>
+              <span class="tag-pill">AeroPress</span>
+              <span class="tag-pill">Chemex</span>
+            </div>
+          </div>
+
+          <!-- Tools Used Tags -->
+          <div class="tag-section">
+            <div class="tag-section-label">Tools Used</div>
+            <div class="tag-pills">
+              <span class="tag-pill tool"><span class="tag-pill-icon">⚙️</span>Comandante C40</span>
+              <span class="tag-pill tool"><span class="tag-pill-icon">🫖</span>Hario V60</span>
+              <span class="tag-pill tool"><span class="tag-pill-icon">⚖️</span>Acaia Pearl</span>
+              <span class="tag-pill tool"><span class="tag-pill-icon">💧</span>Fellow Stagg EKG</span>
+            </div>
+          </div>
+
+          <!-- Brewing Process -->
+          <div class="brewing-section">
+            <div class="brewing-title">Brewing Process</div>
+            <div class="brewing-steps">
+              <div class="brewing-step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                  <div class="step-label">Dose &amp; Ratio</div>
+                  <div class="step-detail"><span class="step-highlight">15g coffee / 250g water</span> — 1:16.7 ratio. Rinse your V60 filter with hot water first to remove paper taste.</div>
+                </div>
+              </div>
+              <div class="brewing-step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                  <div class="step-label">Grind</div>
+                  <div class="step-detail"><span class="step-highlight">Medium-fine — 20 clicks</span> on the Comandante C40. Should look like coarse sand. Adjust finer if extraction is too fast.</div>
+                </div>
+              </div>
+              <div class="brewing-step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                  <div class="step-label">Water Temperature</div>
+                  <div class="step-detail"><span class="step-highlight">96°C / 205°F</span>. For lighter roasts, higher temps help extract the delicate floral compounds without astringency.</div>
+                </div>
+              </div>
+              <div class="brewing-step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                  <div class="step-label">Bloom</div>
+                  <div class="step-detail">Pour <span class="step-highlight">30g of water</span> for 45 seconds. Swirl gently to saturate all grounds. The bloom should double in volume — good sign of freshness.</div>
+                </div>
+              </div>
+              <div class="brewing-step">
+                <div class="step-num">5</div>
+                <div class="step-content">
+                  <div class="step-label">Pour in 3 Stages</div>
+                  <div class="step-detail">
+                    Stage 1 (0:45): pour to <span class="step-highlight">120g</span>, slow spiral from center out.<br>
+                    Stage 2 (1:30): pour to <span class="step-highlight">185g</span>, maintain level.<br>
+                    Stage 3 (2:00): final pour to <span class="step-highlight">250g</span>. Total brew time: <span class="step-highlight">3:00–3:15 min</span>.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tasting Notes -->
+          <div class="tasting-section">
+            <div class="tasting-label">My Tasting Notes</div>
+            <div class="tasting-text">"The blueberry is front and center in the cup — almost jammy, like blueberry compote. As it cools the jasmine really opens up and there's a rich dark chocolate finish. Clean, lingering sweetness. This is one of the best expressions of this bean I've tried. Zero astringency at this grind and temp."</div>
+          </div>
+
+          <!-- Actions -->
+          <div class="recipe-actions">
+            <button class="action-btn" onclick="toggleReply(this)">
+              <i class="fas fa-comment"></i>
+              Reply
+              <span class="reply-count">14 replies</span>
+            </button>
+            <button class="action-btn saved" id="save-btn-1" onclick="toggleSave(this, 1)">
+              <i class="fas fa-bookmark"></i>
+              Saved
+            </button>
+            <button class="action-btn">
+              <i class="fas fa-share-alt"></i>
+              Share
+            </button>
+            <button class="action-btn">
+              <i class="fas fa-ellipsis-h"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Comments Section (expanded) -->
+        <div class="comments-section">
+          <div class="comments-header">
+            <div class="comments-title">
+              <i class="fas fa-comments" style="color:var(--caramel); font-size:13px;"></i>
+              Brewing Tips Discussion
+              <span class="comment-count-badge">14</span>
+            </div>
+            <button class="action-btn" style="font-size:12px; padding:5px 10px;">
+              <i class="fas fa-sort-amount-down" style="font-size:11px;"></i> Sort
+            </button>
+          </div>
+
+          <div class="comments-list">
+
+            <div class="comment">
+              <img class="comment-avatar" src="coffee_community_member_2.jpg" alt="Profile of Sofia Reyes, coffee community member" width="32" height="32">
+              <div class="comment-body">
+                <div class="comment-meta">
+                  <span class="comment-author">Sofia Reyes</span>
+                  <span class="comment-time">2 days ago</span>
+                </div>
+                <div class="comment-text">Tried this recipe exactly last night and it was incredible. The 96°C water temp was a game changer for me — I was brewing at 92°C before and missing so much of the florals. Did you find the ratio changes much between doses?</div>
+                <div class="comment-actions">
+                  <div class="comment-vote">
+                    <button class="comment-vote-btn">▲</button>
+                    <span class="comment-vote-count">32</span>
+                    <button class="comment-vote-btn">▼</button>
+                  </div>
+                  <button class="comment-action"><i class="fas fa-reply" style="font-size:10px;"></i> Reply</button>
+                  <button class="comment-action"><i class="fas fa-flag" style="font-size:10px;"></i> Report</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Nested reply -->
+            <div class="nested-comments">
+              <div class="comment nested">
+                <img class="comment-avatar" src="coffee_enthusiast_profile_1.jpg" alt="Profile photo of James Whitfield replying" width="32" height="32">
+                <div class="comment-body">
+                  <div class="comment-meta">
+                    <span class="comment-author" style="color:var(--caramel);">James Whitfield</span>
+                    <span style="font-size:10.5px; background:rgba(196,123,58,0.1); color:var(--caramel); border-radius:4px; padding:1px 6px; font-weight:600;">Author</span>
+                    <span class="comment-time">2 days ago</span>
+                  </div>
+                  <div class="comment-text">Hey Sofia! Yes — I've been pretty consistent at 15g. I tried 18g once and the ratio becomes harder to control with the pour stages. Stick to 15g for the first few tries then adjust. The high temp is the main unlock for this bean, you're right!</div>
+                  <div class="comment-actions">
+                    <div class="comment-vote">
+                      <button class="comment-vote-btn">▲</button>
+                      <span class="comment-vote-count">18</span>
+                      <button class="comment-vote-btn">▼</button>
+                    </div>
+                    <button class="comment-action"><i class="fas fa-reply" style="font-size:10px;"></i> Reply</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="comment">
+              <img class="comment-avatar" src="coffee_community_member_3.jpg" alt="Profile of Marcus Chen, specialty coffee blogger" width="32" height="32">
+              <div class="comment-body">
+                <div class="comment-meta">
+                  <span class="comment-author">Marcus Chen</span>
+                  <span class="comment-time">1 day ago</span>
+                </div>
+                <div class="comment-text">Great recipe. I subbed the Comandante for a 1Zpresso JX-Pro at 35 clicks and it tracked very similarly. One tip: try a Tetsu Kasuya 40/60 split pour instead of 3 stages — keeps the bed more even and really amplifies the jasmine notes on this particular lot.</div>
+                <div class="comment-actions">
+                  <div class="comment-vote">
+                    <button class="comment-vote-btn">▲</button>
+                    <span class="comment-vote-count">41</span>
+                    <button class="comment-vote-btn">▼</button>
+                  </div>
+                  <button class="comment-action"><i class="fas fa-reply" style="font-size:10px;"></i> Reply</button>
+                  <button class="comment-action"><i class="fas fa-bookmark" style="font-size:10px;"></i> Save tip</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="comment">
+              <img class="comment-avatar" src="coffee_community_member_4.jpg" alt="Profile of Amara Osei, home barista" width="32" height="32">
+              <div class="comment-body">
+                <div class="comment-meta">
+                  <span class="comment-author">Amara Osei</span>
+                  <span class="comment-time">12 hours ago</span>
+                </div>
+                <div class="comment-text">Does this work well iced? I was thinking of doing a Japanese iced pour — using ~180g water hot and swapping 70g for ice in the vessel. The berry notes should be really bright when chilled.</div>
+                <div class="comment-actions">
+                  <div class="comment-vote">
+                    <button class="comment-vote-btn">▲</button>
+                    <span class="comment-vote-count">9</span>
+                    <button class="comment-vote-btn">▼</button>
+                  </div>
+                  <button class="comment-action"><i class="fas fa-reply" style="font-size:10px;"></i> Reply</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Write a comment -->
+          <div class="write-comment">
+            <img src="coffee_community_member_you.jpg" alt="Your profile avatar placeholder, silhouette on warm cream background" width="32" height="32" style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border);flex-shrink:0;object-fit:cover;">
+            <div class="comment-input-wrap">
+              <textarea class="comment-input" rows="1" placeholder="Add a tip or question about this recipe…" oninput="autoResize(this)"></textarea>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ══ RECIPE CARD 2 ══ -->
+      <div class="recipe-card">
+        <div class="recipe-card-inner">
+
+          <div class="recipe-header-row">
+            <div class="recipe-user">
+              <img class="user-avatar" src="coffee_community_member_5.jpg" alt="Profile of Priya Nair, AeroPress World Championship competitor" width="42" height="42">
+              <div class="user-info">
+                <div class="user-name">Priya Nair</div>
+                <div class="user-meta">
+                  <span class="user-badge"><i class="fas fa-trophy" style="font-size:9px;"></i> Competition Brewer</span>
+                  <span>·</span>
+                  <span>Posted 1 week ago</span>
+                </div>
+              </div>
+            </div>
+            <div class="vote-block">
+              <button class="vote-btn" onclick="handleVote(this, 'up', 'r2')">▲</button>
+              <div class="vote-count" id="r2-count">183</div>
+              <button class="vote-btn" onclick="handleVote(this, 'down', 'r2')">▼</button>
+            </div>
+          </div>
+
+          <div class="recipe-title">Inverted AeroPress — concentrated &amp; wild fruit bomb</div>
+          <div class="recipe-tagline">Using immersion to push the natural process character to the absolute limit. Funky, intense, spectacular.</div>
+
+          <div class="tag-section">
+            <div class="tag-section-label">Coffee Type</div>
+            <div class="tag-pills">
+              <span class="tag-pill">V60 Pour-over</span>
+              <span class="tag-pill">Espresso</span>
+              <span class="tag-pill">Americano</span>
+              <span class="tag-pill">French Press</span>
+              <span class="tag-pill active">☕ AeroPress</span>
+              <span class="tag-pill">Chemex</span>
+            </div>
+          </div>
+
+          <div class="tag-section">
+            <div class="tag-section-label">Tools Used</div>
+            <div class="tag-pills">
+              <span class="tag-pill tool"><span class="tag-pill-icon">⚙️</span>1Zpresso JX-Pro</span>
+              <span class="tag-pill tool"><span class="tag-pill-icon">🌀</span>AeroPress Go</span>
+              <span class="tag-pill tool"><span class="tag-pill-icon">⚖️</span>Timemore Black Mirror</span>
+              <span class="tag-pill tool"><span class="tag-pill-icon">💧</span>Bonavita Kettle</span>
+            </div>
+          </div>
+
+          <div class="brewing-section">
+            <div class="brewing-title">Brewing Process</div>
+            <div class="brewing-steps">
+              <div class="brewing-step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                  <div class="step-label">Dose &amp; Ratio</div>
+                  <div class="step-detail"><span class="step-highlight">17g coffee / 220g water</span> — 1:13 ratio for a denser, more syrupy cup. Inverted setup from the start.</div>
+                </div>
+              </div>
+              <div class="brewing-step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                  <div class="step-label">Grind</div>
+                  <div class="step-detail"><span class="step-highlight">Medium (28 clicks JX-Pro)</span>. Slightly coarser than V60 since immersion extracts more efficiently.</div>
+                </div>
+              </div>
+              <div class="brewing-step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                  <div class="step-label">Water Temperature</div>
+                  <div class="step-detail"><span class="step-highlight">88°C / 190°F</span>. Lower temp prevents over-extraction in the extended immersion and keeps sweetness clean.</div>
+                </div>
+              </div>
+              <div class="brewing-step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                  <div class="step-label">Steep</div>
+                  <div class="step-detail">Add all water, stir 10 times gently. Cap and steep <span class="step-highlight">2 minutes total</span>. Flip at 1:45 and press slowly over 30 seconds.</div>
+                </div>
+              </div>
+              <div class="brewing-step">
+                <div class="step-num">5</div>
+                <div class="step-content">
+                  <div class="step-label">Serve</div>
+                  <div class="step-detail">Serve directly or dilute with <span class="step-highlight">50g hot water</span> for a longer drink. Let rest 1 min — the aromatics evolve beautifully as it cools.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tasting-section">
+            <div class="tasting-label">My Tasting Notes</div>
+            <div class="tasting-text">"Absolute candy shop in a cup. The immersion amplifies that natural process wildness — super concentrated blueberry, almost wine-like. The bergamot comes through as a clean citrus finish. Full-bodied, syrupy mouthfeel. Not for everyone but spectacular if you love naturals."</div>
+          </div>
+
+          <div class="recipe-actions">
+            <button class="action-btn">
+              <i class="fas fa-comment"></i>
+              Reply
+              <span class="reply-count">6 replies</span>
+            </button>
+            <button class="action-btn" id="save-btn-2" onclick="toggleSave(this, 2)">
+              <i class="far fa-bookmark"></i>
+              Save Recipe
+            </button>
+            <button class="action-btn">
+              <i class="fas fa-share-alt"></i>
+              Share
+            </button>
+            <button class="action-btn">
+              <i class="fas fa-ellipsis-h"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ RECIPE CARD 3 ══ -->
+      <div class="recipe-card">
+        <div class="recipe-card-inner">
+
+          <div class="recipe-header-row">
+            <div class="recipe-user">
+              <img class="user-avatar" src="coffee_community_member_6.jpg" alt="Profile of Lukas Brenner, specialty coffee roaster from Berlin" width="42" height="42">
+              <div class="user-info">
+                <div class="user-name">Lukas Brenner</div>
+                <div class="user-meta">
+                  <span>·</span>
+                  <span>Posted 2 weeks ago</span>
+                </div>
+              </div>
+            </div>
+            <div class="vote-block">
+              <button class="vote-btn" onclick="handleVote(this, 'up', 'r3')">▲</button>
+              <div class="vote-count" id="r3-count">96</div>
+              <button class="vote-btn" onclick="handleVote(this, 'down', 'r3')">▼</button>
+            </div>
+          </div>
+
+          <div class="recipe-title">Chemex for a group — gentle, clean and crowd-pleasing</div>
+          <div class="recipe-tagline">Scaled up for 4 cups. The Chemex filter calms the wildness of the natural process and gives an incredibly clean floral cup.</div>
+
+          <div class="tag-section">
+            <div class="tag-section-label">Coffee Type</div>
+            <div class="tag-pills">
+              <span class="tag-pill">V60 Pour-over</span>
+              <span class="tag-pill">Espresso</span>
+              <span class="tag-pill">Americano</span>
+              <span class="tag-pill">French Press</span>
+              <span class="tag-pill">AeroPress</span>
+              <span class="tag-pill active">☕ Chemex</span>
+            </div>
+          </div>
+
+          <div class="tag-section">
+            <div class="tag-section-label">Tools Used</div>
+            <div class="tag-pills">
+              <span class="tag-pill tool"><span class="tag-pill-icon">⚙️</span>Baratza Encore ESP</span>
+              <span class="tag-pill tool"><span class="tag-pill-icon">🏺</span>Chemex 6-Cup</span>
+              <span class="tag-pill tool"><span class="tag-pill-icon">⚖️</span>Hario V60 Drip Scale</span>
+              <span class="tag-pill tool"><span class="tag-pill-icon">💧</span>Fellow Stagg EKG</span>
+            </div>
+          </div>
+
+          <div class="brewing-section">
+            <div class="brewing-title">Brewing Process</div>
+            <div class="brewing-steps">
+              <div class="brewing-step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                  <div class="step-label">Dose &amp; Ratio</div>
+                  <div class="step-detail"><span class="step-highlight">42g coffee / 700g water</span> — 1:16.7 ratio scaled for 4 cups. Use a double-bonded Chemex filter for extra clarity.</div>
+                </div>
+              </div>
+              <div class="brewing-step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                  <div class="step-label">Grind</div>
+                  <div class="step-detail"><span class="step-highlight">Medium-coarse</span> (Baratza Encore setting 22). The thick Chemex filter requires a coarser grind to avoid over-extraction.</div>
+                </div>
+              </div>
+              <div class="brewing-step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                  <div class="step-label">Water Temperature</div>
+                  <div class="step-detail"><span class="step-highlight">93°C / 200°F</span>. Slightly lower than V60 — the longer contact time compensates.</div>
+                </div>
+              </div>
+              <div class="brewing-step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                  <div class="step-label">Bloom &amp; Pour</div>
+                  <div class="step-detail">Bloom with <span class="step-highlight">80g for 45s</span>. Then pour continuously in slow spirals over 4:00 total. Target drawdown by <span class="step-highlight">5:30 minutes</span>.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tasting-section">
+            <div class="tasting-label">My Tasting Notes</div>
+            <div class="tasting-text">"The Chemex strips back some of the intense fruit wildness and leaves a beautifully transparent, floral cup. Jasmine-forward at first sip, clean dark chocolate on the finish. Great for sharing with people who might be surprised by a more intense natural process."</div>
+          </div>
+
+          <div class="recipe-actions">
+            <button class="action-btn">
+              <i class="fas fa-comment"></i>
+              Reply
+              <span class="reply-count">3 replies</span>
+            </button>
+            <button class="action-btn" id="save-btn-3" onclick="toggleSave(this, 3)">
+              <i class="far fa-bookmark"></i>
+              Save Recipe
+            </button>
+            <button class="action-btn">
+              <i class="fas fa-share-alt"></i>
+              Share
+            </button>
+            <button class="action-btn">
+              <i class="fas fa-ellipsis-h"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- View More -->
+      <div style="display:flex; justify-content:center; margin-top:8px;">
+        <button style="padding:11px 32px; border-radius:8px; border:1.5px solid var(--border); background:var(--white); color:var(--espresso); font-family:'Inter',sans-serif; font-size:14px; font-weight:500; cursor:pointer; display:inline-flex; align-items:center; gap:8px; transition:all 0.2s;" onmouseover="this.style.borderColor='#C47B3A';this.style.color='#C47B3A';this.style.background='rgba(196,123,58,0.05)';this.style.transform='translateY(-1px)'" onmouseout="this.style.borderColor='';this.style.color='';this.style.background='';this.style.transform=''">
+          View all 18 recipes
+          <i class="fas fa-arrow-right" style="font-size:12px;"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- ── SIDEBAR ── -->
+    <aside class="sidebar">
+
+      <!-- Bean Quick Stats -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">Bean at a Glance</div>
+        <div class="bean-stat-grid">
+          <div class="bean-stat-item">
+            <div class="bean-stat-value">18</div>
+            <div class="bean-stat-label">Recipes</div>
+          </div>
+          <div class="bean-stat-item">
+            <div class="bean-stat-value">4.9</div>
+            <div class="bean-stat-label">Avg Rating</div>
+          </div>
+          <div class="bean-stat-item">
+            <div class="bean-stat-value">312</div>
+            <div class="bean-stat-label">Reviews</div>
+          </div>
+          <div class="bean-stat-item">
+            <div class="bean-stat-value">1.2k</div>
+            <div class="bean-stat-label">In Collections</div>
+          </div>
+        </div>
+        <div style="margin-top:14px; padding-top:14px; border-top:1px solid var(--border);">
+          <div style="font-size:11px; font-weight:700; color:var(--mocha); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:10px;">Most Used Methods</div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span style="font-size:12px; color:var(--espresso); font-weight:500; width:90px; flex-shrink:0;">V60 Pour-over</span>
+              <div style="flex:1; height:6px; background:var(--border); border-radius:10px; overflow:hidden;">
+                <div style="width:68%; height:100%; background:var(--caramel); border-radius:10px;"></div>
+              </div>
+              <span style="font-size:11px; color:var(--mocha); width:28px; text-align:right; flex-shrink:0;">68%</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span style="font-size:12px; color:var(--espresso); font-weight:500; width:90px; flex-shrink:0;">AeroPress</span>
+              <div style="flex:1; height:6px; background:var(--border); border-radius:10px; overflow:hidden;">
+                <div style="width:18%; height:100%; background:#C4A882; border-radius:10px;"></div>
+              </div>
+              <span style="font-size:11px; color:var(--mocha); width:28px; text-align:right; flex-shrink:0;">18%</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span style="font-size:12px; color:var(--espresso); font-weight:500; width:90px; flex-shrink:0;">Chemex</span>
+              <div style="flex:1; height:6px; background:var(--border); border-radius:10px; overflow:hidden;">
+                <div style="width:14%; height:100%; background:#D4BFA8; border-radius:10px;"></div>
+              </div>
+              <span style="font-size:11px; color:var(--mocha); width:28px; text-align:right; flex-shrink:0;">14%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Top Brewers -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">Top Recipe Contributors</div>
+        <div>
+          <div class="brewer-item">
+            <img class="brewer-avatar" src="coffee_enthusiast_profile_1.jpg" alt="James Whitfield profile" width="36" height="36">
+            <div class="brewer-info">
+              <div class="brewer-name">James Whitfield</div>
+              <div class="brewer-recipes">4 recipes · 247 upvotes</div>
+            </div>
+            <button class="brewer-follow">Follow</button>
+          </div>
+          <div class="brewer-item">
+            <img class="brewer-avatar" src="coffee_community_member_5.jpg" alt="Priya Nair profile" width="36" height="36">
+            <div class="brewer-info">
+              <div class="brewer-name">Priya Nair</div>
+              <div class="brewer-recipes">2 recipes · 183 upvotes</div>
+            </div>
+            <button class="brewer-follow">Follow</button>
+          </div>
+          <div class="brewer-item">
+            <img class="brewer-avatar" src="coffee_community_member_6.jpg" alt="Lukas Brenner profile" width="36" height="36">
+            <div class="brewer-info">
+              <div class="brewer-name">Lukas Brenner</div>
+              <div class="brewer-recipes">3 recipes · 96 upvotes</div>
+            </div>
+            <button class="brewer-follow">Follow</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Similar Beans -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">Similar Beans You May Like</div>
+        <div style="display:flex; flex-direction:column;">
+          <div class="similar-bean-item">
+            <span class="similar-bean-flag">🇪🇹</span>
+            <div class="similar-bean-info">
+              <div class="similar-bean-name">Ethiopia Yirgacheffe Natural</div>
+              <div class="similar-bean-roast">Stumptown · Light</div>
+            </div>
+            <div class="similar-bean-rating"><i class="fas fa-star"></i> 4.8</div>
+          </div>
+          <div class="similar-bean-item">
+            <span class="similar-bean-flag">🇵🇦</span>
+            <div class="similar-bean-info">
+              <div class="similar-bean-name">Panama Geisha Boquete</div>
+              <div class="similar-bean-roast">Onyx Coffee Lab · Light</div>
+            </div>
+            <div class="similar-bean-rating"><i class="fas fa-star"></i> 4.9</div>
+          </div>
+          <div class="similar-bean-item">
+            <span class="similar-bean-flag">🇰🇪</span>
+            <div class="similar-bean-info">
+              <div class="similar-bean-name">Kenya Karimikui AA</div>
+              <div class="similar-bean-roast">Onyx Coffee Lab · Light</div>
+            </div>
+            <div class="similar-bean-rating"><i class="fas fa-star"></i> 4.8</div>
+          </div>
+          <div class="similar-bean-item">
+            <span class="similar-bean-flag">🇷🇼</span>
+            <div class="similar-bean-info">
+              <div class="similar-bean-name">Rwanda Huye Mountain</div>
+              <div class="similar-bean-roast">Intelligentsia · Light</div>
+            </div>
+            <div class="similar-bean-rating"><i class="fas fa-star"></i> 4.7</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dark CTA -->
+      <div class="sidebar-card" style="background: linear-gradient(135deg, #5C3317 0%, #3B1F0E 100%); border-color: transparent;">
+        <img src="coffee_brewing_pour_over_artistic.jpg" alt="Artistic close-up of hot water being poured over a V60 coffee dripper with steam rising, coffee blooming, warm amber and brown tones" width="272" height="100" style="width:100%; height:80px; object-fit:cover; border-radius:8px; margin-bottom:14px;">
+        <div style="font-family:'Playfair Display',serif; font-size:16px; font-weight:700; color:#FAF7F2; margin-bottom:8px;">Save Your Recipes</div>
+        <p style="font-size:12.5px; color:rgba(240,232,220,0.8); line-height:1.6; margin-bottom:16px;">
+          Create an account to save recipes, track your brews, and share your own techniques with the community.
+        </p>
+        <button style="width:100%; padding:10px; border-radius:8px; background:var(--caramel); border:none; color:#fff; font-family:'Inter',sans-serif; font-size:13px; font-weight:600; cursor:pointer; transition:background 0.2s, transform 0.15s;" onmouseover="this.style.background='#b36b2c';this.style.transform='translateY(-1px)'" onmouseout="this.style.background='#C47B3A';this.style.transform='none'">
+          Join Free — It's Quick
+        </button>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // Vote handling
+    const voteCounts = { r1: 247, r2: 183, r3: 96 };
+    const voteState = { r1: null, r2: null, r3: null };
+
+    function handleVote(btn, dir, id) {
+      const card = btn.closest('.vote-block');
+      const upBtn = card.querySelector('.vote-btn:first-child');
+      const downBtn = card.querySelector('.vote-btn:last-child');
+      const countEl = document.getElementById(id + '-count');
+
+      const prev = voteState[id];
+
+      if (prev === dir) {
+        // undo
+        voteState[id] = null;
+        voteCounts[id] += dir === 'up' ? -1 : 1;
+        btn.classList.remove('upvoted', 'downvoted');
+      } else {
+        if (prev === 'up') { voteCounts[id]--; upBtn.classList.remove('upvoted'); }
+        if (prev === 'down') { voteCounts[id]++; downBtn.classList.remove('downvoted'); }
+
+        voteState[id] = dir;
+        voteCounts[id] += dir === 'up' ? 1 : -1;
+        btn.classList.add(dir === 'up' ? 'upvoted' : 'downvoted');
+        if (dir === 'up') downBtn.classList.remove('downvoted');
+        else upBtn.classList.remove('upvoted');
+      }
+
+      countEl.textContent = voteCounts[id];
+    }
+
+    // Save/unsave recipe
+    function toggleSave(btn, id) {
+      const isSaved = btn.classList.contains('saved');
+      if (isSaved) {
+        btn.classList.remove('saved');
+        btn.innerHTML = '<i class="far fa-bookmark"></i> Save Recipe';
+      } else {
+        btn.classList.add('saved');
+        btn.innerHTML = '<i class="fas fa-bookmark"></i> Saved';
+      }
+    }
+
+    // Auto-resize textarea
+    function autoResize(el) {
+      el.style.height = 'auto';
+      el.style.height = el.scrollHeight + 'px';
+    }
+
+    // Tab switching
+    document.querySelectorAll('.bean-tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.bean-tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // Filter chips
+    document.querySelectorAll('.sort-select select').forEach(sel => {
+      sel.addEventListener('change', function() {
+        // placeholder for sort logic
+      });
+    });
+
+    // Scroll animations
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }, i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.05 });
+
+    document.querySelectorAll('.recipe-card').forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(14px)';
+      card.style.transition = 'opacity 0.4s ease, transform 0.4s ease, box-shadow 0.2s ease';
+      observer.observe(card);
+    });
+
+    // Comment vote interaction
+    document.querySelectorAll('.comment-vote-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const countEl = this.parentElement.querySelector('.comment-vote-count');
+        const count = parseInt(countEl.textContent);
+        const isUp = this.textContent === '▲';
+        countEl.textContent = isUp ? count + 1 : count - 1;
+        this.style.color = '#C47B3A';
+        setTimeout(() => this.style.color = '', 600);
+      });
+    });
+  </script>
+
+</body></html>

@@ -1,0 +1,946 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grounded — Join &amp; Verify</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #FAF7F2;
+      --card: #F0E8DC;
+      --espresso: #3B1F0E;
+      --brown: #5C3317;
+      --caramel: #C47B3A;
+      --mocha: #7A6152;
+      --border: #E8DDD4;
+      --white: #ffffff;
+      --shadow: rgba(59,31,14,0.08);
+      --shadow-hover: rgba(59,31,14,0.15);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--espresso);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: 68px;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-inner {
+      max-width: 1728px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 48px;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .nav-logo-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--brown);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-logo-icon i {
+      color: var(--caramel);
+      font-size: 15px;
+    }
+
+    .nav-logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--espresso);
+      letter-spacing: -0.3px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-left: 48px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--mocha);
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--brown); background: var(--card); }
+    .nav-links a.active { color: var(--espresso); font-weight: 600; }
+
+    .nav-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      border: none;
+      background: transparent;
+      color: var(--mocha);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .btn-icon:hover { color: var(--brown); background: var(--card); }
+
+    .btn-ghost-nav {
+      padding: 8px 20px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border);
+      background: transparent;
+      color: var(--espresso);
+      font-family: 'Inter', sans-serif;
+      font-size: 13.5px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
+    }
+
+    .btn-ghost-nav:hover { border-color: var(--brown); color: var(--brown); background: var(--card); }
+
+    .btn-cta {
+      padding: 8px 22px;
+      border-radius: 8px;
+      border: 1.5px solid var(--caramel);
+      background: var(--caramel);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+    }
+
+    .btn-cta:hover {
+      background: #b36b2c;
+      border-color: #b36b2c;
+      box-shadow: 0 4px 12px rgba(196,123,58,0.3);
+      transform: translateY(-1px);
+    }
+
+    /* ── MAIN CANVAS ── */
+    .canvas {
+      width: 1728px;
+      min-height: calc(1117px - 68px);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 52px;
+      padding: 48px;
+    }
+
+    /* Dimmed backdrop */
+    .backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(59, 31, 14, 0.18);
+      backdrop-filter: blur(2px);
+    }
+
+    /* Subtle background pattern */
+    .backdrop::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('registration-backdrop.png');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.12;
+    }
+
+    /* ── STEP COLUMN ── */
+    .step-col {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    /* ── STEP PILL ── */
+    .step-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--mocha);
+      letter-spacing: 0.3px;
+      box-shadow: 0 2px 8px var(--shadow);
+    }
+
+    .step-pill .step-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--caramel);
+      flex-shrink: 0;
+    }
+
+    .step-pill.step-2 .step-dot {
+      background: #3a7a3a;
+    }
+
+    /* ── MODAL ── */
+    .modal {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: 0 24px 64px rgba(59,31,14,0.18), 0 4px 16px rgba(59,31,14,0.08);
+      width: 460px;
+      padding: 40px 44px;
+      position: relative;
+    }
+
+    /* ── MODAL HEADER ── */
+    .modal-logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 28px;
+    }
+
+    .modal-logo-icon {
+      width: 30px;
+      height: 30px;
+      background: var(--brown);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-logo-icon i { color: var(--caramel); font-size: 13px; }
+
+    .modal-logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--espresso);
+    }
+
+    .modal-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--espresso);
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .modal-sub {
+      font-size: 14px;
+      color: var(--mocha);
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+
+    /* ── GOOGLE SSO ── */
+    .btn-google {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 11px 20px;
+      border-radius: 10px;
+      border: 1.5px solid var(--border);
+      background: var(--white);
+      color: var(--espresso);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s, transform 0.15s;
+      margin-bottom: 22px;
+    }
+
+    .btn-google:hover {
+      border-color: #d0c8c0;
+      background: var(--bg);
+      box-shadow: 0 4px 12px var(--shadow);
+      transform: translateY(-1px);
+    }
+
+    .google-icon {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .divider-text {
+      font-size: 12px;
+      color: var(--mocha);
+      font-weight: 500;
+      white-space: nowrap;
+      letter-spacing: 0.3px;
+    }
+
+    /* ── FORM ── */
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--espresso);
+      margin-bottom: 6px;
+      letter-spacing: 0.2px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: 10px;
+      border: 1.5px solid var(--border);
+      background: var(--bg);
+      color: var(--espresso);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    }
+
+    .form-input::placeholder { color: #b8a99a; }
+
+    .form-input:focus {
+      border-color: var(--caramel);
+      background: var(--white);
+      box-shadow: 0 0 0 3px rgba(196,123,58,0.12);
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-toggle {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--mocha);
+      font-size: 14px;
+      padding: 4px;
+      transition: color 0.2s;
+    }
+
+    .input-toggle:hover { color: var(--caramel); }
+
+    .form-input.has-toggle { padding-right: 42px; }
+
+    /* ── STRENGTH BAR ── */
+    .strength-wrap {
+      margin-top: 8px;
+    }
+
+    .strength-bar {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 5px;
+    }
+
+    .strength-seg {
+      flex: 1;
+      height: 3px;
+      border-radius: 3px;
+      background: var(--border);
+      transition: background 0.3s ease;
+    }
+
+    .strength-seg.filled-amber { background: var(--caramel); }
+    .strength-seg.filled-green { background: #3a7a3a; }
+    .strength-seg.filled-red { background: #c0392b; }
+
+    .strength-label {
+      font-size: 11.5px;
+      color: var(--caramel);
+      font-weight: 500;
+    }
+
+    /* ── CHECKBOX ── */
+    .checkbox-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 22px;
+      margin-top: 4px;
+    }
+
+    .checkbox-row input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      border: 1.5px solid var(--border);
+      cursor: pointer;
+      accent-color: var(--caramel);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .checkbox-row label {
+      font-size: 12.5px;
+      color: var(--mocha);
+      line-height: 1.5;
+      cursor: pointer;
+    }
+
+    .checkbox-row label a {
+      color: var(--caramel);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .checkbox-row label a:hover { text-decoration: underline; }
+
+    /* ── SUBMIT BUTTON ── */
+    .btn-submit {
+      width: 100%;
+      padding: 13px 20px;
+      border-radius: 10px;
+      border: none;
+      background: var(--caramel);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+      margin-bottom: 20px;
+      letter-spacing: 0.2px;
+    }
+
+    .btn-submit:hover {
+      background: #b36b2c;
+      box-shadow: 0 6px 18px rgba(196,123,58,0.35);
+      transform: translateY(-1px);
+    }
+
+    .btn-submit:active {
+      transform: translateY(0);
+    }
+
+    /* ── FOOTER LINK ── */
+    .modal-footer-text {
+      text-align: center;
+      font-size: 13px;
+      color: var(--mocha);
+    }
+
+    .modal-footer-text a {
+      color: var(--caramel);
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .modal-footer-text a:hover { color: var(--brown); text-decoration: underline; }
+
+    /* ── VERIFY MODAL ── */
+    .verify-modal {
+      width: 420px;
+      padding: 48px 44px;
+      text-align: center;
+    }
+
+    .verify-envelope-wrap {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(196,123,58,0.12) 0%, rgba(196,123,58,0.06) 100%);
+      border: 2px solid rgba(196,123,58,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 28px;
+      position: relative;
+    }
+
+    .verify-envelope-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(196,123,58,0.1);
+    }
+
+    .verify-envelope-wrap i {
+      font-size: 36px;
+      color: var(--caramel);
+    }
+
+    .verify-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--espresso);
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .verify-sub {
+      font-size: 14px;
+      color: var(--mocha);
+      line-height: 1.65;
+      margin-bottom: 8px;
+      max-width: 300px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .verify-email-highlight {
+      font-weight: 600;
+      color: var(--espresso);
+    }
+
+    .verify-divider {
+      width: 40px;
+      height: 2px;
+      background: var(--border);
+      border-radius: 2px;
+      margin: 24px auto;
+    }
+
+    .verify-resend-row {
+      margin-bottom: 24px;
+    }
+
+    .verify-resend-text {
+      font-size: 13px;
+      color: var(--mocha);
+      margin-bottom: 6px;
+    }
+
+    .resend-link {
+      font-size: 13.5px;
+      color: var(--caramel);
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      background: none;
+      font-family: 'Inter', sans-serif;
+      transition: color 0.2s;
+      padding: 0;
+    }
+
+    .resend-link:hover { color: var(--brown); text-decoration: underline; }
+
+    .btn-ghost-back {
+      width: 100%;
+      padding: 12px 20px;
+      border-radius: 10px;
+      border: 1.5px solid var(--border);
+      background: transparent;
+      color: var(--espresso);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: border-color 0.2s, background 0.2s, color 0.2s, transform 0.15s;
+    }
+
+    .btn-ghost-back:hover {
+      border-color: var(--brown);
+      color: var(--brown);
+      background: var(--card);
+      transform: translateY(-1px);
+    }
+
+    /* Spam tip */
+    .spam-tip {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 11.5px;
+      color: #b8a99a;
+    }
+
+    .spam-tip i { font-size: 11px; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1000px) {
+      .canvas {
+        flex-direction: column;
+        width: 100%;
+        min-height: auto;
+        padding: 32px 24px;
+        gap: 36px;
+      }
+
+      .modal { width: 100%; max-width: 460px; }
+      .verify-modal { width: 100%; max-width: 420px; }
+      .nav-links { display: none; }
+      .nav-inner { padding: 0 24px; }
+    }
+
+    @media (max-width: 600px) {
+      .modal { padding: 28px 24px; }
+      .verify-modal { padding: 36px 24px; }
+      .modal-heading { font-size: 26px; }
+      .nav-inner { padding: 0 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVIGATION ── -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <div class="nav-logo-icon">
+          <i class="fas fa-coffee"></i>
+        </div>
+        <span class="nav-logo-text">Grounded</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#">Discover</a></li>
+        <li><a href="#">Roasters</a></li>
+        <li><a href="#">Recipes</a></li>
+        <li><a href="#">Community</a></li>
+      </ul>
+      <div class="nav-right">
+        <button class="btn-icon" title="Search"><i class="fas fa-search"></i></button>
+        <button class="btn-ghost-nav">Log In</button>
+        <button class="btn-cta">Join Free</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── CANVAS ── -->
+  <div class="canvas">
+
+    <!-- Dimmed backdrop -->
+    <div class="backdrop"></div>
+
+    <!-- ─────────────────────────────────────────── -->
+    <!-- LEFT: STEP 1 – REGISTER                    -->
+    <!-- ─────────────────────────────────────────── -->
+    <div class="step-col">
+      <div class="step-pill">
+        <span class="step-dot"></span>
+        Step 1: Register
+      </div>
+
+      <div class="modal">
+        <!-- Logo -->
+        <div class="modal-logo">
+          <div class="modal-logo-icon">
+            <i class="fas fa-coffee"></i>
+          </div>
+          <span class="modal-logo-text">Grounded</span>
+        </div>
+
+        <!-- Heading -->
+        <h1 class="modal-heading">Join Grounded</h1>
+        <p class="modal-sub">The home for specialty coffee lovers.</p>
+
+        <!-- Google SSO -->
+        <button class="btn-google">
+          <!-- Google G logo inline SVG -->
+          <svg class="google-icon" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.64 9.2c0-.638-.057-1.252-.164-1.84H9v3.48h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" fill="#4285F4"></path>
+            <path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z" fill="#34A853"></path>
+            <path d="M3.964 10.71c-.18-.54-.282-1.117-.282-1.71s.102-1.17.282-1.71V4.958H.957C.347 6.173 0 7.548 0 9s.347 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"></path>
+            <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z" fill="#EA4335"></path>
+          </svg>
+          Continue with Google
+        </button>
+
+        <!-- Divider -->
+        <div class="divider">
+          <div class="divider-line"></div>
+          <span class="divider-text">or continue with email</span>
+          <div class="divider-line"></div>
+        </div>
+
+        <!-- Form -->
+        <div class="form-group">
+          <label class="form-label" for="displayName">Display Name</label>
+          <input class="form-input" id="displayName" type="text" placeholder="Your coffee alias…" value="James Mercer">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="email">Email Address</label>
+          <input class="form-input" id="email" type="email" placeholder="you@example.com" value="james@example.com">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="password">Password</label>
+          <div class="input-wrapper">
+            <input class="form-input has-toggle" id="password" type="password" placeholder="Create a password" value="SecureCoffee1">
+            <button class="input-toggle" type="button" title="Toggle visibility">
+              <i class="fas fa-eye-slash"></i>
+            </button>
+          </div>
+          <!-- Strength bar: 2/4 filled = medium -->
+          <div class="strength-wrap">
+            <div class="strength-bar">
+              <div class="strength-seg filled-amber"></div>
+              <div class="strength-seg filled-amber"></div>
+              <div class="strength-seg"></div>
+              <div class="strength-seg"></div>
+            </div>
+            <span class="strength-label">Medium strength</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="confirmPassword">Confirm Password</label>
+          <div class="input-wrapper">
+            <input class="form-input has-toggle" id="confirmPassword" type="password" placeholder="Repeat your password" value="SecureCoffee1">
+            <button class="input-toggle" type="button" title="Toggle visibility">
+              <i class="fas fa-eye-slash"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Checkbox -->
+        <div class="checkbox-row">
+          <input type="checkbox" id="terms" checked="">
+          <label for="terms">
+            I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+          </label>
+        </div>
+
+        <!-- Submit -->
+        <button class="btn-submit">Create Account</button>
+
+        <!-- Footer -->
+        <div class="modal-footer-text">
+          Already have an account? <a href="#">Log In</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────────────────────── -->
+    <!-- RIGHT: STEP 2 – VERIFY EMAIL               -->
+    <!-- ─────────────────────────────────────────── -->
+    <div class="step-col">
+      <div class="step-pill step-2">
+        <span class="step-dot"></span>
+        Step 2: Verify Email
+      </div>
+
+      <div class="modal verify-modal">
+        <!-- Logo -->
+        <div class="modal-logo" style="justify-content:center;">
+          <div class="modal-logo-icon">
+            <i class="fas fa-coffee"></i>
+          </div>
+          <span class="modal-logo-text">Grounded</span>
+        </div>
+
+        <!-- Envelope icon -->
+        <div class="verify-envelope-wrap">
+          <i class="fas fa-envelope-open-text"></i>
+        </div>
+
+        <!-- Heading -->
+        <h2 class="verify-heading">Check your inbox</h2>
+
+        <!-- Subtext -->
+        <p class="verify-sub">
+          We sent a verification link to <span class="verify-email-highlight">james@example.com</span>. Click the link to activate your account.
+        </p>
+
+        <div class="verify-divider"></div>
+
+        <!-- Resend -->
+        <div class="verify-resend-row">
+          <p class="verify-resend-text">Didn't receive an email?</p>
+          <button class="resend-link">Resend email</button>
+        </div>
+
+        <!-- Back to Log In -->
+        <button class="btn-ghost-back">
+          <i class="fas fa-arrow-left" style="font-size:12px;"></i>
+          Back to Log In
+        </button>
+
+        <!-- Spam tip -->
+        <div class="spam-tip">
+          <i class="fas fa-info-circle"></i>
+          Check your spam folder if you don't see it
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // Password toggle
+    document.querySelectorAll('.input-toggle').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const input = this.previousElementSibling;
+        const icon = this.querySelector('i');
+        if (input.type === 'password') {
+          input.type = 'text';
+          icon.classList.remove('fa-eye-slash');
+          icon.classList.add('fa-eye');
+        } else {
+          input.type = 'password';
+          icon.classList.remove('fa-eye');
+          icon.classList.add('fa-eye-slash');
+        }
+      });
+    });
+
+    // Live password strength
+    const passwordInput = document.getElementById('password');
+    const segments = document.querySelectorAll('.strength-seg');
+    const strengthLabel = document.querySelector('.strength-label');
+
+    function updateStrength(val) {
+      let score = 0;
+      if (val.length >= 8) score++;
+      if (/[A-Z]/.test(val) && /[a-z]/.test(val)) score++;
+      if (/\d/.test(val)) score++;
+      if (/[^A-Za-z0-9]/.test(val) && val.length >= 10) score++;
+
+      const configs = [
+        { segs: 0, label: '', color: 'none' },
+        { segs: 1, label: 'Weak', color: 'filled-red' },
+        { segs: 2, label: 'Medium strength', color: 'filled-amber' },
+        { segs: 3, label: 'Strong', color: 'filled-amber' },
+        { segs: 4, label: 'Very strong', color: 'filled-green' },
+      ];
+
+      const cfg = configs[score] || configs[0];
+      segments.forEach((seg, i) => {
+        seg.className = 'strength-seg';
+        if (i < cfg.segs) seg.classList.add(cfg.color);
+      });
+
+      if (cfg.color === 'filled-red') strengthLabel.style.color = '#c0392b';
+      else if (cfg.color === 'filled-green') strengthLabel.style.color = '#3a7a3a';
+      else strengthLabel.style.color = 'var(--caramel)';
+
+      strengthLabel.textContent = cfg.label;
+    }
+
+    if (passwordInput) {
+      updateStrength(passwordInput.value);
+      passwordInput.addEventListener('input', () => updateStrength(passwordInput.value));
+    }
+
+    // Resend email button feedback
+    const resendBtn = document.querySelector('.resend-link');
+    if (resendBtn) {
+      resendBtn.addEventListener('click', function() {
+        const orig = this.textContent;
+        this.textContent = 'Email sent!';
+        this.style.color = '#3a7a3a';
+        this.disabled = true;
+        setTimeout(() => {
+          this.textContent = orig;
+          this.style.color = '';
+          this.disabled = false;
+        }, 3000);
+      });
+    }
+
+    // Input focus interactions
+    document.querySelectorAll('.form-input').forEach(input => {
+      input.addEventListener('focus', function() {
+        this.parentElement.style.zIndex = '1';
+      });
+      input.addEventListener('blur', function() {
+        this.parentElement.style.zIndex = '';
+      });
+    });
+
+    // Submit button
+    document.querySelector('.btn-submit')?.addEventListener('click', function() {
+      this.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right:8px;font-size:14px;"></i> Creating account…';
+      this.disabled = true;
+      setTimeout(() => {
+        this.innerHTML = '<i class="fas fa-check" style="margin-right:8px;font-size:14px;"></i> Account Created!';
+        this.style.background = '#3a7a3a';
+        setTimeout(() => {
+          this.innerHTML = 'Create Account';
+          this.style.background = '';
+          this.disabled = false;
+        }, 2000);
+      }, 1800);
+    });
+  </script>
+
+
+</body></html>

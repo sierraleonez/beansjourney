@@ -1,0 +1,1578 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ethiopia Bishan Beke — Onyx Coffee Lab · Grounded</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #FAF7F2;
+      --card: #F0E8DC;
+      --espresso: #3B1F0E;
+      --brown: #5C3317;
+      --caramel: #C47B3A;
+      --mocha: #7A6152;
+      --border: #E8DDD4;
+      --white: #ffffff;
+      --shadow: rgba(59,31,14,0.08);
+      --shadow-hover: rgba(59,31,14,0.15);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--espresso);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: 68px;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-inner {
+      max-width: 1728px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 48px;
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .nav-logo-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--brown);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-logo-icon i { color: var(--caramel); font-size: 15px; }
+
+    .nav-logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--espresso);
+      letter-spacing: -0.3px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-left: 48px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--mocha);
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--brown); background: var(--card); }
+    .nav-links a.active { color: var(--espresso); font-weight: 600; }
+
+    .nav-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      border: none;
+      background: transparent;
+      color: var(--mocha);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .btn-icon:hover { color: var(--brown); background: var(--card); }
+
+    .btn-ghost {
+      padding: 8px 20px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border);
+      background: transparent;
+      color: var(--espresso);
+      font-family: 'Inter', sans-serif;
+      font-size: 13.5px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
+    }
+
+    .btn-ghost:hover { border-color: var(--brown); color: var(--brown); background: var(--card); }
+
+    .btn-cta {
+      padding: 8px 22px;
+      border-radius: 8px;
+      border: 1.5px solid var(--caramel);
+      background: var(--caramel);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+    }
+
+    .btn-cta:hover {
+      background: #b36b2c;
+      border-color: #b36b2c;
+      box-shadow: 0 4px 12px rgba(196,123,58,0.3);
+      transform: translateY(-1px);
+    }
+
+    /* ── PAGE LAYOUT ── */
+    .page-wrap {
+      max-width: 1728px;
+      margin: 0 auto;
+      padding: 32px 48px 60px;
+    }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 28px;
+      font-size: 13px;
+      color: var(--mocha);
+    }
+
+    .breadcrumb a {
+      color: var(--mocha);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .breadcrumb a:hover { color: var(--caramel); }
+
+    .breadcrumb-sep {
+      color: var(--border);
+      font-size: 11px;
+    }
+
+    .breadcrumb-current {
+      color: var(--espresso);
+      font-weight: 500;
+    }
+
+    /* ── CONTENT GRID ── */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 28px;
+      align-items: start;
+    }
+
+    /* ── LEFT COLUMN ── */
+    .left-col { display: flex; flex-direction: column; gap: 24px; }
+
+    /* Bean header card */
+    .bean-header-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 40px 32px;
+      box-shadow: 0 2px 16px var(--shadow);
+    }
+
+    .bean-roastery-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--caramel);
+      text-decoration: none;
+      margin-bottom: 10px;
+      transition: color 0.2s;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+    }
+
+    .bean-roastery-link:hover { color: var(--brown); }
+    .bean-roastery-link i { font-size: 11px; }
+
+    .bean-main-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--espresso);
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      margin-bottom: 16px;
+    }
+
+    .bean-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .rating-block {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stars-large { display: flex; gap: 3px; }
+    .stars-large i { font-size: 16px; color: var(--caramel); }
+
+    .rating-score {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--espresso);
+      font-family: 'Playfair Display', serif;
+    }
+
+    .rating-reviews {
+      font-size: 13px;
+      color: var(--mocha);
+    }
+
+    .bean-meta-divider {
+      width: 1px;
+      height: 20px;
+      background: var(--border);
+    }
+
+    .bean-roast-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 12.5px;
+      font-weight: 600;
+      background: #FEF5E7;
+      color: var(--caramel);
+      border: 1px solid #F5DEB3;
+    }
+
+    .bean-origin-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 12.5px;
+      font-weight: 500;
+      background: var(--card);
+      color: var(--mocha);
+      border: 1px solid var(--border);
+    }
+
+    /* ── SPECS DASHBOARD ── */
+    .specs-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px 32px 32px;
+    }
+
+    .specs-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--espresso);
+      margin-bottom: 22px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .specs-title-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .spec-item {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .spec-item:hover {
+      box-shadow: 0 4px 12px var(--shadow);
+      transform: translateY(-1px);
+    }
+
+    .spec-icon-label {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--mocha);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .spec-emoji { font-size: 13px; }
+
+    .spec-value {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--espresso);
+      padding-left: 20px;
+    }
+
+    /* ── FLAVOR NOTES ── */
+    .flavor-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px 32px;
+      box-shadow: 0 2px 12px var(--shadow);
+    }
+
+    .flavor-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--espresso);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .flavor-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .flavor-pill {
+      padding: 10px 22px;
+      border-radius: 40px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: default;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .flavor-pill:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow-hover);
+    }
+
+    .flavor-blueberry   { background: #EEF0FF; color: #4A5AAA; border: 1px solid #D4D9F5; }
+    .flavor-chocolate   { background: #F3EAE0; color: #6B3F1F; border: 1px solid #DBBF9F; }
+    .flavor-jasmine     { background: #FFF8EC; color: #9A6B20; border: 1px solid #F5DFA0; }
+    .flavor-brown-sugar { background: #FDF1E8; color: #8B4A1A; border: 1px solid #EABF8A; }
+    .flavor-stone-fruit { background: #FEF0EE; color: #A03A2E; border: 1px solid #F2C2BB; }
+
+    /* ── FLAVOR INTENSITY BAR ── */
+    .intensity-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px 32px;
+      margin-top: 24px;
+      padding-top: 22px;
+      border-top: 1px solid var(--border);
+    }
+
+    .intensity-row { display: flex; flex-direction: column; gap: 6px; }
+
+    .intensity-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .intensity-label {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--mocha);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .intensity-val {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--espresso);
+    }
+
+    .intensity-bar-bg {
+      height: 6px;
+      background: var(--card);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .intensity-bar-fill {
+      height: 100%;
+      border-radius: 20px;
+      background: linear-gradient(90deg, var(--caramel), #b36b2c);
+      transition: width 0.8s ease;
+    }
+
+    /* ── COMMUNITY SECTION ── */
+    .community-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 2px 12px var(--shadow);
+      overflow: hidden;
+    }
+
+    .tab-switcher {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      padding: 0 32px;
+    }
+
+    .tab-btn {
+      padding: 16px 0;
+      margin-right: 32px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--mocha);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+      font-family: 'Inter', sans-serif;
+      position: relative;
+      bottom: -1px;
+    }
+
+    .tab-btn:hover { color: var(--brown); }
+
+    .tab-btn.active {
+      color: var(--espresso);
+      font-weight: 600;
+      border-bottom-color: var(--caramel);
+    }
+
+    .tab-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--card);
+      color: var(--mocha);
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: 10px;
+      padding: 1px 7px;
+      margin-left: 7px;
+    }
+
+    .tab-btn.active .tab-count {
+      background: rgba(196,123,58,0.15);
+      color: var(--caramel);
+    }
+
+    .tab-content { display: none; padding: 28px 32px 32px; }
+    .tab-content.active { display: block; }
+
+    /* Write a review */
+    .write-review-bar {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 28px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      cursor: text;
+    }
+
+    .write-review-bar:hover {
+      border-color: var(--caramel);
+      box-shadow: 0 0 0 3px rgba(196,123,58,0.08);
+    }
+
+    .reviewer-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--card);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      color: var(--mocha);
+      flex-shrink: 0;
+      font-weight: 600;
+      font-family: 'Playfair Display', serif;
+      overflow: hidden;
+    }
+
+    .write-review-placeholder {
+      flex: 1;
+      font-size: 14px;
+      color: var(--mocha);
+    }
+
+    .write-review-stars {
+      display: flex;
+      gap: 3px;
+    }
+
+    .write-review-stars i {
+      font-size: 14px;
+      color: var(--border);
+      cursor: pointer;
+      transition: color 0.15s, transform 0.15s;
+    }
+
+    .write-review-stars i:hover { color: var(--caramel); transform: scale(1.2); }
+
+    .btn-review-submit {
+      padding: 8px 18px;
+      border-radius: 8px;
+      border: 1.5px solid var(--caramel);
+      background: var(--caramel);
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: background 0.2s, transform 0.15s;
+      white-space: nowrap;
+    }
+
+    .btn-review-submit:hover { background: #b36b2c; transform: translateY(-1px); }
+
+    /* Review cards */
+    .review-list { display: flex; flex-direction: column; gap: 20px; }
+
+    .review-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 22px;
+      transition: box-shadow 0.2s;
+    }
+
+    .review-card:hover { box-shadow: 0 4px 16px var(--shadow); }
+
+    .review-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .review-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 2px solid var(--border);
+    }
+
+    .review-avatar-placeholder {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--card);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--mocha);
+      flex-shrink: 0;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .review-user-meta { flex: 1; }
+
+    .review-username {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--espresso);
+    }
+
+    .review-date {
+      font-size: 12px;
+      color: var(--mocha);
+      margin-top: 1px;
+    }
+
+    .review-stars { display: flex; gap: 2px; }
+    .review-stars i { font-size: 12px; color: var(--caramel); }
+
+    .review-brew-method {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--mocha);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 3px 10px;
+      margin-left: auto;
+    }
+
+    .review-text {
+      font-size: 14px;
+      color: var(--brown);
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+
+    .review-footer {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .review-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      color: var(--mocha);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .review-action:hover { color: var(--brown); background: var(--card); }
+    .review-action i { font-size: 12px; }
+
+    .review-helpful {
+      font-size: 12px;
+      color: var(--mocha);
+      margin-left: auto;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar { display: flex; flex-direction: column; gap: 20px; }
+
+    .sidebar-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: 0 2px 12px var(--shadow);
+    }
+
+    .bean-image-placeholder {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .bean-image-placeholder img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .price-amount {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--espresso);
+    }
+
+    .price-unit {
+      font-size: 13px;
+      color: var(--mocha);
+    }
+
+    .price-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #3a7a3a;
+      background: #EEF7EE;
+      border: 1px solid #c3e0c3;
+      border-radius: 20px;
+      padding: 3px 9px;
+      margin-left: auto;
+    }
+
+    .btn-add-collection {
+      width: 100%;
+      padding: 13px;
+      border-radius: 10px;
+      border: none;
+      background: var(--caramel);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+      margin-bottom: 10px;
+    }
+
+    .btn-add-collection:hover {
+      background: #b36b2c;
+      box-shadow: 0 6px 18px rgba(196,123,58,0.3);
+      transform: translateY(-1px);
+    }
+
+    .btn-add-collection i { font-size: 14px; }
+
+    .btn-buy-link {
+      width: 100%;
+      padding: 11px;
+      border-radius: 10px;
+      border: 1.5px solid var(--border);
+      background: transparent;
+      color: var(--espresso);
+      font-family: 'Inter', sans-serif;
+      font-size: 13.5px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+
+    .btn-buy-link:hover {
+      border-color: var(--brown);
+      color: var(--brown);
+      background: var(--card);
+    }
+
+    .action-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .action-btn {
+      flex: 1;
+      height: 40px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border);
+      background: var(--bg);
+      color: var(--mocha);
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12.5px;
+      font-weight: 500;
+      transition: border-color 0.2s, color 0.2s, background 0.2s, transform 0.15s;
+    }
+
+    .action-btn:hover {
+      border-color: var(--caramel);
+      color: var(--caramel);
+      background: rgba(196,123,58,0.06);
+      transform: translateY(-1px);
+    }
+
+    .sidebar-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 16px 0;
+    }
+
+    .sidebar-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--mocha);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 12px;
+    }
+
+    .brew-methods-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .brew-chip {
+      padding: 5px 13px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      background: var(--card);
+      color: var(--mocha);
+      border: 1px solid var(--border);
+      cursor: default;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .brew-chip:hover { background: var(--border); color: var(--brown); }
+
+    .roaster-mini {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 8px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      text-decoration: none;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+
+    .roaster-mini:hover {
+      background: var(--card);
+      box-shadow: 0 2px 8px var(--shadow);
+    }
+
+    .roaster-mini-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+    }
+
+    .roaster-mini-info { flex: 1; min-width: 0; }
+
+    .roaster-mini-name {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--espresso);
+    }
+
+    .roaster-mini-loc {
+      font-size: 12px;
+      color: var(--mocha);
+      margin-top: 1px;
+    }
+
+    .roaster-mini-arrow {
+      color: var(--mocha);
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    /* Recipes tab placeholder */
+    .recipes-placeholder {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .recipes-placeholder i {
+      font-size: 36px;
+      color: var(--border);
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .recipes-placeholder p {
+      font-size: 14px;
+      color: var(--mocha);
+      line-height: 1.6;
+    }
+
+    .recipes-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .recipe-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 18px;
+      cursor: pointer;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .recipe-card:hover {
+      box-shadow: 0 4px 16px var(--shadow);
+      transform: translateY(-2px);
+    }
+
+    .recipe-method {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--espresso);
+      margin-bottom: 4px;
+    }
+
+    .recipe-author {
+      font-size: 11.5px;
+      color: var(--mocha);
+    }
+
+    .recipe-stats {
+      display: flex;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .recipe-stat {
+      font-size: 11px;
+      color: var(--mocha);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .page-wrap { padding: 24px 28px 48px; }
+      .content-grid { grid-template-columns: 1fr 280px; gap: 20px; }
+      .specs-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 900px) {
+      .content-grid { grid-template-columns: 1fr; }
+      .bean-main-name { font-size: 32px; }
+      .nav-links { display: none; }
+    }
+
+    @media (max-width: 600px) {
+      .page-wrap { padding: 16px 16px 40px; }
+      .bean-header-card { padding: 24px 20px; }
+      .bean-main-name { font-size: 26px; }
+      .specs-grid { grid-template-columns: 1fr 1fr; }
+      .nav-inner { padding: 0 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVIGATION ── -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <div class="nav-logo-icon">
+          <i class="fas fa-coffee"></i>
+        </div>
+        <span class="nav-logo-text">Grounded</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#">Discover</a></li>
+        <li><a href="#" class="active">Roasters</a></li>
+        <li><a href="#">Recipes</a></li>
+        <li><a href="#">Community</a></li>
+      </ul>
+      <div class="nav-right">
+        <button class="btn-icon" title="Search"><i class="fas fa-search"></i></button>
+        <button class="btn-ghost">Log In</button>
+        <button class="btn-cta">Join Free</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── PAGE ── -->
+  <div class="page-wrap">
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="#">Roasters</a>
+      <i class="fas fa-chevron-right breadcrumb-sep"></i>
+      <a href="#">Onyx Coffee Lab</a>
+      <i class="fas fa-chevron-right breadcrumb-sep"></i>
+      <span class="breadcrumb-current">Ethiopia Bishan Beke</span>
+    </nav>
+
+    <!-- Main content grid -->
+    <div class="content-grid">
+
+      <!-- ── LEFT COLUMN ── -->
+      <div class="left-col">
+
+        <!-- Bean Header -->
+        <div class="bean-header-card">
+          <a href="#" class="bean-roastery-link">
+            <i class="fas fa-store"></i>
+            Onyx Coffee Lab
+          </a>
+          <h1 class="bean-main-name">Ethiopia Bishan Beke</h1>
+          <div class="bean-meta-row">
+            <div class="rating-block">
+              <div class="stars-large">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+              <span class="rating-score">4.9</span>
+              <span class="rating-reviews">· 47 reviews</span>
+            </div>
+            <div class="bean-meta-divider"></div>
+            <span class="bean-roast-badge">
+              <i class="fas fa-fire-alt" style="font-size:11px;"></i>
+              Light Roast
+            </span>
+            <span class="bean-origin-badge">
+              🇪🇹 Ethiopia · Gedeo Zone
+            </span>
+          </div>
+        </div>
+
+        <!-- Specs Dashboard -->
+        <div class="specs-card">
+          <div class="specs-title">
+            Specs
+            <div class="specs-title-line"></div>
+          </div>
+          <div class="specs-grid">
+            <div class="spec-item">
+              <div class="spec-icon-label"><span class="spec-emoji">🌍</span> Origin</div>
+              <div class="spec-value">Ethiopia</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-icon-label"><span class="spec-emoji">🏔️</span> Region</div>
+              <div class="spec-value">Yirgacheffe</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-icon-label"><span class="spec-emoji">🌱</span> Variety</div>
+              <div class="spec-value">Heirloom</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-icon-label"><span class="spec-emoji">⚙️</span> Process</div>
+              <div class="spec-value">Natural</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-icon-label"><span class="spec-emoji">📊</span> Roast</div>
+              <div class="spec-value">Light</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-icon-label"><span class="spec-emoji">🎯</span> Purpose</div>
+              <div class="spec-value">Filter</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-icon-label"><span class="spec-emoji">🔥</span> Roast Date</div>
+              <div class="spec-value">Jun 12, 2025</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-icon-label"><span class="spec-emoji">🛒</span> Purchased</div>
+              <div class="spec-value">Jun 20, 2025</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-icon-label"><span class="spec-emoji">🏕️</span> Altitude</div>
+              <div class="spec-value">1900–2200m</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Flavor Notes -->
+        <div class="flavor-card">
+          <div class="flavor-title">
+            <i class="fas fa-palette" style="color:var(--caramel); font-size:16px;"></i>
+            Tasting Notes
+          </div>
+          <div class="flavor-pills">
+            <span class="flavor-pill flavor-blueberry">Blueberry</span>
+            <span class="flavor-pill flavor-chocolate">Dark Chocolate</span>
+            <span class="flavor-pill flavor-jasmine">Jasmine</span>
+            <span class="flavor-pill flavor-brown-sugar">Brown Sugar</span>
+            <span class="flavor-pill flavor-stone-fruit">Stone Fruit</span>
+          </div>
+
+          <!-- Intensity bars -->
+          <div class="intensity-grid">
+            <div class="intensity-row">
+              <div class="intensity-label-row">
+                <span class="intensity-label">Acidity</span>
+                <span class="intensity-val">8 / 10</span>
+              </div>
+              <div class="intensity-bar-bg">
+                <div class="intensity-bar-fill" style="width: 80%;"></div>
+              </div>
+            </div>
+            <div class="intensity-row">
+              <div class="intensity-label-row">
+                <span class="intensity-label">Sweetness</span>
+                <span class="intensity-val">9 / 10</span>
+              </div>
+              <div class="intensity-bar-bg">
+                <div class="intensity-bar-fill" style="width: 90%;"></div>
+              </div>
+            </div>
+            <div class="intensity-row">
+              <div class="intensity-label-row">
+                <span class="intensity-label">Body</span>
+                <span class="intensity-val">5 / 10</span>
+              </div>
+              <div class="intensity-bar-bg">
+                <div class="intensity-bar-fill" style="width: 50%;"></div>
+              </div>
+            </div>
+            <div class="intensity-row">
+              <div class="intensity-label-row">
+                <span class="intensity-label">Complexity</span>
+                <span class="intensity-val">9 / 10</span>
+              </div>
+              <div class="intensity-bar-bg">
+                <div class="intensity-bar-fill" style="width: 90%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Community Section -->
+        <div class="community-card">
+          <div class="tab-switcher">
+            <button class="tab-btn active" data-tab="reviews">
+              Reviews <span class="tab-count">47</span>
+            </button>
+            <button class="tab-btn" data-tab="recipes">
+              Recipes <span class="tab-count">23</span>
+            </button>
+          </div>
+
+          <!-- Reviews Tab -->
+          <div class="tab-content active" id="tab-reviews">
+
+            <!-- Write a review -->
+            <div class="write-review-bar">
+              <div class="reviewer-avatar">J</div>
+              <div class="write-review-placeholder">Share your experience with this bean…</div>
+              <div class="write-review-stars">
+                <i class="far fa-star" title="1 star"></i>
+                <i class="far fa-star" title="2 stars"></i>
+                <i class="far fa-star" title="3 stars"></i>
+                <i class="far fa-star" title="4 stars"></i>
+                <i class="far fa-star" title="5 stars"></i>
+              </div>
+              <button class="btn-review-submit">Post Review</button>
+            </div>
+
+            <!-- Reviews -->
+            <div class="review-list">
+
+              <!-- Review 1 -->
+              <div class="review-card">
+                <div class="review-header">
+                  <img class="review-avatar" src="coffee_enthusiast_portrait_sarah_m.jpg" alt="Portrait of Sarah M, a coffee enthusiast reviewer, smiling warmly" width="40" height="40">
+                  <div class="review-user-meta">
+                    <div class="review-username">Sarah M.</div>
+                    <div class="review-date">June 24, 2025</div>
+                  </div>
+                  <div class="review-stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                  </div>
+                  <span class="review-brew-method">
+                    <i class="fas fa-filter" style="font-size:10px;"></i> V60
+                  </span>
+                </div>
+                <p class="review-text">
+                  Absolutely stunning cup. The blueberry notes are pronounced and genuine — not that artificial fruit-forward thing some naturals can get. Brewed as a pourover at 93°C and it sang. The jasmine comes through in the finish in the most delicate way. One of the best Ethiopians I've had this year, full stop.
+                </p>
+                <div class="review-footer">
+                  <button class="review-action"><i class="fas fa-thumbs-up"></i> Helpful (12)</button>
+                  <button class="review-action"><i class="fas fa-reply"></i> Reply</button>
+                  <span class="review-helpful">12 people found this helpful</span>
+                </div>
+              </div>
+
+              <!-- Review 2 -->
+              <div class="review-card">
+                <div class="review-header">
+                  <div class="review-avatar-placeholder">T</div>
+                  <div class="review-user-meta">
+                    <div class="review-username">Tom K.</div>
+                    <div class="review-date">June 21, 2025</div>
+                  </div>
+                  <div class="review-stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                  </div>
+                  <span class="review-brew-method">
+                    <i class="fas fa-tint" style="font-size:10px;"></i> Chemex
+                  </span>
+                </div>
+                <p class="review-text">
+                  Really impressive. I got the dark chocolate notes on the front, then a wave of dried stone fruit in the mid-palate. Slightly high acidity for my usual preference but I'd absolutely buy again — especially for slow mornings when I want something complex. The 8-day rest from roast date was the sweet spot for me.
+                </p>
+                <div class="review-footer">
+                  <button class="review-action"><i class="fas fa-thumbs-up"></i> Helpful (7)</button>
+                  <button class="review-action"><i class="fas fa-reply"></i> Reply</button>
+                  <span class="review-helpful">7 people found this helpful</span>
+                </div>
+              </div>
+
+              <!-- Review 3 -->
+              <div class="review-card">
+                <div class="review-header">
+                  <img class="review-avatar" src="coffee_reviewer_portrait_maya_r.jpg" alt="Portrait of Maya R, a specialty coffee reviewer with short dark hair" width="40" height="40">
+                  <div class="review-user-meta">
+                    <div class="review-username">Maya R.</div>
+                    <div class="review-date">June 18, 2025</div>
+                  </div>
+                  <div class="review-stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                  </div>
+                  <span class="review-brew-method">
+                    <i class="fas fa-mug-hot" style="font-size:10px;"></i> Aeropress
+                  </span>
+                </div>
+                <p class="review-text">
+                  I've had the Bishan Beke from two other roasters and Onyx's interpretation is my favourite. The natural process really shines here — super clean despite the fermented sweetness. Brewed Aeropress inverted at a 1:14 ratio and got what felt like warm berry juice with a caramel finish. Exceptional transparency from Onyx as always.
+                </p>
+                <div class="review-footer">
+                  <button class="review-action"><i class="fas fa-thumbs-up"></i> Helpful (19)</button>
+                  <button class="review-action"><i class="fas fa-reply"></i> Reply</button>
+                  <span class="review-helpful">19 people found this helpful</span>
+                </div>
+              </div>
+
+            </div>
+
+            <div style="display:flex; justify-content:center; margin-top:24px;">
+              <button class="btn-ghost" style="padding:10px 28px; font-size:13.5px;">
+                Load more reviews <i class="fas fa-arrow-down" style="font-size:11px; margin-left:6px;"></i>
+              </button>
+            </div>
+
+          </div>
+
+          <!-- Recipes Tab -->
+          <div class="tab-content" id="tab-recipes">
+            <div class="recipes-grid">
+
+              <div class="recipe-card">
+                <div class="recipe-method">V60 Pourover</div>
+                <div class="recipe-author">by <strong>Sarah M.</strong></div>
+                <div class="recipe-stats">
+                  <span class="recipe-stat"><i class="fas fa-weight" style="color:var(--caramel);"></i> 20g</span>
+                  <span class="recipe-stat"><i class="fas fa-tint" style="color:var(--caramel);"></i> 300ml</span>
+                  <span class="recipe-stat"><i class="fas fa-thermometer-half" style="color:var(--caramel);"></i> 93°C</span>
+                </div>
+              </div>
+
+              <div class="recipe-card">
+                <div class="recipe-method">Aeropress Inverted</div>
+                <div class="recipe-author">by <strong>Maya R.</strong></div>
+                <div class="recipe-stats">
+                  <span class="recipe-stat"><i class="fas fa-weight" style="color:var(--caramel);"></i> 18g</span>
+                  <span class="recipe-stat"><i class="fas fa-tint" style="color:var(--caramel);"></i> 252ml</span>
+                  <span class="recipe-stat"><i class="fas fa-thermometer-half" style="color:var(--caramel);"></i> 91°C</span>
+                </div>
+              </div>
+
+              <div class="recipe-card">
+                <div class="recipe-method">Chemex 6-Cup</div>
+                <div class="recipe-author">by <strong>Tom K.</strong></div>
+                <div class="recipe-stats">
+                  <span class="recipe-stat"><i class="fas fa-weight" style="color:var(--caramel);"></i> 35g</span>
+                  <span class="recipe-stat"><i class="fas fa-tint" style="color:var(--caramel);"></i> 525ml</span>
+                  <span class="recipe-stat"><i class="fas fa-thermometer-half" style="color:var(--caramel);"></i> 94°C</span>
+                </div>
+              </div>
+
+              <div class="recipe-card">
+                <div class="recipe-method">Kalita Wave</div>
+                <div class="recipe-author">by <strong>Priya L.</strong></div>
+                <div class="recipe-stats">
+                  <span class="recipe-stat"><i class="fas fa-weight" style="color:var(--caramel);"></i> 22g</span>
+                  <span class="recipe-stat"><i class="fas fa-tint" style="color:var(--caramel);"></i> 352ml</span>
+                  <span class="recipe-stat"><i class="fas fa-thermometer-half" style="color:var(--caramel);"></i> 92°C</span>
+                </div>
+              </div>
+
+            </div>
+
+            <div style="display:flex; justify-content:center; margin-top:24px;">
+              <button class="btn-cta" style="padding:10px 28px;">
+                <i class="fas fa-plus" style="font-size:12px; margin-right:6px;"></i>
+                Add Your Recipe
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ── SIDEBAR ── -->
+      <aside class="sidebar">
+
+        <!-- Bean image + CTA card -->
+        <div class="sidebar-card">
+          <div class="bean-image-placeholder">
+            <img src="ethiopia_bishan_beke_coffee_bag.jpg" alt="Onyx Coffee Lab Ethiopia Bishan Beke coffee bag — a clean, minimal matte white bag with dark espresso typography and a small origin stamp, on a warm cream background" width="272" height="272">
+          </div>
+
+          <div class="price-row">
+            <span class="price-amount">$22</span>
+            <span class="price-unit">/ 250g bag</span>
+            <span class="price-badge"><i class="fas fa-check-circle" style="font-size:9px;"></i> In Stock</span>
+          </div>
+
+          <button class="btn-add-collection" id="btn-collect">
+            <i class="fas fa-plus-circle"></i>
+            Add to My Collection
+          </button>
+
+          <button class="btn-buy-link">
+            <i class="fas fa-external-link-alt" style="font-size:12px;"></i>
+            Buy from Onyx Coffee Lab
+          </button>
+
+          <div class="action-row">
+            <button class="action-btn" id="btn-bookmark">
+              <i class="far fa-bookmark"></i>
+              Save
+            </button>
+            <button class="action-btn" id="btn-share">
+              <i class="fas fa-share-alt"></i>
+              Share
+            </button>
+            <button class="action-btn">
+              <i class="fas fa-ellipsis-h"></i>
+              More
+            </button>
+          </div>
+        </div>
+
+        <!-- Brew Methods -->
+        <div class="sidebar-card">
+          <div class="sidebar-label">Recommended Brew Methods</div>
+          <div class="brew-methods-row">
+            <span class="brew-chip">V60</span>
+            <span class="brew-chip">Chemex</span>
+            <span class="brew-chip">Aeropress</span>
+            <span class="brew-chip">Kalita Wave</span>
+            <span class="brew-chip">Batch Brew</span>
+          </div>
+
+          <div class="sidebar-divider"></div>
+
+          <div class="sidebar-label">Grind Recommendation</div>
+          <div style="background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+              <span style="font-size:11px; color:var(--mocha); font-weight:600; text-transform:uppercase; letter-spacing:0.4px;">Setting</span>
+              <span style="font-size:13px; font-weight:700; color:var(--espresso);">Medium-Fine</span>
+            </div>
+            <div style="position:relative; height:6px; background:linear-gradient(90deg, #E8DDD4 0%, #C47B3A 55%, #3B1F0E 100%); border-radius:20px;">
+              <div style="position:absolute; left:38%; top:50%; transform:translate(-50%,-50%); width:14px; height:14px; background:var(--white); border:2.5px solid var(--caramel); border-radius:50%; box-shadow:0 2px 6px rgba(196,123,58,0.3);"></div>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-top:6px;">
+              <span style="font-size:10px; color:var(--mocha);">Fine</span>
+              <span style="font-size:10px; color:var(--mocha);">Coarse</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Roaster card -->
+        <div class="sidebar-card">
+          <div class="sidebar-label">Roasted By</div>
+          <a href="#" class="roaster-mini">
+            <img class="roaster-mini-avatar" src="onyx_coffee_lab_logo_small.png" alt="Onyx Coffee Lab small logo avatar on a cream background" width="42" height="42">
+            <div class="roaster-mini-info">
+              <div class="roaster-mini-name">Onyx Coffee Lab</div>
+              <div class="roaster-mini-loc">Rogers, Arkansas · Est. 2012</div>
+            </div>
+            <i class="fas fa-chevron-right roaster-mini-arrow"></i>
+          </a>
+
+          <div style="display:flex; gap:16px; margin-top:14px; padding-top:14px; border-top:1px solid var(--border);">
+            <div style="text-align:center; flex:1;">
+              <div style="font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:var(--espresso);">12</div>
+              <div style="font-size:11px; color:var(--mocha); text-transform:uppercase; letter-spacing:0.4px; font-weight:600; margin-top:2px;">Beans</div>
+            </div>
+            <div style="width:1px; background:var(--border);"></div>
+            <div style="text-align:center; flex:1;">
+              <div style="font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:var(--espresso);">4.8</div>
+              <div style="font-size:11px; color:var(--mocha); text-transform:uppercase; letter-spacing:0.4px; font-weight:600; margin-top:2px; display:flex; align-items:center; gap:3px; justify-content:center;"><i class="fas fa-star" style="color:var(--caramel); font-size:10px;"></i> Avg</div>
+            </div>
+            <div style="width:1px; background:var(--border);"></div>
+            <div style="text-align:center; flex:1;">
+              <div style="font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:var(--espresso);">847</div>
+              <div style="font-size:11px; color:var(--mocha); text-transform:uppercase; letter-spacing:0.4px; font-weight:600; margin-top:2px;">Followers</div>
+            </div>
+          </div>
+        </div>
+
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    // Tab switching
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        document.getElementById('tab-' + this.dataset.tab).classList.add('active');
+      });
+    });
+
+    // Star hover in write-review
+    const reviewStars = document.querySelectorAll('.write-review-stars i');
+    reviewStars.forEach((star, idx) => {
+      star.addEventListener('mouseover', () => {
+        reviewStars.forEach((s, i) => {
+          s.className = i <= idx ? 'fas fa-star' : 'far fa-star';
+          s.style.color = i <= idx ? 'var(--caramel)' : 'var(--border)';
+        });
+      });
+      star.addEventListener('click', () => {
+        reviewStars.forEach((s, i) => {
+          s.dataset.selected = i <= idx ? 'true' : 'false';
+        });
+      });
+    });
+
+    document.querySelector('.write-review-stars').addEventListener('mouseleave', () => {
+      reviewStars.forEach(s => {
+        if (s.dataset.selected !== 'true') {
+          s.className = 'far fa-star';
+          s.style.color = '';
+        }
+      });
+    });
+
+    // Add to collection button
+    const btnCollect = document.getElementById('btn-collect');
+    btnCollect.addEventListener('click', function () {
+      if (this.dataset.added) {
+        this.innerHTML = '<i class="fas fa-plus-circle"></i> Add to My Collection';
+        this.style.background = '';
+        delete this.dataset.added;
+      } else {
+        this.innerHTML = '<i class="fas fa-check-circle"></i> In My Collection';
+        this.style.background = '#3a7a3a';
+        this.dataset.added = 'true';
+      }
+    });
+
+    // Bookmark toggle
+    const btnBookmark = document.getElementById('btn-bookmark');
+    btnBookmark.addEventListener('click', function () {
+      const icon = this.querySelector('i');
+      if (icon.classList.contains('far')) {
+        icon.classList.replace('far', 'fas');
+        icon.style.color = 'var(--caramel)';
+        this.querySelector('i').nextSibling.textContent = ' Saved';
+      } else {
+        icon.classList.replace('fas', 'far');
+        icon.style.color = '';
+        this.querySelector('i').nextSibling.textContent = ' Save';
+      }
+    });
+
+    // Review helpful buttons
+    document.querySelectorAll('.review-action').forEach(btn => {
+      if (btn.innerHTML.includes('Helpful')) {
+        btn.addEventListener('click', function () {
+          if (!this.dataset.voted) {
+            const match = this.innerHTML.match(/\((\d+)\)/);
+            if (match) {
+              const newCount = parseInt(match[1]) + 1;
+              this.innerHTML = `<i class="fas fa-thumbs-up"></i> Helpful (${newCount})`;
+              this.style.color = 'var(--caramel)';
+              this.dataset.voted = 'true';
+            }
+          }
+        });
+      }
+    });
+
+    // Scroll-in animation for cards
+    const animItems = document.querySelectorAll('.bean-header-card, .specs-card, .flavor-card, .community-card');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }, i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.05 });
+
+    animItems.forEach(item => {
+      item.style.opacity = '0';
+      item.style.transform = 'translateY(14px)';
+      item.style.transition = 'opacity 0.45s ease, transform 0.45s ease, box-shadow 0.2s ease';
+      observer.observe(item);
+    });
+  </script>
+
+
+</body></html>

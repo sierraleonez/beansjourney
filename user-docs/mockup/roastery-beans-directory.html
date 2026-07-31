@@ -1,0 +1,1268 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grounded — Onyx Coffee Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #FAF7F2;
+      --card: #F0E8DC;
+      --espresso: #3B1F0E;
+      --brown: #5C3317;
+      --caramel: #C47B3A;
+      --mocha: #7A6152;
+      --border: #E8DDD4;
+      --white: #ffffff;
+      --shadow: rgba(59,31,14,0.08);
+      --shadow-hover: rgba(59,31,14,0.15);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--espresso);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: 68px;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-inner {
+      max-width: 1728px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 48px;
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .nav-logo-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--brown);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-logo-icon i {
+      color: var(--caramel);
+      font-size: 15px;
+    }
+
+    .nav-logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--espresso);
+      letter-spacing: -0.3px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-left: 48px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--mocha);
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--brown); background: var(--card); }
+    .nav-links a.active { color: var(--espresso); font-weight: 600; }
+
+    .nav-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      border: none;
+      background: transparent;
+      color: var(--mocha);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .btn-icon:hover { color: var(--brown); background: var(--card); }
+
+    .btn-ghost {
+      padding: 8px 20px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border);
+      background: transparent;
+      color: var(--espresso);
+      font-family: 'Inter', sans-serif;
+      font-size: 13.5px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
+    }
+
+    .btn-ghost:hover { border-color: var(--brown); color: var(--brown); background: var(--card); }
+
+    .btn-cta {
+      padding: 8px 22px;
+      border-radius: 8px;
+      border: 1.5px solid var(--caramel);
+      background: var(--caramel);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+    }
+
+    .btn-cta:hover {
+      background: #b36b2c;
+      border-color: #b36b2c;
+      box-shadow: 0 4px 12px rgba(196,123,58,0.3);
+      transform: translateY(-1px);
+    }
+
+    /* ── LAYOUT ── */
+    .page-wrap {
+      max-width: 1728px;
+      margin: 0 auto;
+      padding: 36px 48px 60px;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      grid-template-rows: auto auto auto;
+      gap: 0 28px;
+    }
+
+    /* ── ROASTERY CARD ── */
+    .roastery-card {
+      grid-column: 1 / 2;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 2px 16px var(--shadow);
+      overflow: hidden;
+      margin-bottom: 28px;
+    }
+
+    .roastery-banner {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .roastery-body {
+      padding: 32px 40px 36px;
+    }
+
+    .roastery-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 28px;
+      margin-bottom: 24px;
+    }
+
+    .roastery-avatar {
+      width: 88px;
+      height: 88px;
+      border-radius: 16px;
+      border: 3px solid var(--white);
+      box-shadow: 0 4px 16px var(--shadow);
+      object-fit: cover;
+      flex-shrink: 0;
+      margin-top: -52px;
+      background: var(--card);
+    }
+
+    .roastery-meta { flex: 1; }
+
+    .roastery-name-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .roastery-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--espresso);
+      line-height: 1.15;
+    }
+
+    .badge-verified {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #EEF7EE;
+      color: #3a7a3a;
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid #c3e0c3;
+    }
+
+    .roastery-location {
+      font-size: 14px;
+      color: var(--mocha);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .roastery-founded {
+      font-size: 13px;
+      color: var(--mocha);
+      font-weight: 400;
+    }
+
+    .roastery-bio {
+      font-size: 15px;
+      color: var(--brown);
+      line-height: 1.7;
+      margin-bottom: 20px;
+      max-width: 800px;
+    }
+
+    .roastery-contact-row {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 13px;
+      color: var(--mocha);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .contact-link:hover { color: var(--caramel); }
+    .contact-link i { font-size: 13px; }
+
+    .contact-divider {
+      width: 1px;
+      height: 16px;
+      background: var(--border);
+    }
+
+    .social-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .social-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      background: var(--bg);
+      color: var(--mocha);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s;
+      text-decoration: none;
+    }
+
+    .social-btn:hover {
+      background: var(--caramel);
+      color: var(--white);
+      border-color: var(--caramel);
+      transform: translateY(-2px);
+    }
+
+    /* ── STATS ROW ── */
+    .stats-row {
+      display: flex;
+      align-items: stretch;
+      border-top: 1px solid var(--border);
+      margin-top: 24px;
+      padding-top: 24px;
+      gap: 0;
+    }
+
+    .stat-item {
+      flex: 1;
+      text-align: center;
+      padding: 0 20px;
+      position: relative;
+    }
+
+    .stat-item + .stat-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 10%;
+      height: 80%;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .stat-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--espresso);
+      line-height: 1.2;
+    }
+
+    .stat-label {
+      font-size: 12.5px;
+      color: var(--mocha);
+      font-weight: 500;
+      margin-top: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .stat-stars {
+      color: var(--caramel);
+      font-size: 12px;
+      margin-top: 2px;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      grid-column: 2 / 3;
+      grid-row: 1 / 4;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .sidebar-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 2px 12px var(--shadow);
+    }
+
+    .sidebar-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--espresso);
+      margin-bottom: 18px;
+    }
+
+    .roaster-list { display: flex; flex-direction: column; gap: 14px; }
+
+    .roaster-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .roaster-item:hover { background: var(--bg); }
+
+    .roaster-rank {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--mocha);
+      width: 16px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .roaster-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .roaster-info { flex: 1; min-width: 0; }
+
+    .roaster-name {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--espresso);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .roaster-location {
+      font-size: 11.5px;
+      color: var(--mocha);
+      margin-top: 1px;
+    }
+
+    .roaster-rating {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--espresso);
+      flex-shrink: 0;
+    }
+
+    .roaster-rating i { color: var(--caramel); font-size: 11px; }
+
+    .trending-list { display: flex; flex-direction: column; gap: 12px; }
+
+    .trending-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .trending-item:hover { background: var(--bg); }
+
+    .trending-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--border);
+      width: 24px;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .trending-info { flex: 1; min-width: 0; }
+
+    .trending-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--espresso);
+      line-height: 1.3;
+    }
+
+    .trending-roaster {
+      font-size: 11.5px;
+      color: var(--mocha);
+      margin-top: 2px;
+    }
+
+    .trending-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--caramel);
+      background: rgba(196,123,58,0.1);
+      border-radius: 20px;
+      padding: 3px 9px;
+      flex-shrink: 0;
+    }
+
+    /* ── BEANS SECTION ── */
+    .beans-section { grid-column: 1 / 2; }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--espresso);
+    }
+
+    .section-count {
+      font-size: 13px;
+      color: var(--mocha);
+      font-weight: 400;
+      margin-left: 10px;
+    }
+
+    .filter-chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .chip {
+      padding: 7px 18px;
+      border-radius: 20px;
+      border: 1.5px solid var(--border);
+      background: var(--white);
+      color: var(--mocha);
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .chip:hover { border-color: var(--caramel); color: var(--caramel); background: rgba(196,123,58,0.06); }
+
+    .chip.active {
+      background: var(--caramel);
+      border-color: var(--caramel);
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    /* ── BEAN GRID ── */
+    .beans-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .bean-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px;
+      box-shadow: 0 2px 10px var(--shadow);
+      cursor: pointer;
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .bean-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 28px var(--shadow-hover);
+    }
+
+    .bean-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .bean-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--espresso);
+      line-height: 1.3;
+      flex: 1;
+    }
+
+    .roast-pill {
+      flex-shrink: 0;
+      padding: 4px 11px;
+      border-radius: 20px;
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    .roast-light { background: #FEF5E7; color: #C47B3A; border: 1px solid #F5DEB3; }
+    .roast-medium { background: #F9EDE0; color: #8B4513; border: 1px solid #DEB887; }
+    .roast-dark { background: #F0E6E0; color: #5C3317; border: 1px solid #C4A882; }
+
+    .bean-origin {
+      font-size: 13px;
+      color: var(--mocha);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 500;
+    }
+
+    .bean-origin-flag { font-size: 16px; }
+
+    .flavor-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .flavor-tag {
+      padding: 3px 10px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      font-size: 11.5px;
+      color: var(--mocha);
+      font-weight: 500;
+    }
+
+    .bean-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+    }
+
+    .bean-rating {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .stars {
+      display: flex;
+      gap: 2px;
+    }
+
+    .stars i {
+      font-size: 12px;
+      color: var(--caramel);
+    }
+
+    .rating-num {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--espresso);
+    }
+
+    .rating-count {
+      font-size: 12px;
+      color: var(--mocha);
+    }
+
+    .btn-add {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      border: 1.5px solid var(--caramel);
+      background: transparent;
+      color: var(--caramel);
+      font-size: 20px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 300;
+      transition: background 0.2s, color 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+
+    .btn-add:hover {
+      background: var(--caramel);
+      color: var(--white);
+      transform: scale(1.1);
+      box-shadow: 0 4px 10px rgba(196,123,58,0.3);
+    }
+
+    .bean-card-divider {
+      height: 1px;
+      background: var(--border);
+      display: none;
+    }
+
+    /* ── VIEW MORE ── */
+    .view-more-row {
+      display: flex;
+      justify-content: center;
+      margin-top: 28px;
+    }
+
+    .btn-view-more {
+      padding: 11px 32px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border);
+      background: var(--white);
+      color: var(--espresso);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: border-color 0.2s, color 0.2s, background 0.2s, transform 0.15s;
+    }
+
+    .btn-view-more:hover {
+      border-color: var(--caramel);
+      color: var(--caramel);
+      background: rgba(196,123,58,0.05);
+      transform: translateY(-1px);
+    }
+
+    /* ── ACTIVE FILTER ── */
+    .chip.active:hover {
+      background: #b36b2c;
+      border-color: #b36b2c;
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .page-wrap { padding: 28px 28px 48px; gap: 0 20px; grid-template-columns: 1fr 280px; }
+      .beans-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 900px) {
+      .page-wrap { grid-template-columns: 1fr; }
+      .sidebar { grid-column: 1; grid-row: auto; }
+      .beans-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav-links { display: none; }
+    }
+
+    @media (max-width: 600px) {
+      .page-wrap { padding: 16px 16px 40px; }
+      .beans-grid { grid-template-columns: 1fr; }
+      .roastery-body { padding: 20px; }
+      .roastery-name { font-size: 24px; }
+      .nav-inner { padding: 0 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVIGATION ── -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <div class="nav-logo-icon">
+          <i class="fas fa-coffee"></i>
+        </div>
+        <span class="nav-logo-text">Grounded</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#">Discover</a></li>
+        <li><a href="#" class="active">Roasters</a></li>
+        <li><a href="#">Recipes</a></li>
+        <li><a href="#">Community</a></li>
+      </ul>
+      <div class="nav-right">
+        <button class="btn-icon" title="Search"><i class="fas fa-search"></i></button>
+        <button class="btn-ghost">Log In</button>
+        <button class="btn-cta">Join Free</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── PAGE ── -->
+  <div class="page-wrap">
+
+    <!-- ── ROASTERY CARD ── -->
+    <div class="roastery-card">
+      <img class="roastery-banner" src="onyx_coffee_lab_banner.jpg" alt="A warm, atmospheric coffee roastery interior with exposed brick walls, large vintage roasting equipment, burlap coffee sacks, and golden afternoon light streaming through tall windows creating a rich amber glow" width="1360" height="200">
+      <div class="roastery-body">
+        <div class="roastery-top">
+          <img class="roastery-avatar" src="onyx_coffee_lab_logo.png" alt="Onyx Coffee Lab logo mark — a sleek geometric onyx gem icon on a warm cream background" width="88" height="88">
+          <div class="roastery-meta">
+            <div class="roastery-name-row">
+              <span class="roastery-name">Onyx Coffee Lab</span>
+              <span class="badge-verified">
+                <i class="fas fa-check-circle" style="font-size:11px;"></i>
+                Verified Roaster
+              </span>
+            </div>
+            <div class="roastery-location">
+              <span>📍</span>
+              <span>Rogers, Arkansas, USA</span>
+              <span style="color:var(--border);">·</span>
+              <span class="roastery-founded">Est. 2012</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="roastery-bio">
+          Onyx Coffee Lab is a specialty coffee roaster dedicated to excellence — sourcing exceptional micro-lot coffees from around the world and roasting them to bring out the very best of each origin's unique character and terroir.
+        </p>
+
+        <div class="roastery-contact-row">
+          <a href="mailto:hello@onyxcoffeelab.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            hello@onyxcoffeelab.com
+          </a>
+          <div class="contact-divider"></div>
+          <a href="tel:+14793015764" class="contact-link">
+            <i class="fas fa-phone"></i>
+            +1 (479) 301-5764
+          </a>
+          <div class="contact-divider"></div>
+          <a href="#" class="contact-link">
+            <i class="fas fa-globe"></i>
+            onyxcoffeelab.com
+          </a>
+          <div class="contact-divider"></div>
+          <div class="social-row">
+            <a href="#" class="social-btn" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-btn" title="Twitter / X"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-btn" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-row">
+          <div class="stat-item">
+            <div class="stat-value">12</div>
+            <div class="stat-label">Beans Listed</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">4.8</div>
+            <div class="stat-stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+            <div class="stat-label">Avg Rating</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">2.3k</div>
+            <div class="stat-label">Reviews</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">847</div>
+            <div class="stat-label">Followers</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">6</div>
+            <div class="stat-label">Awards Won</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── BEANS SECTION ── -->
+    <div class="beans-section">
+      <div class="section-header">
+        <div>
+          <span class="section-title">Their Beans</span>
+          <span class="section-count">12 coffees available</span>
+        </div>
+      </div>
+
+      <div class="filter-chips">
+        <button class="chip active">All</button>
+        <button class="chip"><i class="fas fa-sliders-h" style="font-size:11px;"></i> Filter</button>
+        <button class="chip">Espresso</button>
+        <button class="chip">Blend</button>
+        <button class="chip">Single Origin</button>
+        <button class="chip">Decaf</button>
+        <button class="chip">Seasonal</button>
+      </div>
+
+      <div class="beans-grid">
+
+        <!-- Card 1 -->
+        <div class="bean-card">
+          <div class="bean-card-header">
+            <span class="bean-name">Ethiopia Bishan Beke</span>
+            <span class="roast-pill roast-light">Light</span>
+          </div>
+          <div class="bean-origin">
+            <span class="bean-origin-flag">🇪🇹</span>
+            Ethiopia · Gedeo Zone
+          </div>
+          <div class="flavor-tags">
+            <span class="flavor-tag">Blueberry</span>
+            <span class="flavor-tag">Jasmine</span>
+            <span class="flavor-tag">Dark Chocolate</span>
+            <span class="flavor-tag">Bergamot</span>
+          </div>
+          <div class="bean-footer">
+            <div class="bean-rating">
+              <div class="stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+              </div>
+              <span class="rating-num">4.9</span>
+              <span class="rating-count">(312)</span>
+            </div>
+            <button class="btn-add" title="Add to collection"><i class="fas fa-plus" style="font-size:14px;"></i></button>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bean-card">
+          <div class="bean-card-header">
+            <span class="bean-name">Colombia Huila Wush Wush</span>
+            <span class="roast-pill roast-light">Light</span>
+          </div>
+          <div class="bean-origin">
+            <span class="bean-origin-flag">🇨🇴</span>
+            Colombia · Huila
+          </div>
+          <div class="flavor-tags">
+            <span class="flavor-tag">Caramel</span>
+            <span class="flavor-tag">Peach</span>
+            <span class="flavor-tag">Hibiscus</span>
+            <span class="flavor-tag">Honey</span>
+          </div>
+          <div class="bean-footer">
+            <div class="bean-rating">
+              <div class="stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+              </div>
+              <span class="rating-num">4.8</span>
+              <span class="rating-count">(198)</span>
+            </div>
+            <button class="btn-add" title="Add to collection"><i class="fas fa-plus" style="font-size:14px;"></i></button>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="bean-card">
+          <div class="bean-card-header">
+            <span class="bean-name">Guatemala Finca La Hermosa</span>
+            <span class="roast-pill roast-medium">Medium</span>
+          </div>
+          <div class="bean-origin">
+            <span class="bean-origin-flag">🇬🇹</span>
+            Guatemala · Huehuetenango
+          </div>
+          <div class="flavor-tags">
+            <span class="flavor-tag">Brown Sugar</span>
+            <span class="flavor-tag">Almond</span>
+            <span class="flavor-tag">Citrus</span>
+          </div>
+          <div class="bean-footer">
+            <div class="bean-rating">
+              <div class="stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+              </div>
+              <span class="rating-num">4.7</span>
+              <span class="rating-count">(241)</span>
+            </div>
+            <button class="btn-add" title="Add to collection"><i class="fas fa-plus" style="font-size:14px;"></i></button>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="bean-card">
+          <div class="bean-card-header">
+            <span class="bean-name">Kenya Karimikui AA</span>
+            <span class="roast-pill roast-light">Light</span>
+          </div>
+          <div class="bean-origin">
+            <span class="bean-origin-flag">🇰🇪</span>
+            Kenya · Kirinyaga
+          </div>
+          <div class="flavor-tags">
+            <span class="flavor-tag">Blackcurrant</span>
+            <span class="flavor-tag">Tomato</span>
+            <span class="flavor-tag">Grapefruit</span>
+            <span class="flavor-tag">Black Tea</span>
+          </div>
+          <div class="bean-footer">
+            <div class="bean-rating">
+              <div class="stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+              </div>
+              <span class="rating-num">4.8</span>
+              <span class="rating-count">(187)</span>
+            </div>
+            <button class="btn-add" title="Add to collection"><i class="fas fa-plus" style="font-size:14px;"></i></button>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="bean-card">
+          <div class="bean-card-header">
+            <span class="bean-name">Monarch Espresso Blend</span>
+            <span class="roast-pill roast-medium">Medium</span>
+          </div>
+          <div class="bean-origin">
+            <span class="bean-origin-flag">🌍</span>
+            Blend · Multi-origin
+          </div>
+          <div class="flavor-tags">
+            <span class="flavor-tag">Dark Chocolate</span>
+            <span class="flavor-tag">Hazelnut</span>
+            <span class="flavor-tag">Dried Fruit</span>
+          </div>
+          <div class="bean-footer">
+            <div class="bean-rating">
+              <div class="stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+              </div>
+              <span class="rating-num">4.9</span>
+              <span class="rating-count">(524)</span>
+            </div>
+            <button class="btn-add" title="Add to collection"><i class="fas fa-plus" style="font-size:14px;"></i></button>
+          </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="bean-card">
+          <div class="bean-card-header">
+            <span class="bean-name">Yemen Haraaz Natural</span>
+            <span class="roast-pill roast-dark">Dark</span>
+          </div>
+          <div class="bean-origin">
+            <span class="bean-origin-flag">🇾🇪</span>
+            Yemen · Haraaz Mountains
+          </div>
+          <div class="flavor-tags">
+            <span class="flavor-tag">Fig</span>
+            <span class="flavor-tag">Cardamom</span>
+            <span class="flavor-tag">Tamarind</span>
+            <span class="flavor-tag">Tobacco</span>
+          </div>
+          <div class="bean-footer">
+            <div class="bean-rating">
+              <div class="stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+              </div>
+              <span class="rating-num">4.6</span>
+              <span class="rating-count">(143)</span>
+            </div>
+            <button class="btn-add" title="Add to collection"><i class="fas fa-plus" style="font-size:14px;"></i></button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="view-more-row">
+        <button class="btn-view-more">
+          View all 12 beans
+          <i class="fas fa-arrow-right" style="font-size:12px;"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── SIDEBAR ── -->
+    <aside class="sidebar">
+
+      <!-- Top Roasters -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">Top Roasters This Month</div>
+        <div class="roaster-list">
+
+          <div class="roaster-item">
+            <span class="roaster-rank">#1</span>
+            <img class="roaster-avatar" src="onyx_coffee_lab_avatar.jpg" alt="Onyx Coffee Lab roastery avatar" width="40" height="40">
+            <div class="roaster-info">
+              <div class="roaster-name">Onyx Coffee Lab</div>
+              <div class="roaster-location">Rogers, AR</div>
+            </div>
+            <div class="roaster-rating"><i class="fas fa-star"></i> 4.9</div>
+          </div>
+
+          <div class="roaster-item">
+            <span class="roaster-rank">#2</span>
+            <img class="roaster-avatar" src="intelligentsia_coffee_avatar.jpg" alt="Intelligentsia Coffee roastery avatar" width="40" height="40">
+            <div class="roaster-info">
+              <div class="roaster-name">Intelligentsia</div>
+              <div class="roaster-location">Chicago, IL</div>
+            </div>
+            <div class="roaster-rating"><i class="fas fa-star"></i> 4.8</div>
+          </div>
+
+          <div class="roaster-item">
+            <span class="roaster-rank">#3</span>
+            <img class="roaster-avatar" src="stumptown_coffee_avatar.jpg" alt="Stumptown Coffee Roasters avatar" width="40" height="40">
+            <div class="roaster-info">
+              <div class="roaster-name">Stumptown</div>
+              <div class="roaster-location">Portland, OR</div>
+            </div>
+            <div class="roaster-rating"><i class="fas fa-star"></i> 4.8</div>
+          </div>
+
+          <div class="roaster-item">
+            <span class="roaster-rank">#4</span>
+            <img class="roaster-avatar" src="counter_culture_coffee_avatar.jpg" alt="Counter Culture Coffee avatar" width="40" height="40">
+            <div class="roaster-info">
+              <div class="roaster-name">Counter Culture</div>
+              <div class="roaster-location">Durham, NC</div>
+            </div>
+            <div class="roaster-rating"><i class="fas fa-star"></i> 4.7</div>
+          </div>
+
+          <div class="roaster-item">
+            <span class="roaster-rank">#5</span>
+            <img class="roaster-avatar" src="blue_bottle_coffee_avatar.jpg" alt="Blue Bottle Coffee avatar" width="40" height="40">
+            <div class="roaster-info">
+              <div class="roaster-name">Blue Bottle</div>
+              <div class="roaster-location">Oakland, CA</div>
+            </div>
+            <div class="roaster-rating"><i class="fas fa-star"></i> 4.7</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Trending Beans -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">Trending Beans</div>
+        <div class="trending-list">
+
+          <div class="trending-item">
+            <span class="trending-num">01</span>
+            <div class="trending-info">
+              <div class="trending-name">Ethiopia Yirgacheffe Natural</div>
+              <div class="trending-roaster">Stumptown Coffee</div>
+            </div>
+            <span class="trending-badge"><i class="fas fa-fire" style="font-size:9px;"></i> Hot</span>
+          </div>
+
+          <div class="trending-item">
+            <span class="trending-num">02</span>
+            <div class="trending-info">
+              <div class="trending-name">Panama Geisha Boquete</div>
+              <div class="trending-roaster">Onyx Coffee Lab</div>
+            </div>
+            <span class="trending-badge"><i class="fas fa-fire" style="font-size:9px;"></i> Hot</span>
+          </div>
+
+          <div class="trending-item">
+            <span class="trending-num">03</span>
+            <div class="trending-info">
+              <div class="trending-name">Rwanda Huye Mountain</div>
+              <div class="trending-roaster">Intelligentsia</div>
+            </div>
+            <span class="trending-badge" style="color:#5C3317; background:rgba(92,51,23,0.1);">New</span>
+          </div>
+
+          <div class="trending-item">
+            <span class="trending-num">04</span>
+            <div class="trending-info">
+              <div class="trending-name">Brazil Cerrado Fazenda</div>
+              <div class="trending-roaster">Counter Culture</div>
+            </div>
+            <span class="trending-badge" style="color:#5C3317; background:rgba(92,51,23,0.1);">New</span>
+          </div>
+
+          <div class="trending-item">
+            <span class="trending-num">05</span>
+            <div class="trending-info">
+              <div class="trending-name">Costa Rica Tarrazu SHB</div>
+              <div class="trending-roaster">Blue Bottle Coffee</div>
+            </div>
+            <span class="trending-badge"><i class="fas fa-arrow-up" style="font-size:9px;"></i> +12%</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Quick CTA -->
+      <div class="sidebar-card" style="background: linear-gradient(135deg, #5C3317 0%, #3B1F0E 100%); border-color: transparent;">
+        <img src="coffee_beans_artisan_close_up.jpg" alt="Close-up artistic shot of freshly roasted coffee beans with warm golden light highlighting their texture, on a dark espresso background" width="272" height="100" style="width:100%; height:80px; object-fit:cover; border-radius:8px; margin-bottom:14px;">
+        <div style="font-family:'Playfair Display',serif; font-size:16px; font-weight:700; color:#FAF7F2; margin-bottom:8px;">
+          Track Your Collection
+        </div>
+        <p style="font-size:12.5px; color: rgba(240,232,220,0.8); line-height:1.6; margin-bottom:16px;">
+          Keep notes on every bean you try and discover new favorites from top roasters.
+        </p>
+        <button style="width:100%; padding:10px; border-radius:8px; background:var(--caramel); border:none; color:#fff; font-family:'Inter',sans-serif; font-size:13px; font-weight:600; cursor:pointer; transition: background 0.2s, transform 0.15s;" onmouseover="this.style.background='#b36b2c';this.style.transform='translateY(-1px)'" onmouseout="this.style.background='#C47B3A';this.style.transform='none'">
+          Start for Free
+        </button>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // Filter chip interactivity
+    document.querySelectorAll('.chip').forEach(chip => {
+      chip.addEventListener('click', function() {
+        document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // Add button micro-interaction
+    document.querySelectorAll('.btn-add').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const original = this.innerHTML;
+        this.innerHTML = '<i class="fas fa-check" style="font-size:13px;"></i>';
+        this.style.background = '#3a7a3a';
+        this.style.borderColor = '#3a7a3a';
+        this.style.color = '#fff';
+        setTimeout(() => {
+          this.innerHTML = original;
+          this.style.background = '';
+          this.style.borderColor = '';
+          this.style.color = '';
+        }, 1500);
+      });
+    });
+
+    // Scroll-in animation
+    const cards = document.querySelectorAll('.bean-card');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }, i * 60);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    cards.forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(12px)';
+      card.style.transition = 'opacity 0.4s ease, transform 0.4s ease, box-shadow 0.22s ease';
+      observer.observe(card);
+    });
+  </script>
+
+
+</body></html>
