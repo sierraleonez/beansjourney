@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        @apply bg-bg text-espresso font-sans antialiased;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        @apply font-display font-bold;
+    }
+
+    ::selection {
+        @apply bg-caramel text-white;
+    }
+
+    :focus-visible {
+        outline: 2px solid theme('colors.caramel.DEFAULT');
+        outline-offset: 2px;
+        border-radius: 4px;
+    }
+}
+
+@layer components {
+    .eyebrow {
+        @apply text-[11px] font-bold uppercase tracking-[0.6px] text-mocha;
+    }
+
+    .card-surface {
+        @apply bg-white border border-line rounded-xl shadow-card;
+    }
+
+    .card-clickable {
+        @apply card-surface transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card-hover;
+    }
+
+    .btn-primary {
+        @apply inline-flex items-center justify-center gap-2 rounded-md bg-caramel px-5 py-2.5 text-[13.5px] font-semibold text-white transition-all duration-200 hover:bg-caramel-hover hover:shadow-lift hover:-translate-y-px disabled:opacity-60 disabled:pointer-events-none;
+    }
+
+    .btn-ghost {
+        @apply inline-flex items-center justify-center gap-2 rounded-md border-[1.5px] border-line bg-transparent px-5 py-2.5 text-[13.5px] font-semibold text-espresso transition-all duration-200 hover:border-brown hover:bg-card hover:text-brown disabled:opacity-60;
+    }
+
+    .btn-icon {
+        @apply inline-flex items-center justify-center h-[38px] w-[38px] rounded-md text-mocha transition-colors hover:bg-card hover:text-brown;
+    }
+
+    .input-field {
+        @apply w-full rounded-md border-[1.5px] border-line bg-bg px-3.5 py-2.5 text-sm text-espresso placeholder:text-mocha/70 transition-all focus:border-caramel focus:bg-white focus:shadow-ring focus:outline-none;
+    }
+
+    .pill {
+        @apply inline-flex items-center gap-1 rounded-full px-3 py-1 text-[12px] font-semibold;
+    }
+}

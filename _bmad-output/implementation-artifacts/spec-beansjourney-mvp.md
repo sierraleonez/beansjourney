@@ -2,7 +2,8 @@
 title: 'BeansJourney MVP — full platform'
 type: 'feature'
 created: '2026-07-31'
-status: 'ready-for-dev'
+status: 'done'
+baseline_commit: 'd6ae5b019e372067ab079713909b740c1e2849a9'
 review_loop_iteration: 0
 context:
   - '_bmad-output/specs/spec-beansjourney/SPEC.md'
@@ -73,15 +74,15 @@ context:
 ## Tasks & Acceptance
 
 **Execution:**
-- [ ] `composer create-project laravel/laravel` -- Laravel 13 scaffold
-- [ ] Install Breeze (React) + `@inertiajs/react` + Filament v5.7.4+ -- auth scaffold, admin panel provider; add `canAccessPanel()` role gate
-- [ ] Migrations + models + relations (morphs, soft-deletes, enums, unique indexes) -- AD-1/2/3/5 schema
-- [ ] Services layer + ActivityLog writer -- AD-4/AD-7; plain args; actor-aware soft-delete
-- [ ] Policies wired into controllers + Filament `can*` hooks -- AD-5
-- [ ] Inertia pages + design-system components per DESIGN/EXPERIENCE -- client UX
-- [ ] Filament resources w/ lifecycle hooks calling Services + analytics widgets -- CAP-8, AD-4
-- [ ] Seeders + `php artisan test` suites for services, policies, auth gates -- verification
-- [ ] `npm run build` + full pass against the 8 mockups (imports/mockup/*.html) -- fidelity check
+- [x] `composer create-project laravel/laravel` -- Laravel 13 scaffold
+- [x] Install Breeze (React) + `@inertiajs/react` + Filament v5.7.4+ -- auth scaffold, admin panel provider; add `canAccessPanel()` role gate
+- [x] Migrations + models + relations (morphs, soft-deletes, enums, unique indexes) -- AD-1/2/3/5 schema
+- [x] Services layer + ActivityLog writer -- AD-4/AD-7; plain args; actor-aware soft-delete
+- [x] Policies wired into controllers + Filament `can*` hooks -- AD-5
+- [x] Inertia pages + design-system components per DESIGN/EXPERIENCE -- client UX
+- [x] Filament resources w/ lifecycle hooks calling Services + analytics widgets -- CAP-8, AD-4
+- [x] Seeders + `php artisan test` suites for services, policies, auth gates -- verification
+- [x] `npm run build` + full pass against the 8 mockups (imports/mockup/*.html) -- fidelity check
 
 **Acceptance Criteria:**
 - Given any registered verified user, when they post a review or recipe on a bean, then it appears immediately in the catalog attributed to them, with correct upvote count, and guest/unverified users cannot create it (gate-banner / policy denial).
@@ -114,3 +115,90 @@ context:
 **Manual checks (if no CLI):**
 - Spot-check DESIGN.md palette/typography on each client page; WCAG AA contrast on `mocha` text over `bg`/`card`.
 - Admin panel: verify resource actions log to activity_log and obey admin-only role.
+
+## Suggested Review Order
+
+**Entry point — Application Services (AD-4 / AD-7)**
+
+- Exemplar of the shared-service pattern: find-or-create roastery, actor attribution, ActivityLog write
+  [`CreateBean.php:15`](../../app/Services/CreateBean.php#L15)
+
+- Roastery reuse incl. the trashed-row restore + unique-race fallback
+  [`CreateRoastery.php:29`](../../app/Services/CreateRoastery.php#L29)
+
+- Upvote-only toggle, AD-3 unique triple, race → re-read (not delete)
+  [`ToggleVote.php:16`](../../app/Services/ToggleVote.php#L16)
+
+- Comment store/soft-delete; author vs admin actor-aware paths
+  [`CommentService.php:12`](../../app/Services/CommentService.php#L12)
+  [`DeletePost.php:16`](../../app/Services/DeletePost.php#L16)
+
+**Schema — AD-1/2/3**
+
+- All RESTRICT FKs, polymorphic comments/votes, unique vote triple, soft-deletes, brew_method enum
+  [`2026_07_31_000001_create_domain_tables.php:11`](../../database/migrations/2026_07_31_000001_create_domain_tables.php#L11)
+
+- users: role enum, profile fields, soft-deletes (email-claim caveat deferred)
+  [`0001_01_01_000000_create_users_table.php:14`](../../database/migrations/0001_01_01_000000_create_users_table.php#L14)
+
+**Auth boundary — AD-5**
+
+- Verified-gated create + admin-only update/delete per policy
+  [`BeanPolicy.php:22`](../../app/Policies/BeanPolicy.php#L22)
+
+- Every mutating route behind `auth`+`verified`
+  [`web.php:20`](../../routes/web.php#L20)
+
+- Admin panel gate + `role` check
+  [`User.php:45`](../../app/Models/User.php#L45)
+
+**Comment tree & [deleted] semantics**
+
+- 2-tier tree, load-more collapse, trashed included, user eager-loaded
+  [`CommentTree.php:22`](../../app/Support/CommentTree.php#L22)
+
+- Presenter blanks body/author for trashed posts
+  [`PostPresenter.php:11`](../../app/Support/PostPresenter.php#L11)
+
+- Client hides vote/reply/delete on `[deleted]`, deep-reply auto-expands root
+  [`CommentThread.jsx:52`](../../resources/js/Components/CommentThread.jsx#L52)
+
+**Threads & bean detail**
+
+- Tab-driven bean detail, CAP-2 fields, sorts, withTrashed comment counts
+  [`BeanController.php:24`](../../app/Http/Controllers/BeanController.php#L24)
+  [`ReviewThreadController.php:40`](../../app/Http/Controllers/ReviewThreadController.php#L40)
+
+**Client write paths & gating**
+
+- Upvote-only control; guests → login, aria-live count
+  [`VoteButton.jsx:8`](../../resources/js/Components/VoteButton.jsx#L8)
+
+- Guest vs unverified gate copy (threads)
+  [`ThreadReplyComposer.jsx:10`](../../resources/js/Components/ThreadReplyComposer.jsx#L10)
+
+- useForm write forms preserving input + server errors
+  [`WriteRecipeForm.jsx:46`](../../resources/js/Components/WriteRecipeForm.jsx#L46)
+
+**Filament admin — CAP-8 / AD-4**
+
+- All resource lifecycle hooks call Services (CreateUser incl. password)
+  [`CreateUser.php:14`](../../app/Filament/Resources/Users/Pages/CreateUser.php#L14)
+  [`UserForm.php:36`](../../app/Filament/Resources/Users/Schemas/UserForm.php#L36)
+
+**Tests, config, toolchain**
+
+- Service invariants: races, soft-delete, activity log
+  [`ServicesTest.php:14`](../../tests/Feature/ServicesTest.php#L14)
+
+- Auth gates, owner/admin deletes, vote 404s
+  [`PolicyGatesTest.php:12`](../../tests/Feature/PolicyGatesTest.php#L12)
+
+- Thread rendering incl. `[deleted]` + comment_count
+  [`ThreadsTest.php:14`](../../tests/Feature/ThreadsTest.php#L14)
+
+- Reset-token expiry aligned to 30 min
+  [`auth.php:99`](../../config/auth.php#L99)
+
+- Local `route()` helper (no ziggy); fails loud on unknown names
+  [`route.js:28`](../../resources/js/lib/route.js#L28)

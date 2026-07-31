@@ -1,0 +1,66 @@
+import { Link } from '@inertiajs/react';
+import Card from './Card';
+import Avatar from './Avatar';
+import Pill from './Pill';
+import VoteButton from './VoteButton';
+import { timeAgo } from '../lib/utils';
+
+const brewLabels = {
+    americano: 'Americano',
+    espresso: 'Espresso',
+    v60: 'V60',
+    french_press: 'French Press',
+    aeropress: 'AeroPress',
+    tubruk: 'Tubruk',
+    other: 'Other',
+};
+
+export default function RecipeCard({ recipe }) {
+    const tools = recipe.tools ?? {};
+
+    return (
+        <Card className="flex gap-4 p-5 sm:p-6">
+            <VoteButton
+                votableType="recipe"
+                votableId={recipe.id}
+                votesCount={recipe.votes_count}
+                votedByUser={recipe.voted_by_user}
+            />
+            <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-3">
+                    <Avatar name={recipe.author?.name} size={36} />
+                    <div>
+                        <p className="text-sm font-bold">{recipe.author?.name ?? 'Deleted user'}</p>
+                        <span className="text-[11px] text-mocha">{timeAgo(recipe.created_at)}</span>
+                    </div>
+                </div>
+
+                <div className="mt-3 flex flex-wrap items-center gap-2">
+                    <Pill variant="caramel">{brewLabels[recipe.brew_method] ?? recipe.brew_method}</Pill>
+                    {recipe.dose_ratio && <Pill variant="neutral">Dose {recipe.dose_ratio}</Pill>}
+                    {recipe.grind_size && <Pill variant="neutral">Grind {recipe.grind_size}</Pill>}
+                    {recipe.water_temp && <Pill variant="neutral">{recipe.water_temp}</Pill>}
+                </div>
+
+                {Object.keys(tools).length > 0 && (
+                    <p className="mt-3 text-[12px] text-mocha">
+                        Tools: {Object.entries(tools).map(([tool, detail]) => `${tool}${detail ? ` (${detail})` : ''}`).join(' · ')}
+                    </p>
+                )}
+
+                {recipe.tasting_notes && (
+                    <p className="mt-3 whitespace-pre-line text-[14px] leading-relaxed text-espresso">
+                        {recipe.tasting_notes}
+                    </p>
+                )}
+
+                <p className="mt-3 flex items-center gap-3 text-[12px] font-semibold text-mocha">
+                    <span>{recipe.votes_count} upvote{recipe.votes_count === 1 ? '' : 's'}</span>
+                    <Link href={route('recipes.show', recipe.id)} className="text-caramel hover:text-caramel-hover">
+                        Open thread · {recipe.comment_count} comment{recipe.comment_count === 1 ? '' : 's'} →
+                    </Link>
+                </p>
+            </div>
+        </Card>
+    );
+}
