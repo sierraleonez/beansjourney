@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { cn } from '../lib/utils';
 
-const labels = ['Poor', 'Fair', 'Good', 'Great', 'Outstanding'];
+const labels = ['Kurang', 'Cukup', 'Bagus', 'Sangat Bagus', 'Luar Biasa'];
 
 function Star({ filled, onClick, onHover, onLeave, active, readOnly }) {
     return (
@@ -28,7 +28,7 @@ export function StarRating({ rating, className }) {
     return (
         <span
             className={cn('inline-flex items-center gap-0.5', className)}
-            aria-label={`Rated ${rating} out of 5`}
+            aria-label={`Dinilai ${rating} dari 5`}
             role="img"
         >
             {[1, 2, 3, 4, 5].map((value) => (
@@ -51,7 +51,7 @@ export function StarRatingInput({ value, onChange, id, disabled }) {
         <div>
             <div
                 role="radiogroup"
-                aria-label="Rating"
+                aria-label="Penilaian"
                 className="inline-flex items-center gap-0.5"
                 onMouseLeave={() => setPreview(null)}
             >

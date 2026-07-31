@@ -17,6 +17,13 @@ export default function BeanCard({ bean }) {
     return (
         <Link href={route('beans.show', bean.id)} className="block focus:outline-none">
             <Card clickable className="flex h-full flex-col p-6" >
+                {bean.photo_url && (
+                    <img
+                        src={bean.photo_url}
+                        alt={bean.name}
+                        className="-mx-6 -mt-6 mb-4 h-36 w-[calc(100%+3rem)] rounded-t-md object-cover"
+                    />
+                )}
                 <div className="flex items-start justify-between gap-2">
                     <div>
                         <p className="text-[11px] font-bold uppercase tracking-[0.6px] text-mocha">
@@ -42,12 +49,11 @@ export default function BeanCard({ bean }) {
                                 <span className="text-[12.5px] font-bold text-espresso">{rating}</span>
                             </>
                         ) : (
-                            <span className="text-[12.5px] text-mocha">New bean</span>
+                            <span className="text-[12.5px] text-mocha">Bean baru</span>
                         )}
                     </div>
                     <span className="text-[12px] text-mocha">
-                        {bean.reviews_count} review{bean.reviews_count === 1 ? '' : 's'} · {bean.recipes_count} recipe
-                        {bean.recipes_count === 1 ? '' : 's'}
+                        {bean.reviews_count} ulasan · {bean.recipes_count} resep
                     </span>
                 </div>
             </Card>

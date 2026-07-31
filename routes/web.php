@@ -19,6 +19,9 @@ Route::get('/roasters/{roastery}', [RoasteryController::class, 'show'])->name('r
 Route::get('/beans/new', [BeanController::class, 'create'])
     ->middleware(['auth', 'verified'])
     ->name('beans.create');
+Route::get('/my-beans', [BeanController::class, 'mine'])
+    ->middleware(['auth'])
+    ->name('beans.mine');
 Route::get('/beans/{bean}', [BeanController::class, 'show'])->name('beans.show');
 Route::post('/beans', [BeanController::class, 'store'])
     ->middleware(['auth', 'verified'])

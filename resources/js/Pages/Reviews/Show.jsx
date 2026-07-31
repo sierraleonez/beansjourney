@@ -14,15 +14,15 @@ export default function ReviewShow({ review, bean, comments, commentCount, canRe
 
     return (
         <AppLayout>
-            <nav aria-label="Breadcrumb" className="pt-6">
+            <nav aria-label="Navigasi breadcrumb" className="pt-6">
                 <ol className="flex items-center gap-1.5 text-[12px] text-mocha">
                     <li>
-                        <Link href="/roasters" className="hover:text-brown">Roasters</Link>
+                        <Link href="/roasters" className="hover:text-brown">Roaster</Link>
                     </li>
                     <li aria-hidden="true">›</li>
                     <li>
                         <Link href={bean.roastery ? route('roasteries.show', bean.roastery.id) : '/roasters'} className="hover:text-brown">
-                            {bean.roastery?.name ?? 'Unknown roaster'}
+                            {bean.roastery?.name ?? 'Roaster tidak diketahui'}
                         </Link>
                     </li>
                     <li aria-hidden="true">›</li>
@@ -32,14 +32,14 @@ export default function ReviewShow({ review, bean, comments, commentCount, canRe
                         </Link>
                     </li>
                     <li aria-hidden="true">›</li>
-                    <li aria-current="page" className="font-semibold text-espresso">Review</li>
+                    <li aria-current="page" className="font-semibold text-espresso">Ulasan</li>
                 </ol>
             </nav>
 
             <section className="py-8">
-                <h1 className="text-display-sm">Review of {bean.name}</h1>
+                <h1 className="text-display-sm">Ulasan untuk {bean.name}</h1>
                 <p className="mt-1 text-[13px] text-mocha">
-                    by {bean.roastery.name} · {bean.roastery.location}
+                    oleh {bean.roastery.name} · {bean.roastery.location}
                 </p>
 
                 <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_300px]">
@@ -55,7 +55,7 @@ export default function ReviewShow({ review, bean, comments, commentCount, canRe
                                 <div className="flex items-center gap-3">
                                     <Avatar name={review.author?.name} size={44} />
                                     <div>
-                                        <p className="text-sm font-bold">{review.author?.name ?? 'Deleted user'}</p>
+                                        <p className="text-sm font-bold">{review.author?.name ?? 'Pengguna terhapus'}</p>
                                         <div className="flex items-center gap-2">
                                             <StarRating rating={review.rating} />
                                             <span className="text-[11px] text-mocha">{timeAgo(review.created_at)}</span>
@@ -63,16 +63,16 @@ export default function ReviewShow({ review, bean, comments, commentCount, canRe
                                     </div>
                                 </div>
                                 {review.brew_method && (
-                                    <p className="mt-4 text-[12px] font-semibold text-caramel">Brewed with: {review.brew_method}</p>
+                                    <p className="mt-4 text-[12px] font-semibold text-caramel">Diseduh dengan: {review.brew_method}</p>
                                 )}
                                 <p className="mt-2 whitespace-pre-line text-[14.5px] leading-relaxed">{review.body}</p>
                             </div>
                         </Card>
 
                         <div className="mt-8">
-                            <h2 className="text-[22px]">Discussion</h2>
+                            <h2 className="text-[22px]">Diskusi</h2>
                             <p className="mt-1 text-[12.5px] text-mocha">
-                                {commentCount} comment{commentCount === 1 ? '' : 's'}
+                                {commentCount} komentar
                             </p>
                             <div className="card-surface mt-4 p-2 sm:p-4">
                                 <CommentThread
@@ -96,20 +96,20 @@ export default function ReviewShow({ review, bean, comments, commentCount, canRe
                     <aside className="space-y-5">
                         <Card className="p-5">
                             <h3 className="text-[17px]">{bean.name}</h3>
-                            <p className="mt-1 text-[12.5px] text-mocha">{bean.roastery?.name ?? 'Unknown roaster'}</p>
+                            <p className="mt-1 text-[12.5px] text-mocha">{bean.roastery?.name ?? 'Roaster tidak diketahui'}</p>
                             <Link href={route('beans.show', bean.id)} className="btn-ghost mt-4 w-full">
-                                View bean page
+                                Lihat halaman bean
                             </Link>
                         </Card>
                         <Card className="p-5">
-                            <h3 className="eyebrow">Community</h3>
+                            <h3 className="eyebrow">Komunitas</h3>
                             <dl className="mt-2 space-y-2 text-sm">
                                 <div className="flex justify-between">
-                                    <dt className="text-mocha">Upvotes</dt>
+                                    <dt className="text-mocha">Dukungan</dt>
                                     <dd className="font-bold">{review.votes_count}</dd>
                                 </div>
                                 <div className="flex justify-between">
-                                    <dt className="text-mocha">Comments</dt>
+                                    <dt className="text-mocha">Komentar</dt>
                                     <dd className="font-bold">{commentCount}</dd>
                                 </div>
                             </dl>

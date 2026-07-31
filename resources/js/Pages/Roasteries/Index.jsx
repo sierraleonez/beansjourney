@@ -9,16 +9,16 @@ export default function RoasteryIndex({ roasteries }) {
     return (
         <AppLayout>
             <section className="py-10">
-                <h1 className="text-display">Roasters</h1>
+                <h1 className="text-display">Roaster</h1>
                 <p className="mt-2 max-w-xl text-[15px] text-mocha">
-                    The provenance behind every bean. Browse roasteries, their locations, and the beans they roast.
+                    Asal-usul di balik setiap bean. Jelajahi roastery, lokasinya, dan bean yang mereka sangrai.
                 </p>
             </section>
 
             {roasteries.data.length === 0 ? (
                 <EmptyState
-                    title="No roasters yet"
-                    message="Once roasteries are added to the catalog, you'll find them here."
+                    title="Belum ada roaster"
+                    message="Setelah roastery ditambahkan ke katalog, kamu akan menemukannya di sini."
                     icon="🏪"
                 />
             ) : (
@@ -31,7 +31,7 @@ export default function RoasteryIndex({ roasteries }) {
                                     <div className="mt-2 flex flex-wrap gap-2">
                                         {roastery.location && <Pill variant="neutral">{roastery.location}</Pill>}
                                         <Pill variant="caramel">
-                                            {roastery.beans_count} bean{roastery.beans_count === 1 ? '' : 's'}
+                                            {roastery.beans_count} bean
                                         </Pill>
                                     </div>
                                 </Card>

@@ -20,26 +20,26 @@ export default function Register() {
 
     return (
         <AuthShell
-            eyebrow="Step 1 of 2"
-            title="Create your account"
-            subtitle="The home for specialty coffee lovers."
+            eyebrow="Langkah 1 dari 2"
+            title="Buat akunmu"
+            subtitle="Rumah bagi pencinta kopi specialty."
             footer={
                 <Link href={route('login')} className="font-semibold text-caramel hover:text-caramel-hover">
-                    Already registered? Log in
+                    Sudah punya akun? Masuk
                 </Link>
             }
         >
-            <Head title="Register" />
+            <Head title="Daftar" />
 
             <form onSubmit={submit} className="space-y-4">
                 <Input
                     name="name"
-                    label="Name"
+                    label="Nama"
                     value={data.name}
                     autoComplete="name"
                     error={errors.name}
                     onChange={(e) => setData('name', e.target.value)}
-                    hint="This is shown on your reviews and posts."
+                    hint="Nama ini akan ditampilkan di ulasan dan postinganmu."
                     required
                 />
                 <Input
@@ -54,18 +54,18 @@ export default function Register() {
                 />
                 <Input
                     name="password"
-                    label="Password"
+                    label="Kata Sandi"
                     type="password"
                     value={data.password}
                     autoComplete="new-password"
                     error={errors.password}
                     onChange={(e) => setData('password', e.target.value)}
-                    hint="At least 8 characters."
+                    hint="Minimal 8 karakter."
                     required
                 />
                 <Input
                     name="password_confirmation"
-                    label="Confirm Password"
+                    label="Konfirmasi Kata Sandi"
                     type="password"
                     value={data.password_confirmation}
                     autoComplete="new-password"
@@ -74,10 +74,10 @@ export default function Register() {
                     required
                 />
                 <Button type="submit" loading={processing} className="w-full">
-                    Create Account
+                    Buat Akun
                 </Button>
                 <p className="text-center text-[11px] leading-relaxed text-mocha">
-                    By joining you agree to share your tasting notes with the community.
+                    Dengan bergabung, kamu setuju untuk membagikan catatan rasamu dengan komunitas.
                 </p>
             </form>
         </AuthShell>

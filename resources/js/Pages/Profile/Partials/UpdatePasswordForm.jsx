@@ -44,15 +44,15 @@ export default function UpdatePasswordForm({ className = '' }) {
 
     return (
         <Card className={`p-6 sm:p-8 ${className}`}>
-            <h2 className="text-[22px]">Update password</h2>
+            <h2 className="text-[22px]">Perbarui kata sandi</h2>
             <p className="mt-1 text-[12.5px] text-mocha">
-                Ensure your account is using a long, random password to stay secure.
+                Pastikan akunmu menggunakan kata sandi yang panjang dan acak agar tetap aman.
             </p>
 
             <form onSubmit={updatePassword} className="mt-6 space-y-5">
                 <Input
                     name="current_password"
-                    label="Current password"
+                    label="Kata sandi saat ini"
                     type="password"
                     ref={currentPasswordInput}
                     value={data.current_password}
@@ -63,7 +63,7 @@ export default function UpdatePasswordForm({ className = '' }) {
                 />
                 <Input
                     name="password"
-                    label="New password"
+                    label="Kata sandi baru"
                     type="password"
                     ref={passwordInput}
                     value={data.password}
@@ -74,7 +74,7 @@ export default function UpdatePasswordForm({ className = '' }) {
                 />
                 <Input
                     name="password_confirmation"
-                    label="Confirm new password"
+                    label="Konfirmasi kata sandi baru"
                     type="password"
                     value={data.password_confirmation}
                     error={errors.password_confirmation}
@@ -85,11 +85,11 @@ export default function UpdatePasswordForm({ className = '' }) {
 
                 <div className="flex items-center gap-4">
                     <Button type="submit" loading={processing}>
-                        Save
+                        Simpan
                     </Button>
                     {recentlySuccessful && (
                         <p aria-live="polite" className="text-[13px] font-semibold text-success">
-                            Saved.
+                            Tersimpan.
                         </p>
                     )}
                 </div>

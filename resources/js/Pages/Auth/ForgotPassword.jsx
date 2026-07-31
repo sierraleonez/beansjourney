@@ -15,16 +15,16 @@ export default function ForgotPassword({ status }) {
 
     return (
         <AuthShell
-            eyebrow="Forgot password"
-            title="Reset your password"
-            subtitle="Tell us the email you registered with and we'll send a reset link."
+            eyebrow="Lupa kata sandi"
+            title="Atur ulang kata sandimu"
+            subtitle="Beri tahu kami email yang kamu gunakan saat mendaftar, dan kami akan mengirimkan tautan atur ulang."
             footer={
                 <a href={route('login')} className="font-semibold text-caramel hover:text-caramel-hover">
-                    Back to log in
+                    Kembali ke halaman masuk
                 </a>
             }
         >
-            <Head title="Forgot Password" />
+            <Head title="Lupa Kata Sandi" />
 
             {status && (
                 <p className="mb-4 rounded-md border border-successborder bg-successbg px-3 py-2 text-[13px] font-medium text-success">
@@ -41,11 +41,11 @@ export default function ForgotPassword({ status }) {
                     autoComplete="username"
                     error={errors.email}
                     onChange={(e) => setData('email', e.target.value)}
-                    hint="The reset link expires in 30 minutes."
+                    hint="Tautan atur ulang berlaku selama 30 menit."
                     required
                 />
                 <Button type="submit" loading={processing} className="w-full">
-                    Send Reset Link
+                    Kirim Tautan Atur Ulang
                 </Button>
             </form>
         </AuthShell>

@@ -29,7 +29,7 @@ export default function VoteButton({ votableType, votableId, votesCount, votedBy
                 type="button"
                 onClick={handleClick}
                 aria-pressed={votedByUser}
-                aria-label={votedByUser ? 'Remove upvote' : 'Upvote'}
+                aria-label={votedByUser ? 'Batalkan dukungan' : 'Dukung'}
                 className={cn(
                     'inline-flex items-center gap-1 rounded-sm border-[1.5px] transition-colors',
                     compact ? 'px-2 py-1' : 'px-2.5 py-1.5',

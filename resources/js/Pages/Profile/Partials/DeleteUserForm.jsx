@@ -40,26 +40,26 @@ export default function DeleteUserForm({ className = '' }) {
 
     return (
         <Card className={`p-6 sm:p-8 ${className}`}>
-            <h2 className="text-[22px]">Delete account</h2>
+            <h2 className="text-[22px]">Hapus akun</h2>
             <p className="mt-1 text-[12.5px] text-mocha">
-                Deleting your account is permanent: your profile is removed and you'll be signed out. Your posts stay
-                visible, attributed to a deleted profile.
+                Menghapus akun bersifat permanen: profilmu akan dihapus dan kamu akan keluar dari sesi. Postinganmu
+                tetap terlihat, atas nama profil yang telah dihapus.
             </p>
             <Button variant="ghost" onClick={() => setConfirming(true)} className="mt-4 border-error text-error hover:bg-error hover:text-white hover:border-error">
-                Delete Account
+                Hapus Akun
             </Button>
 
-            <Modal open={confirming} onClose={closeModal} title="Delete your account?" labelledBy="delete-user-title">
+            <Modal open={confirming} onClose={closeModal} title="Hapus akunmu?" labelledBy="delete-user-title">
                 <h2 id="delete-user-title" className="sr-only">
-                    Delete your account?
+                    Hapus akunmu?
                 </h2>
                 <form onSubmit={deleteUser} className="space-y-4">
                     <p className="text-[13px] text-mocha">
-                        Please enter your password to confirm you'd like to permanently delete your account.
+                        Masukkan kata sandimu untuk mengonfirmasi bahwa kamu ingin menghapus akun secara permanen.
                     </p>
                     <Input
                         name="password"
-                        label="Password"
+                        label="Kata Sandi"
                         type="password"
                         ref={passwordInput}
                         value={data.password}
@@ -70,10 +70,10 @@ export default function DeleteUserForm({ className = '' }) {
                     />
                     <div className="flex justify-end gap-2">
                         <Button type="button" variant="ghost" onClick={closeModal}>
-                            Cancel
+                            Batal
                         </Button>
                         <Button type="submit" loading={processing} className="bg-error hover:bg-error">
-                            Delete Account
+                            Hapus Akun
                         </Button>
                     </div>
                 </form>

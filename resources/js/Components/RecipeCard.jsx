@@ -12,7 +12,7 @@ const brewLabels = {
     french_press: 'French Press',
     aeropress: 'AeroPress',
     tubruk: 'Tubruk',
-    other: 'Other',
+    other: 'Lainnya',
 };
 
 export default function RecipeCard({ recipe }) {
@@ -30,21 +30,21 @@ export default function RecipeCard({ recipe }) {
                 <div className="flex items-center gap-3">
                     <Avatar name={recipe.author?.name} size={36} />
                     <div>
-                        <p className="text-sm font-bold">{recipe.author?.name ?? 'Deleted user'}</p>
+                        <p className="text-sm font-bold">{recipe.author?.name ?? 'Pengguna terhapus'}</p>
                         <span className="text-[11px] text-mocha">{timeAgo(recipe.created_at)}</span>
                     </div>
                 </div>
 
                 <div className="mt-3 flex flex-wrap items-center gap-2">
                     <Pill variant="caramel">{brewLabels[recipe.brew_method] ?? recipe.brew_method}</Pill>
-                    {recipe.dose_ratio && <Pill variant="neutral">Dose {recipe.dose_ratio}</Pill>}
-                    {recipe.grind_size && <Pill variant="neutral">Grind {recipe.grind_size}</Pill>}
+                    {recipe.dose_ratio && <Pill variant="neutral">Dosis {recipe.dose_ratio}</Pill>}
+                    {recipe.grind_size && <Pill variant="neutral">Gilingan {recipe.grind_size}</Pill>}
                     {recipe.water_temp && <Pill variant="neutral">{recipe.water_temp}</Pill>}
                 </div>
 
                 {Object.keys(tools).length > 0 && (
                     <p className="mt-3 text-[12px] text-mocha">
-                        Tools: {Object.entries(tools).map(([tool, detail]) => `${tool}${detail ? ` (${detail})` : ''}`).join(' · ')}
+                        Alat: {Object.entries(tools).map(([tool, detail]) => `${tool}${detail ? ` (${detail})` : ''}`).join(' · ')}
                     </p>
                 )}
 
@@ -55,9 +55,9 @@ export default function RecipeCard({ recipe }) {
                 )}
 
                 <p className="mt-3 flex items-center gap-3 text-[12px] font-semibold text-mocha">
-                    <span>{recipe.votes_count} upvote{recipe.votes_count === 1 ? '' : 's'}</span>
+                    <span>{recipe.votes_count} dukungan</span>
                     <Link href={route('recipes.show', recipe.id)} className="text-caramel hover:text-caramel-hover">
-                        Open thread · {recipe.comment_count} comment{recipe.comment_count === 1 ? '' : 's'} →
+                        Buka utas · {recipe.comment_count} komentar →
                     </Link>
                 </p>
             </div>

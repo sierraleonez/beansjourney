@@ -21,24 +21,24 @@ export default function Login({ status, canResetPassword }) {
 
     return (
         <AuthShell
-            eyebrow="Welcome back"
-            title="Log in"
-            subtitle="Pick up where you left off — your reviews, recipes, and upvotes are waiting."
+            eyebrow="Selamat datang kembali"
+            title="Masuk"
+            subtitle="Lanjutkan dari terakhir kali — ulasan, resep, dan dukunganmu sudah menunggu."
             footer={
                 canResetPassword && (
                     <>
                         <Link href={route('password.request')} className="font-semibold text-caramel hover:text-caramel-hover">
-                            Forgot your password?
+                            Lupa kata sandi?
                         </Link>
                         {' · '}
                         <Link href={route('register')} className="font-semibold text-caramel hover:text-caramel-hover">
-                            Join Free
+                            Gabung Gratis
                         </Link>
                     </>
                 )
             }
         >
-            <Head title="Log in" />
+            <Head title="Masuk" />
 
             {status && (
                 <p className="mb-4 rounded-md border border-successborder bg-successbg px-3 py-2 text-[13px] font-medium text-success">
@@ -59,7 +59,7 @@ export default function Login({ status, canResetPassword }) {
                 />
                 <Input
                     name="password"
-                    label="Password"
+                    label="Kata Sandi"
                     type="password"
                     value={data.password}
                     autoComplete="current-password"
@@ -75,10 +75,10 @@ export default function Login({ status, canResetPassword }) {
                         onChange={(e) => setData('remember', e.target.checked)}
                         className="h-4 w-4 rounded border-line text-caramel focus:ring-caramel"
                     />
-                    Remember me
+                    Ingat saya
                 </label>
                 <Button type="submit" loading={processing} className="w-full">
-                    Log In
+                    Masuk
                 </Button>
             </form>
         </AuthShell>

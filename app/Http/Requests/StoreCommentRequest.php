@@ -36,13 +36,13 @@ class StoreCommentRequest extends FormRequest
                 $commentable = $this->commentable();
 
                 if (! $parent || ! $commentable) {
-                    $validator->errors()->add('parent_id', 'The parent comment is invalid.');
+                    $validator->errors()->add('parent_id', 'Komentar induk tidak valid.');
 
                     return;
                 }
 
                 if ($parent->commentable_type !== $commentable->getMorphClass() || $parent->commentable_id !== $commentable->getKey()) {
-                    $validator->errors()->add('parent_id', 'The parent comment does not belong to this thread.');
+                    $validator->errors()->add('parent_id', 'Komentar induk tidak berasal dari thread ini.');
                 }
             },
         ];

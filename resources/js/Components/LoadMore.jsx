@@ -3,7 +3,7 @@ import { router } from '@inertiajs/react';
 /**
  * Load-more pagination: advances the `page` query param, preserving scroll.
  */
-export default function LoadMore({ nextPageUrl, label = 'Load more' }) {
+export default function LoadMore({ nextPageUrl, label = 'Muat lebih banyak' }) {
     if (!nextPageUrl) return null;
 
     const loadMore = () => {

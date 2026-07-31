@@ -19,7 +19,7 @@ export default function ReviewCard({ review }) {
                 <div className="flex items-center gap-3">
                     <Avatar name={review.author?.name} size={36} />
                     <div>
-                        <p className="text-sm font-bold">{review.author?.name ?? 'Deleted user'}</p>
+                        <p className="text-sm font-bold">{review.author?.name ?? 'Pengguna terhapus'}</p>
                         <div className="flex items-center gap-2">
                             <StarRating rating={review.rating} />
                             <span className="text-[11px] text-mocha">{timeAgo(review.created_at)}</span>
@@ -27,13 +27,13 @@ export default function ReviewCard({ review }) {
                     </div>
                 </div>
                 {review.brew_method && (
-                    <p className="mt-3 text-[12px] font-semibold text-caramel">Brewed with: {review.brew_method}</p>
+                    <p className="mt-3 text-[12px] font-semibold text-caramel">Diseduh dengan: {review.brew_method}</p>
                 )}
                 <p className="mt-2 whitespace-pre-line text-[14px] leading-relaxed text-espresso">{review.body}</p>
                 <p className="mt-3 flex items-center gap-3 text-[12px] font-semibold text-mocha">
-                    <span>{review.votes_count} upvote{review.votes_count === 1 ? '' : 's'}</span>
+                    <span>{review.votes_count} dukungan</span>
                     <Link href={route('reviews.show', review.id)} className="text-caramel hover:text-caramel-hover">
-                        Open thread · {review.comment_count} comment{review.comment_count === 1 ? '' : 's'} →
+                        Buka utas · {review.comment_count} komentar →
                     </Link>
                 </p>
             </div>

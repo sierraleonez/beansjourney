@@ -6,6 +6,13 @@ import Pill from '../../../Components/Pill';
 import { cn } from '../../../lib/utils';
 
 const roastLevels = ['Light', 'Light-Medium', 'Medium', 'Medium-Dark', 'Dark'];
+const roastLabels = {
+    Light: 'Terang',
+    'Light-Medium': 'Terang-Sedang',
+    Medium: 'Sedang',
+    'Medium-Dark': 'Sedang-Gelap',
+    Dark: 'Gelap',
+};
 const flavorOptions = [
     'Fruity',
     'Floral',
@@ -20,6 +27,20 @@ const flavorOptions = [
     'Honey',
     'Herbal',
 ];
+const flavorLabels = {
+    Fruity: 'Buah-buahan',
+    Floral: 'Bunga',
+    Chocolatey: 'Cokelat',
+    Nutty: 'Kacang-kacangan',
+    Caramel: 'Karamel',
+    Spicy: 'Rempah',
+    Earthy: 'Tanah',
+    Citrus: 'Sitrus',
+    Berry: 'Beri',
+    'Stone Fruit': 'Buah Batu',
+    Honey: 'Madu',
+    Herbal: 'Herbal',
+};
 
 export default function UpdateProfileInformation({ mustVerifyEmail, status, className = '' }) {
     const user = usePage().props.auth.user;
@@ -48,17 +69,17 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
 
     return (
         <Card className={cn('p-6 sm:p-8', className)}>
-            <h2 className="text-[22px]">Profile information</h2>
-            <p className="mt-1 text-[12.5px] text-mocha">Update your name, email, and coffee preferences.</p>
+            <h2 className="text-[22px]">Informasi profil</h2>
+            <p className="mt-1 text-[12.5px] text-mocha">Perbarui nama, email, dan preferensi kopimu.</p>
 
             <form onSubmit={submit} className="mt-6 space-y-5">
                 <Input
                     name="name"
-                    label="Name"
+                    label="Nama"
                     value={data.name}
                     error={errors.name}
                     onChange={(e) => setData('name', e.target.value)}
-                    hint="This is shown on your reviews and posts."
+                    hint="Nama ini akan ditampilkan di ulasan dan postinganmu."
                     required
                 />
                 <Input
@@ -73,15 +94,15 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
 
                 {mustVerifyEmail && user.email_verified_at === null && (
                     <p className="rounded-md border border-line bg-card px-3 py-2 text-[12.5px] text-mocha">
-                        Your email address is unverified.{' '}
+                        Alamat emailmu belum diverifikasi.{' '}
                         <Link href={route('verification.send')} method="post" as="button" className="font-semibold text-caramel hover:text-caramel-hover">
-                            Click here to re-send the verification email.
+                            Klik di sini untuk mengirim ulang email verifikasi.
                         </Link>
                     </p>
                 )}
                 {status === 'verification-link-sent' && (
                     <p aria-live="polite" className="rounded-md border border-successborder bg-successbg px-3 py-2 text-[12.5px] font-medium text-success">
-                        A new verification link has been sent to your email.
+                        Tautan verifikasi baru telah dikirim ke emailmu.
                     </p>
                 )}
 
@@ -95,14 +116,14 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                         maxLength={500}
                         value={data.bio}
                         onChange={(e) => setData('bio', e.target.value)}
-                        placeholder="Light roast devotee. V60 obsessive."
+                        placeholder="Penggemar light roast. Obsesi V60."
                         className="input-field resize-y"
                     />
                     {errors.bio && <p className="mt-1 text-[12px] text-error">{errors.bio}</p>}
                 </div>
 
                 <div>
-                    <span className="mb-1.5 block text-[12.5px] font-semibold text-espresso">Roast level preference</span>
+                    <span className="mb-1.5 block text-[12.5px] font-semibold text-espresso">Preferensi tingkat sangrai</span>
                     <input
                         type="range"
                         min={0}
@@ -110,14 +131,14 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                         step={1}
                         value={roastLevels.indexOf(data.roast_level) === -1 ? 2 : roastLevels.indexOf(data.roast_level)}
                         onChange={(e) => setData('roast_level', roastLevels[Number(e.target.value)])}
-                        aria-label="Roast level preference"
+                        aria-label="Preferensi tingkat sangrai"
                         className="w-full accent-caramel"
                     />
-                    <p aria-live="polite" className="mt-1 text-[12.5px] font-bold text-caramel">{data.roast_level}</p>
+                    <p aria-live="polite" className="mt-1 text-[12.5px] font-bold text-caramel">{roastLabels[data.roast_level] ?? data.roast_level}</p>
                 </div>
 
                 <div>
-                    <span className="mb-1.5 block text-[12.5px] font-semibold text-espresso">Flavor profile</span>
+                    <span className="mb-1.5 block text-[12.5px] font-semibold text-espresso">Profil rasa</span>
                     <div className="flex flex-wrap gap-2">
                         {flavorOptions.map((flavor) => (
                             <button
@@ -132,7 +153,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                                         : 'border-line bg-white text-mocha hover:border-brown hover:text-brown',
                                 )}
                             >
-                                {flavor}
+                                {flavorLabels[flavor] ?? flavor}
                             </button>
                         ))}
                     </div>
@@ -140,11 +161,11 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
 
                 <div className="flex items-center gap-4">
                     <Button type="submit" loading={processing}>
-                        Save
+                        Simpan
                     </Button>
                     {recentlySuccessful && (
                         <p aria-live="polite" className="text-[13px] font-semibold text-success">
-                            Saved.
+                            Tersimpan.
                         </p>
                     )}
                 </div>

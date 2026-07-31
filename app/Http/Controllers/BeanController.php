@@ -45,19 +45,41 @@ class BeanController extends Controller
         return Inertia::render('Beans/Create');
     }
 
+    public function mine(Request $request): Response
+    {
+        $beans = Bean::query()
+            ->where('created_by', $request->user()->id)
+            ->with('roastery:id,name,location')
+            ->withCount(['reviews', 'recipes'])
+            ->withAvg('reviews as average_rating', 'rating')
+            ->orderByDesc('created_at')
+            ->paginate(12)
+            ->withQueryString();
+
+        return Inertia::render('Beans/Mine', [
+            'beans' => $beans,
+        ]);
+    }
+
     public function store(StoreBeanRequest $request): RedirectResponse
     {
         $this->authorize('create', Bean::class);
 
+        $data = $request->safe()->except(['roastery_name', 'photo']);
+
+        if ($request->hasFile('photo')) {
+            $data['photo_path'] = $request->file('photo')->store('beans', 'public');
+        }
+
         $bean = app(CreateBean::class)->create(
             $request->user(),
             $request->string('roastery_name')->toString(),
-            $request->safe()->except('roastery_name'),
+            $data,
         );
 
         return redirect()->route('beans.show', $bean)->with('flash', [
             'type' => 'success',
-            'message' => 'Bean added to the catalog.',
+            'message' => 'Bean berhasil ditambahkan ke katalog.',
         ]);
     }
 

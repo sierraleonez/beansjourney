@@ -21,28 +21,28 @@ export default function WriteReviewForm({ beanId }) {
 
     return (
         <Card className="p-5 sm:p-6">
-            <h3 className="text-[17px]">How did this bean taste to you?</h3>
+            <h3 className="text-[17px]">Bagaimana rasa bean ini menurutmu?</h3>
             <p className="mt-1 text-[12.5px] text-mocha">
-                Be specific. Include your brewing method, grind size, and water temp when possible.
+                Ceritakan detailnya. Sertakan metode seduh, ukuran gilingan, dan suhu air kalau memungkinkan.
             </p>
             <form onSubmit={submit} className="mt-4 space-y-4">
                 <div>
-                    <span className="mb-1.5 block text-[12.5px] font-semibold text-espresso">Your rating</span>
+                    <span className="mb-1.5 block text-[12.5px] font-semibold text-espresso">Penilaianmu</span>
                     <StarRatingInput id={`review-rating-${beanId}`} value={data.rating} onChange={(value) => setData('rating', value)} />
                     {errors.rating && <p className="mt-1 text-[12.5px] font-medium text-error">{errors.rating}</p>}
                 </div>
                 <Input
                     name="brew_method"
-                    label="Brew method (optional)"
+                    label="Metode seduh (opsional)"
                     value={data.brew_method}
                     onChange={(event) => setData('brew_method', event.target.value)}
                     error={errors.brew_method}
-                    placeholder="e.g. V60, 1:15 ratio, 91°C"
-                    hint="How you brewed this bean — shared on your review."
+                    placeholder="misalnya V60, rasio 1:15, 91°C"
+                    hint="Cara kamu menyeduh bean ini — akan ditampilkan di ulasanmu."
                 />
                 <div>
                     <label htmlFor={`review-body-${beanId}`} className="mb-1.5 block text-[12.5px] font-semibold text-espresso">
-                        Your review
+                        Ulasanmu
                     </label>
                     <textarea
                         id={`review-body-${beanId}`}
@@ -52,13 +52,13 @@ export default function WriteReviewForm({ beanId }) {
                         rows={4}
                         value={data.body}
                         onChange={(event) => setData('body', event.target.value)}
-                        placeholder="Tasting notes, aromatics, mouthfeel, and whether it delivered on the promise…"
+                        placeholder="Catatan rasa, aroma, mouthfeel, dan apakah sesuai ekspektasi…"
                         className="input-field resize-y"
                     />
                     {errors.body && <p className="mt-1 text-[12.5px] font-medium text-error">{errors.body}</p>}
                 </div>
                 <Button type="submit" loading={processing}>
-                    Post Review
+                    Kirim Ulasan
                 </Button>
             </form>
         </Card>

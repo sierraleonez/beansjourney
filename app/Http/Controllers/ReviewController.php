@@ -27,7 +27,7 @@ class ReviewController extends Controller
         );
 
         return redirect()->route('beans.show', ['bean' => $bean, 'tab' => 'reviews'])
-            ->with('flash', ['type' => 'success', 'message' => 'Review posted. Thanks for sharing!']);
+            ->with('flash', ['type' => 'success', 'message' => 'Ulasan berhasil diposting. Terima kasih sudah berbagi!']);
     }
 
     public function destroy(Request $request, Review $review): RedirectResponse

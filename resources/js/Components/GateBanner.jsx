@@ -9,7 +9,7 @@ export default function GateBanner({ action, message, cta, redirectTo, variant =
         router.visit(route(redirectTo ?? 'login', { redirect: window.location.href }));
     };
 
-    const ctaLabel = variant === 'guest' ? (cta ?? 'Log in') : (cta ?? 'Verify email');
+    const ctaLabel = variant === 'guest' ? (cta ?? 'Masuk') : (cta ?? 'Verifikasi email');
 
     return (
         <section

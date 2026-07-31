@@ -12,7 +12,7 @@ export default function AuthShell({ children, eyebrow, title, subtitle, footer }
                 href="#main-content"
                 className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-caramel focus:px-4 focus:py-2 focus:text-white"
             >
-                Skip to content
+                Lompat ke konten
             </a>
             <main id="main-content" className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center px-4 py-10">
                 <div className="mb-6 flex justify-center">

@@ -39,7 +39,7 @@ export default function Modal({ open, onClose, title, labelledBy, children, wide
                     <button
                         type="button"
                         onClick={onClose}
-                        aria-label="Close dialog"
+                        aria-label="Tutup dialog"
                         className="btn-icon"
                     >
                         <svg aria-hidden="true" viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5">

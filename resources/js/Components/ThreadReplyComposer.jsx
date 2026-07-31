@@ -15,11 +15,11 @@ export default function ThreadReplyComposer({ commentableType, commentableId, ca
             <GateBanner
                 variant={isGuest ? 'guest' : 'unverified'}
                 redirectTo={isGuest ? undefined : 'verification.notice'}
-                action={isGuest ? 'Log in to join the discussion' : 'Verify your email to join'}
+                action={isGuest ? 'Masuk untuk ikut diskusi' : 'Verifikasi email untuk bergabung'}
                 message={
                     isGuest
-                        ? 'Comments help the community decide and brew better. Add yours to the thread.'
-                        : "You're registered, but your account isn't fully active yet. Verify your email to join the discussion."
+                        ? 'Komentar membantu komunitas menentukan pilihan dan menyeduh lebih baik. Yuk, tambahkan komentarmu di utas ini.'
+                        : 'Akunmu sudah terdaftar, tapi belum sepenuhnya aktif. Verifikasi email untuk ikut berdiskusi.'
                 }
             />
         );
@@ -43,7 +43,7 @@ export default function ThreadReplyComposer({ commentableType, commentableId, ca
     return (
         <form onSubmit={submit} className="card-surface p-5">
             <label htmlFor={`reply-${commentableType}-${commentableId}`} className="text-[12.5px] font-semibold text-espresso">
-                Add to the discussion
+                Tambahkan ke diskusi
             </label>
             <textarea
                 id={`reply-${commentableType}-${commentableId}`}
@@ -52,12 +52,12 @@ export default function ThreadReplyComposer({ commentableType, commentableId, ca
                 required
                 value={body}
                 onChange={(event) => setBody(event.target.value)}
-                placeholder="What worked for you? What would you change?"
+                placeholder="Apa yang berhasil buat kamu? Apa yang ingin kamu ubah?"
                 className="input-field mt-2 resize-y"
             />
             <div className="mt-3">
                 <Button type="submit" loading={loading}>
-                    Post Comment
+                    Kirim Komentar
                 </Button>
             </div>
         </form>

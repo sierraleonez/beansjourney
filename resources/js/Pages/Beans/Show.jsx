@@ -14,6 +14,11 @@ import { StarRating } from '../../Components/StarRating';
 import { cn, formatDate } from '../../lib/utils';
 
 const tabs = ['overview', 'reviews', 'recipes'];
+const tabLabels = {
+    overview: 'Ringkasan',
+    reviews: 'Ulasan',
+    recipes: 'Resep',
+};
 const roastVariant = {
     Light: 'light',
     'Light-Medium': 'light',
@@ -24,20 +29,20 @@ const roastVariant = {
 
 function Specs({ bean }) {
     const specs = [
-        ['Origin', bean.origin],
-        ['Variety', bean.variety],
-        ['Process', bean.process],
-        ['Roast profile', bean.roast_profile],
-        ['Roast date', formatDate(bean.roast_date)],
-        ['Purpose', bean.purpose],
-        ['Purchased on', formatDate(bean.purchased_on)],
-        ['Altitude', bean.altitude],
+        ['Asal', bean.origin],
+        ['Varietas', bean.variety],
+        ['Proses', bean.process],
+        ['Tingkat sangrai', bean.roast_profile],
+        ['Tanggal sangrai', formatDate(bean.roast_date)],
+        ['Peruntukan', bean.purpose],
+        ['Tanggal dibeli', formatDate(bean.purchased_on)],
+        ['Ketinggian', bean.altitude],
     ];
 
     return (
         <div className="card-surface p-6">
             <div className="flex items-center gap-3">
-                <h2 className="text-[22px]">Specs at a glance</h2>
+                <h2 className="text-[22px]">Sekilas spesifikasi</h2>
                 <span className="h-px flex-1 bg-line" />
             </div>
             <dl className="mt-4 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
@@ -50,9 +55,30 @@ function Specs({ bean }) {
             </dl>
             {bean.flavour_perception && (
                 <div className="mt-5">
-                    <h3 className="eyebrow">Tasting notes</h3>
+                    <h3 className="eyebrow">Catatan rasa</h3>
                     <p className="mt-1.5 text-[14px] leading-relaxed text-espresso">{bean.flavour_perception}</p>
                 </div>
+            )}
+        </div>
+    );
+}
+
+function BeanMedia({ bean }) {
+    if (!bean.photo_url && !bean.description) {
+        return null;
+    }
+
+    return (
+        <div className="card-surface flex flex-col gap-5 p-6 sm:flex-row">
+            {bean.photo_url && (
+                <img
+                    src={bean.photo_url}
+                    alt={bean.name}
+                    className="h-48 w-full rounded-md object-cover sm:h-auto sm:w-56 sm:flex-shrink-0"
+                />
+            )}
+            {bean.description && (
+                <p className="text-[14px] leading-relaxed text-espresso">{bean.description}</p>
             )}
         </div>
     );
@@ -72,8 +98,8 @@ function WriteGate({ canWrite, type, beanId }) {
             <GateBanner
                 variant="unverified"
                 redirectTo="verification.notice"
-                action="Verify your email to post"
-                message="You're registered, but your account isn't fully active yet. Verify your email to add your voice to this bean."
+                action="Verifikasi email untuk mengirim"
+                message="Akunmu sudah terdaftar, tapi belum sepenuhnya aktif. Verifikasi email untuk ikut menyuarakan pendapatmu tentang bean ini."
             />
         );
     }
@@ -81,11 +107,11 @@ function WriteGate({ canWrite, type, beanId }) {
     return (
         <GateBanner
             variant="guest"
-            action={type === 'review' ? 'Log in to add a review' : 'Log in to share a recipe'}
+            action={type === 'review' ? 'Masuk untuk menulis ulasan' : 'Masuk untuk membagikan resep'}
             message={
                 type === 'review'
-                    ? 'How did this bean taste to you? Reviews help the community decide before buying.'
-                    : 'Help the community discover the best way to brew this bean.'
+                    ? 'Bagaimana rasa bean ini menurutmu? Ulasan membantu komunitas menentukan pilihan sebelum membeli.'
+                    : 'Bantu komunitas menemukan cara terbaik menyeduh bean ini.'
             }
         />
     );
@@ -98,15 +124,15 @@ export default function BeanShow({ bean, tab, canWrite, reviews, recipes }) {
 
     return (
         <AppLayout>
-            <nav aria-label="Breadcrumb" className="pt-6">
+            <nav aria-label="Navigasi breadcrumb" className="pt-6">
                 <ol className="flex items-center gap-1.5 text-[12px] text-mocha">
                     <li>
-                        <Link href="/roasters" className="hover:text-brown">Roasters</Link>
+                        <Link href="/roasters" className="hover:text-brown">Roaster</Link>
                     </li>
                     <li aria-hidden="true">›</li>
                     <li>
                         <Link href={bean.roastery ? route('roasteries.show', bean.roastery.id) : '/roasters'} className="hover:text-brown">
-                            {bean.roastery?.name ?? 'Unknown roaster'}
+                            {bean.roastery?.name ?? 'Roaster tidak diketahui'}
                         </Link>
                     </li>
                     <li aria-hidden="true">›</li>
@@ -123,21 +149,21 @@ export default function BeanShow({ bean, tab, canWrite, reviews, recipes }) {
                                 <span className="flex items-center gap-2">
                                     <StarRating rating={Number(rating)} />
                                     <span className="font-display text-[20px] font-bold">{rating}</span>
-                                    <span className="text-[13px] text-mocha">· {bean.reviews_count} reviews</span>
+                                    <span className="text-[13px] text-mocha">· {bean.reviews_count} ulasan</span>
                                 </span>
                             ) : (
-                                <span className="text-[13px] text-mocha">No reviews yet</span>
+                                <span className="text-[13px] text-mocha">Belum ada ulasan</span>
                             )}
                             {bean.roast_profile && <Pill variant={roastVariant[bean.roast_profile] ?? 'neutral'}>{bean.roast_profile}</Pill>}
                             {bean.origin && <Pill variant="neutral">{bean.origin}</Pill>}
-                            {bean.purpose && <Pill variant="neutral">For {bean.purpose}</Pill>}
+                            {bean.purpose && <Pill variant="neutral">Untuk {bean.purpose}</Pill>}
                         </div>
                     </div>
                 </div>
 
                 <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_300px]">
                     <div className="min-w-0">
-                        <div role="tablist" aria-label="Bean sections" className="flex gap-1 border-b border-line">
+                        <div role="tablist" aria-label="Bagian bean" className="flex gap-1 border-b border-line">
                             {tabs.map((name) => (
                                 <Link
                                     key={name}
@@ -145,13 +171,13 @@ export default function BeanShow({ bean, tab, canWrite, reviews, recipes }) {
                                     role="tab"
                                     aria-selected={tab === name}
                                     className={cn(
-                                        'px-4 py-3 text-sm font-semibold capitalize transition-colors',
+                                        'px-4 py-3 text-sm font-semibold transition-colors',
                                         tab === name
                                             ? 'border-b-2 border-caramel text-espresso'
                                             : 'text-mocha hover:text-brown',
                                     )}
                                 >
-                                    {name}
+                                    {tabLabels[name]}
                                     {name === 'reviews' && <span className="ml-1.5 text-[12px] text-mocha">({bean.reviews_count})</span>}
                                     {name === 'recipes' && <span className="ml-1.5 text-[12px] text-mocha">({bean.recipes_count})</span>}
                                 </Link>
@@ -161,24 +187,25 @@ export default function BeanShow({ bean, tab, canWrite, reviews, recipes }) {
                         <div className="mt-6 space-y-5">
                             {tab === 'overview' && (
                                 <>
+                                    <BeanMedia bean={bean} />
                                     <Specs bean={bean} />
                                     <div className="grid gap-5 sm:grid-cols-2">
                                         <Card className="p-5">
-                                            <h3 className="text-[17px]">Reviews</h3>
+                                            <h3 className="text-[17px]">Ulasan</h3>
                                             <p className="mt-1 text-[12.5px] text-mocha">
-                                                {bean.reviews_count} review{bean.reviews_count === 1 ? '' : 's'} on this bean.
+                                                {bean.reviews_count} ulasan untuk bean ini.
                                             </p>
                                             <Link href={tabLink('reviews')} className="btn-ghost mt-4">
-                                                Read reviews
+                                                Baca ulasan
                                             </Link>
                                         </Card>
                                         <Card className="p-5">
-                                            <h3 className="text-[17px]">Recipes</h3>
+                                            <h3 className="text-[17px]">Resep</h3>
                                             <p className="mt-1 text-[12.5px] text-mocha">
-                                                {bean.recipes_count} recipe{bean.recipes_count === 1 ? '' : 's'} for brewing it well.
+                                                {bean.recipes_count} resep untuk menyeduhnya dengan baik.
                                             </p>
                                             <Link href={tabLink('recipes')} className="btn-ghost mt-4">
-                                                Find a brew
+                                                Cari racikan
                                             </Link>
                                         </Card>
                                     </div>
@@ -188,13 +215,13 @@ export default function BeanShow({ bean, tab, canWrite, reviews, recipes }) {
                             {tab === 'reviews' && (
                                 <>
                                     <div className="flex flex-wrap items-center justify-between gap-3">
-                                        <h2 className="text-[22px]">Reviews</h2>
+                                        <h2 className="text-[22px]">Ulasan</h2>
                                         <SortControl
                                             value={new URLSearchParams(window.location.search).get('sort') ?? 'top'}
                                             options={[
-                                                { value: 'top', label: 'Top' },
-                                                { value: 'newest', label: 'Newest' },
-                                                { value: 'highest', label: 'Highest rated' },
+                                                { value: 'top', label: 'Teratas' },
+                                                { value: 'newest', label: 'Terbaru' },
+                                                { value: 'highest', label: 'Rating tertinggi' },
                                             ]}
                                         />
                                     </div>
@@ -203,8 +230,8 @@ export default function BeanShow({ bean, tab, canWrite, reviews, recipes }) {
 
                                     {reviews.data.length === 0 ? (
                                         <EmptyState
-                                            title="No reviews yet — be the first to try this bean"
-                                            message="Your tasting notes will help the next buyer decide."
+                                            title="Belum ada ulasan — jadilah yang pertama mencoba bean ini"
+                                            message="Catatan rasamu akan membantu pembeli berikutnya menentukan pilihan."
                                             icon="⭐"
                                         />
                                     ) : (
@@ -223,13 +250,13 @@ export default function BeanShow({ bean, tab, canWrite, reviews, recipes }) {
                             {tab === 'recipes' && (
                                 <>
                                     <div className="flex flex-wrap items-center justify-between gap-3">
-                                        <h2 className="text-[22px]">Recipes</h2>
+                                        <h2 className="text-[22px]">Resep</h2>
                                         <SortControl
                                             value={new URLSearchParams(window.location.search).get('sort') ?? 'most_upvoted'}
                                             options={[
-                                                { value: 'most_upvoted', label: 'Most upvoted' },
-                                                { value: 'newest', label: 'Newest' },
-                                                { value: 'most_discussed', label: 'Most discussed' },
+                                                { value: 'most_upvoted', label: 'Paling didukung' },
+                                                { value: 'newest', label: 'Terbaru' },
+                                                { value: 'most_discussed', label: 'Paling ramai dibahas' },
                                             ]}
                                         />
                                     </div>
@@ -238,8 +265,8 @@ export default function BeanShow({ bean, tab, canWrite, reviews, recipes }) {
 
                                     {recipes.data.length === 0 ? (
                                         <EmptyState
-                                            title="No recipes yet"
-                                            message="Share how you brew this bean — the community is looking for a proven method."
+                                            title="Belum ada resep"
+                                            message="Bagikan cara kamu menyeduh bean ini — komunitas sedang mencari metode yang terbukti."
                                             icon="☕"
                                         />
                                     ) : (
@@ -259,24 +286,24 @@ export default function BeanShow({ bean, tab, canWrite, reviews, recipes }) {
 
                     <aside className="space-y-5">
                         <Card className="p-5">
-                            <h3 className="text-[17px]">{bean.roastery?.name ?? 'Unknown roaster'}</h3>
+                            <h3 className="text-[17px]">{bean.roastery?.name ?? 'Roaster tidak diketahui'}</h3>
                             {bean.roastery?.location && (
                                 <p className="mt-1 text-[12.5px] text-mocha">{bean.roastery.location}</p>
                             )}
                             {bean.roastery && (
                                 <Link href={route('roasteries.show', bean.roastery.id)} className="btn-ghost mt-4 w-full">
-                                    See all beans
+                                    Lihat semua bean
                                 </Link>
                             )}
                         </Card>
                         {!auth.user && (
                             <div className="rounded-lg bg-gradient-to-br from-brown to-espresso p-6 text-center">
-                                <h3 className="text-[20px] text-bg">Track your own journey</h3>
+                                <h3 className="text-[20px] text-bg">Catat perjalanan kopimu sendiri</h3>
                                 <p className="mt-2 text-[13px] text-bg/80">
-                                    Register to review, share recipes, and upvote what works.
+                                    Daftar untuk menulis ulasan, membagikan resep, dan mendukung yang menurutmu oke.
                                 </p>
                                 <Link href={route('register')} className="btn-primary mt-5">
-                                    Join Free
+                                    Gabung Gratis
                                 </Link>
                             </div>
                         )}

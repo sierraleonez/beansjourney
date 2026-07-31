@@ -6,7 +6,7 @@ import VoteButton from './VoteButton';
 import { timeAgo } from '../lib/utils';
 
 function DeletedPlaceholder() {
-    return <span className="italic text-mocha">[deleted]</span>;
+    return <span className="italic text-mocha">[dihapus]</span>;
 }
 
 function CommentItem({ comment, commentableType, commentableId, canReply, threadAuthorId, authUser, rootId, onExpand }) {
@@ -44,7 +44,7 @@ function CommentItem({ comment, commentableType, commentableId, canReply, thread
     };
 
     const remove = () => {
-        if (window.confirm('Delete this comment? Its replies stay visible.')) {
+        if (window.confirm('Hapus komentar ini? Balasannya akan tetap terlihat.')) {
             router.delete(route('comments.destroy', comment.id), { preserveScroll: true });
         }
     };
@@ -55,7 +55,7 @@ function CommentItem({ comment, commentableType, commentableId, canReply, thread
             onClick={remove}
             className="text-[12px] font-semibold text-error hover:opacity-80"
         >
-            Delete
+            Hapus
         </button>
     );
 
@@ -65,7 +65,7 @@ function CommentItem({ comment, commentableType, commentableId, canReply, thread
             onClick={() => setReplying((value) => !value)}
             className="text-[12px] font-semibold text-caramel hover:text-caramel-hover"
         >
-            Reply
+            Balas
         </button>
     );
 
@@ -74,12 +74,12 @@ function CommentItem({ comment, commentableType, commentableId, canReply, thread
             <Avatar name={comment.author?.name} size={32} className="mt-0.5" />
             <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5">
-                    <span className="text-[13px] font-bold">{comment.author?.name ?? 'Deleted user'}</span>
+                    <span className="text-[13px] font-bold">{comment.author?.name ?? 'Pengguna terhapus'}</span>
                     {isOP && <span className="text-[10.5px] font-bold text-caramel">OP</span>}
                     <span className="text-[11px] text-mocha">{timeAgo(comment.created_at)}</span>
                 </div>
                 {comment.reply_to && (
-                    <p className="mt-0.5 text-[12px] font-medium text-mocha">→ replying to {comment.reply_to}</p>
+                    <p className="mt-0.5 text-[12px] font-medium text-mocha">→ membalas {comment.reply_to}</p>
                 )}
                 <p className="mt-1 text-[13.5px] leading-relaxed">
                     {comment.deleted ? <DeletedPlaceholder /> : comment.body}
@@ -102,20 +102,20 @@ function CommentItem({ comment, commentableType, commentableId, canReply, thread
                 {replying && (
                     <form onSubmit={reply} className="mt-3 flex gap-2">
                         <textarea
-                            aria-label="Write a reply"
+                            aria-label="Tulis balasan"
                             rows={2}
                             maxLength={5000}
                             value={replyBody}
                             onChange={(event) => setReplyBody(event.target.value)}
-                            placeholder="Share your thoughts…"
+                            placeholder="Bagikan pendapatmu…"
                             className="input-field resize-y"
                         />
                         <div className="flex shrink-0 flex-col gap-1.5">
                             <Button type="submit" loading={posting} className="px-4 py-2">
-                                Post
+                                Kirim
                             </Button>
                             <button type="button" onClick={() => setReplying(false)} className="text-[12px] font-semibold text-mocha hover:text-brown">
-                                Cancel
+                                Batal
                             </button>
                         </div>
                     </form>
@@ -170,7 +170,7 @@ function RootComment({ comment, commentableType, commentableId, canReply, thread
                     <svg aria-hidden="true" viewBox="0 0 20 20" fill="currentColor" className="h-3.5 w-3.5">
                         <path fillRule="evenodd" d="M5.3 7.3a1 1 0 0 1 1.4 0L10 10.6l3.3-3.3a1 1 0 1 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 0-1.4z" clipRule="evenodd" />
                     </svg>
-                    Load {comment.collapsed_count} more comment{comment.collapsed_count === 1 ? '' : 's'}
+                    Muat {comment.collapsed_count} komentar lagi
                 </button>
             )}
         </div>
@@ -189,7 +189,7 @@ export default function CommentThread({
     if (!comments.roots.length) {
         return (
             <p className="py-4 text-center text-[13px] text-mocha">
-                No comments yet — start the conversation.
+                Belum ada komentar — yuk, mulai obrolannya.
             </p>
         );
     }
@@ -213,7 +213,7 @@ export default function CommentThread({
                         href={comments.next_page_url}
                         className="btn-ghost"
                     >
-                        Load more comments
+                        Muat lebih banyak komentar
                     </Link>
                 </div>
             )}

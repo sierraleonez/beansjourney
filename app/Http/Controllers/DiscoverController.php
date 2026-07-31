@@ -17,11 +17,18 @@ class DiscoverController extends Controller
     {
         $sort = $request->query('sort', 'newest');
         $sort = in_array($sort, ['newest', 'top', 'name'], true) ? $sort : 'newest';
+        $search = trim((string) $request->query('q', ''));
 
         $query = Bean::query()
             ->with('roastery:id,name,location')
             ->withCount(['reviews', 'recipes'])
-            ->withAvg('reviews as average_rating', 'rating');
+            ->withAvg('reviews as average_rating', 'rating')
+            ->when($search !== '', fn ($q) => $q->where(function ($inner) use ($search) {
+                $inner->where('name', 'like', "%{$search}%")
+                    ->orWhere('origin', 'like', "%{$search}%")
+                    ->orWhere('variety', 'like', "%{$search}%")
+                    ->orWhereHas('roastery', fn ($r) => $r->where('name', 'like', "%{$search}%"));
+            }));
 
         $query = match ($sort) {
             'top' => $query->orderByDesc('average_rating')->orderByDesc('reviews_count'),
@@ -30,8 +37,9 @@ class DiscoverController extends Controller
         };
 
         return Inertia::render('Discover', [
-            'beans' => $query->paginate(12),
+            'beans' => $query->paginate(12)->withQueryString(),
             'sort' => $sort,
+            'search' => $search,
             'roasters' => Roastery::query()
                 ->withCount('beans')
                 ->orderByDesc('beans_count')

@@ -5,9 +5,9 @@ import Avatar from './Avatar';
 import Modal from './Modal';
 import { cn } from '../lib/utils';
 
-const navLinks = [
-    { href: '/', label: 'Discover' },
-    { href: '/roasters', label: 'Roasters' },
+const baseNavLinks = [
+    { href: '/', label: 'Jelajahi' },
+    { href: '/roasters', label: 'Roaster' },
 ];
 
 export default function BrandHeader() {
@@ -16,15 +16,18 @@ export default function BrandHeader() {
     const [drawerOpen, setDrawerOpen] = useState(false);
 
     const currentPath = window.location.pathname;
+    const navLinks = auth.user
+        ? [...baseNavLinks, { href: '/my-beans', label: 'Bean Saya' }]
+        : baseNavLinks;
 
     return (
         <header className="sticky top-0 z-40 border-b border-line bg-bg/90 backdrop-blur">
             <div className="mx-auto flex h-16 max-w-[1728px] items-center justify-between gap-4 px-4 md:px-7 lg:px-12">
                 <div className="flex items-center gap-6">
-                    <Link href="/" aria-label="BeansJourney home">
+                    <Link href="/" aria-label="Beranda BeansJourney">
                         <Logo />
                     </Link>
-                    <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">
+                    <nav aria-label="Utama" className="hidden items-center gap-1 md:flex">
                         {navLinks.map((link) => (
                             <Link
                                 key={link.href}
@@ -75,7 +78,7 @@ export default function BrandHeader() {
                                         onClick={() => setMenuOpen(false)}
                                         className="block rounded-md px-3 py-2 text-sm text-espresso hover:bg-card"
                                     >
-                                        Profile settings
+                                        Pengaturan Profil
                                     </Link>
                                     {auth.user.role === 'admin' && (
                                         <a
@@ -84,7 +87,7 @@ export default function BrandHeader() {
                                             onClick={() => setMenuOpen(false)}
                                             className="block rounded-md px-3 py-2 text-sm text-espresso hover:bg-card"
                                         >
-                                            Admin panel
+                                            Panel Admin
                                         </a>
                                     )}
                                     <button
@@ -96,7 +99,7 @@ export default function BrandHeader() {
                                         }}
                                         className="block w-full rounded-md px-3 py-2 text-left text-sm text-error hover:bg-card"
                                     >
-                                        Log out
+                                        Keluar
                                     </button>
                                 </div>
                             )}
@@ -104,10 +107,10 @@ export default function BrandHeader() {
                     ) : (
                         <div className="hidden items-center gap-2 sm:flex">
                             <Link href={route('login')} className="btn-ghost">
-                                Log In
+                                Masuk
                             </Link>
                             <Link href={route('register')} className="btn-primary">
-                                Join Free
+                                Gabung Gratis
                             </Link>
                         </div>
                     )}
@@ -116,7 +119,7 @@ export default function BrandHeader() {
                         type="button"
                         className="btn-icon md:hidden"
                         onClick={() => setDrawerOpen(true)}
-                        aria-label="Open menu"
+                        aria-label="Buka menu"
                     >
                         <svg aria-hidden="true" viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5">
                             <path fillRule="evenodd" d="M3 5a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1zm0 5a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1zm0 5a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1z" clipRule="evenodd" />

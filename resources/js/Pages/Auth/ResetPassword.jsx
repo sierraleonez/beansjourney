@@ -20,22 +20,22 @@ export default function ResetPassword({ token, email }) {
 
     return (
         <AuthShell
-            eyebrow="Set a new password"
-            title="Choose a new password"
-            subtitle="Make it a good one — you'll use it to log in from now on."
+            eyebrow="Atur kata sandi baru"
+            title="Pilih kata sandi baru"
+            subtitle="Buat yang bagus — kamu akan memakainya untuk masuk mulai sekarang."
             footer={
                 <a href={route('login')} className="font-semibold text-caramel hover:text-caramel-hover">
-                    Back to log in
+                    Kembali ke halaman masuk
                 </a>
             }
         >
-            <Head title="Reset Password" />
+            <Head title="Atur Ulang Kata Sandi" />
 
             {errors.token && (
                 <div className="mb-4 rounded-md border border-error bg-error/10 px-3 py-2 text-[13px] font-medium text-error">
                     <p>{errors.token}</p>
                     <a href={route('password.request')} className="mt-1 inline-block font-semibold text-caramel hover:text-caramel-hover">
-                        Send a new reset link
+                        Kirim tautan atur ulang baru
                     </a>
                 </div>
             )}
@@ -52,18 +52,18 @@ export default function ResetPassword({ token, email }) {
                 />
                 <Input
                     name="password"
-                    label="Password"
+                    label="Kata Sandi"
                     type="password"
                     value={data.password}
                     autoComplete="new-password"
                     error={errors.password}
                     onChange={(e) => setData('password', e.target.value)}
-                    hint="At least 8 characters."
+                    hint="Minimal 8 karakter."
                     required
                 />
                 <Input
                     name="password_confirmation"
-                    label="Confirm Password"
+                    label="Konfirmasi Kata Sandi"
                     type="password"
                     value={data.password_confirmation}
                     autoComplete="new-password"
@@ -72,7 +72,7 @@ export default function ResetPassword({ token, email }) {
                     required
                 />
                 <Button type="submit" loading={processing} className="w-full">
-                    Reset Password
+                    Atur Ulang Kata Sandi
                 </Button>
             </form>
         </AuthShell>

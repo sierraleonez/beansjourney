@@ -16,12 +16,12 @@ export default function ConfirmPassword() {
     };
 
     return (
-        <AuthShell eyebrow="Secure area" title="Confirm your password" subtitle="This is a secure area — please confirm your password before continuing.">
-            <Head title="Confirm Password" />
+        <AuthShell eyebrow="Area aman" title="Konfirmasi kata sandimu" subtitle="Ini adalah area aman — mohon konfirmasi kata sandimu sebelum melanjutkan.">
+            <Head title="Konfirmasi Kata Sandi" />
             <form onSubmit={submit} className="space-y-4">
                 <Input
                     name="password"
-                    label="Password"
+                    label="Kata Sandi"
                     type="password"
                     value={data.password}
                     autoComplete="current-password"
@@ -30,7 +30,7 @@ export default function ConfirmPassword() {
                     required
                 />
                 <Button type="submit" loading={processing} className="w-full">
-                    Confirm
+                    Konfirmasi
                 </Button>
             </form>
         </AuthShell>

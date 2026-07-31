@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Beans\Schemas;
 
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -24,6 +25,15 @@ class BeanForm
                 TextInput::make('name')
                     ->required()
                     ->maxLength(255),
+                Textarea::make('description')
+                    ->rows(3)
+                    ->columnSpanFull(),
+                FileUpload::make('photo_path')
+                    ->label('Photo')
+                    ->image()
+                    ->disk('public')
+                    ->directory('beans')
+                    ->columnSpanFull(),
                 TextInput::make('process')
                     ->maxLength(255),
                 TextInput::make('origin')

@@ -4,7 +4,7 @@ import { cn } from '../lib/utils';
 /**
  * Single-select sort control backed by the `sort` query param (deep-linkable).
  */
-export default function SortControl({ param = 'sort', value, options, className, label = 'Sort' }) {
+export default function SortControl({ param = 'sort', value, options, className, label = 'Urutkan' }) {
     const setSort = (next) => {
         const url = new URL(window.location.href);
         url.searchParams.set(param, next);

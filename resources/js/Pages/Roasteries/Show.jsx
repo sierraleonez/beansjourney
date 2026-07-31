@@ -11,10 +11,10 @@ export default function RoasteryShow({ roastery, beans }) {
 
     return (
         <AppLayout>
-            <nav aria-label="Breadcrumb" className="pt-6">
+            <nav aria-label="Navigasi breadcrumb" className="pt-6">
                 <ol className="flex items-center gap-1.5 text-[12px] text-mocha">
                     <li>
-                        <Link href="/roasters" className="hover:text-brown">Roasters</Link>
+                        <Link href="/roasters" className="hover:text-brown">Roaster</Link>
                     </li>
                     <li aria-hidden="true">›</li>
                     <li aria-current="page" className="font-semibold text-espresso">{roastery.name}</li>
@@ -26,8 +26,8 @@ export default function RoasteryShow({ roastery, beans }) {
                     <div>
                         <h1 className="text-display">{roastery.name}</h1>
                         <p className="mt-3 max-w-xl text-[15px] text-mocha">
-                            Every bean this roastery produces, in one place. Reviews and recipes from the community,
-                            so you can judge before you buy.
+                            Semua bean dari roastery ini, dalam satu tempat. Ulasan dan resep dari komunitas, supaya
+                            kamu bisa menilai sebelum membeli.
                         </p>
 
                         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -41,23 +41,23 @@ export default function RoasteryShow({ roastery, beans }) {
                     </div>
 
                     <Card className="h-fit p-5">
-                        <h2 className="text-[17px]">About the roastery</h2>
+                        <h2 className="text-[17px]">Tentang roastery</h2>
                         <dl className="mt-3 space-y-3 text-sm">
                             {roastery.location && (
                                 <div>
-                                    <dt className="eyebrow">Location</dt>
+                                    <dt className="eyebrow">Lokasi</dt>
                                     <dd className="mt-0.5 text-espresso">{roastery.location}</dd>
                                 </div>
                             )}
                             {roastery.contact && (
                                 <div>
-                                    <dt className="eyebrow">Contact</dt>
+                                    <dt className="eyebrow">Kontak</dt>
                                     <dd className="mt-0.5 text-espresso">{roastery.contact}</dd>
                                 </div>
                             )}
                             {Object.keys(social).length > 0 && (
                                 <div>
-                                    <dt className="eyebrow">Social</dt>
+                                    <dt className="eyebrow">Sosial</dt>
                                     <dd className="mt-1 flex flex-wrap gap-2">
                                         {Object.entries(social).map(([network, handle]) => (
                                             <Pill key={network} variant="neutral">
@@ -68,9 +68,9 @@ export default function RoasteryShow({ roastery, beans }) {
                                 </div>
                             )}
                             <div>
-                                <dt className="eyebrow">Catalog</dt>
+                                <dt className="eyebrow">Katalog</dt>
                                 <dd className="mt-0.5 text-espresso">
-                                    {beans.total} bean{beans.total === 1 ? '' : 's'}
+                                    {beans.total} bean
                                 </dd>
                             </div>
                         </dl>

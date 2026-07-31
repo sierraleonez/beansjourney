@@ -23,7 +23,7 @@ class RecipeController extends Controller
         );
 
         return redirect()->route('recipes.show', $recipe)
-            ->with('flash', ['type' => 'success', 'message' => 'Recipe shared. Help the community brew this one well!']);
+            ->with('flash', ['type' => 'success', 'message' => 'Resep berhasil dibagikan. Bantu komunitas menyeduh bean ini dengan baik!']);
     }
 
     public function destroy(Request $request, Recipe $recipe): RedirectResponse
