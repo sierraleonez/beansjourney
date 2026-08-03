@@ -26,14 +26,14 @@ class CreateRoastery
         return $roastery;
     }
 
-    public function findOrCreate(User $actor, string $name): Roastery
+    public function findOrCreate(User $actor, string $name, ?string $location = null, ?array $social = null): Roastery
     {
         if ($roastery = Roastery::where('name', $name)->first()) {
             return $roastery;
         }
 
         try {
-            return $this->create($actor, $name);
+            return $this->create($actor, $name, null, $social, $location);
         } catch (UniqueConstraintViolationException) {
             $roastery = Roastery::withTrashed()->where('name', $name)->firstOrFail();
 

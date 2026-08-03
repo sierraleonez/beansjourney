@@ -15,6 +15,9 @@ class StoreBeanRequest extends FormRequest
     {
         return [
             'roastery_name' => ['required', 'string', 'max:255'],
+            'roastery_location' => ['nullable', 'string', 'max:255'],
+            'roastery_instagram' => ['nullable', 'string', 'max:255'],
+            'roastery_website' => ['nullable', 'string', 'max:255'],
             'name' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'photo' => ['nullable', 'image', 'max:4096'],

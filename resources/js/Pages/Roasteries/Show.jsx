@@ -1,4 +1,4 @@
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import AppLayout from '../../Layouts/AppLayout';
 import BeanCard from '../../Components/BeanCard';
 import Card from '../../Components/Card';
@@ -8,6 +8,8 @@ import Pill from '../../Components/Pill';
 
 export default function RoasteryShow({ roastery, beans }) {
     const social = roastery.social ?? {};
+    const { auth } = usePage().props;
+    const canEdit = auth.user && (auth.user.role === 'admin' || auth.user.id === roastery.created_by);
 
     return (
         <AppLayout>
@@ -41,7 +43,17 @@ export default function RoasteryShow({ roastery, beans }) {
                     </div>
 
                     <Card className="h-fit p-5">
-                        <h2 className="text-[17px]">Tentang roastery</h2>
+                        <div className="flex items-center justify-between gap-3">
+                            <h2 className="text-[17px]">Tentang roastery</h2>
+                            {canEdit && (
+                                <Link
+                                    href={route('roasteries.edit', roastery.id)}
+                                    className="text-[12.5px] font-semibold text-brown hover:text-caramel"
+                                >
+                                    Edit info roastery
+                                </Link>
+                            )}
+                        </div>
                         <dl className="mt-3 space-y-3 text-sm">
                             {roastery.location && (
                                 <div>

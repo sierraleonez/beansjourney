@@ -15,6 +15,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [DiscoverController::class, 'index'])->name('discover');
 Route::get('/roasters', [RoasteryController::class, 'index'])->name('roasteries.index');
 Route::get('/roasters/{roastery}', [RoasteryController::class, 'show'])->name('roasteries.show');
+Route::get('/roasters/{roastery}/edit', [RoasteryController::class, 'edit'])
+    ->middleware(['auth', 'verified'])
+    ->name('roasteries.edit');
+Route::patch('/roasters/{roastery}', [RoasteryController::class, 'update'])
+    ->middleware(['auth', 'verified'])
+    ->name('roasteries.update');
 
 Route::get('/beans/new', [BeanController::class, 'create'])
     ->middleware(['auth', 'verified'])

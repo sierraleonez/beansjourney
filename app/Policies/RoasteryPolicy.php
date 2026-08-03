@@ -24,7 +24,7 @@ class RoasteryPolicy
 
     public function update(User $user, Roastery $roastery): bool
     {
-        return $user->isAdmin();
+        return $user->isAdmin() || $user->id === $roastery->created_by;
     }
 
     public function delete(User $user, Roastery $roastery): bool

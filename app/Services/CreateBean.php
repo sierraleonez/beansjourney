@@ -12,9 +12,14 @@ class CreateBean
     {
     }
 
-    public function create(User $actor, string $roasteryName, array $data): Bean
+    public function create(User $actor, string $roasteryName, array $data, array $roasteryInfo = []): Bean
     {
-        $roastery = $this->createRoastery->findOrCreate($actor, $roasteryName);
+        $roastery = $this->createRoastery->findOrCreate(
+            $actor,
+            $roasteryName,
+            $roasteryInfo['location'] ?? null,
+            $roasteryInfo['social'] ?? null,
+        );
 
         $bean = new Bean(array_merge($data, [
             'roastery_id' => $roastery->id,

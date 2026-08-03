@@ -65,16 +65,31 @@ class BeanController extends Controller
     {
         $this->authorize('create', Bean::class);
 
-        $data = $request->safe()->except(['roastery_name', 'photo']);
+        $data = $request->safe()->except([
+            'roastery_name',
+            'roastery_location',
+            'roastery_instagram',
+            'roastery_website',
+            'photo',
+        ]);
 
         if ($request->hasFile('photo')) {
             $data['photo_path'] = $request->file('photo')->store('beans', 'public');
         }
 
+        $social = array_filter([
+            'instagram' => $request->string('roastery_instagram')->toString() ?: null,
+            'website' => $request->string('roastery_website')->toString() ?: null,
+        ]);
+
         $bean = app(CreateBean::class)->create(
             $request->user(),
             $request->string('roastery_name')->toString(),
             $data,
+            [
+                'location' => $request->string('roastery_location')->toString() ?: null,
+                'social' => $social === [] ? null : $social,
+            ],
         );
 
         return redirect()->route('beans.show', $bean)->with('flash', [
