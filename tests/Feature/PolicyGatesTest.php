@@ -204,8 +204,8 @@ class PolicyGatesTest extends TestCase
                 'tools' => ['grinder' => 'Comandante', 'dripper' => 'V60 02'],
                 'process' => 'Bloom 50g, then pour to 250g in 2:30.',
                 'dose_ratio' => '1:16',
-                'grind_size' => 'Medium-fine',
-                'water_temp' => '94°C',
+                'grind_size' => 'Sedang-Halus',
+                'water_temp' => '94',
             ])
             ->assertRedirect(route('recipes.show', Recipe::first()));
 
