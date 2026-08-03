@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bean;
-use App\Models\Recipe;
-use App\Models\Review;
 use App\Models\Roastery;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -45,12 +42,6 @@ class DiscoverController extends Controller
                 ->orderByDesc('beans_count')
                 ->limit(6)
                 ->get(['id', 'name', 'location']),
-            'stats' => [
-                'beans' => Bean::count(),
-                'reviews' => Review::count(),
-                'recipes' => Recipe::count(),
-                'users' => User::count(),
-            ],
         ]);
     }
 }

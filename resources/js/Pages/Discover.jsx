@@ -7,7 +7,7 @@ import LoadMore from '../Components/LoadMore';
 import EmptyState from '../Components/EmptyState';
 import Card from '../Components/Card';
 
-export default function Discover({ beans, sort, search, roasters, stats }) {
+export default function Discover({ beans, sort, search, roasters }) {
     const { auth } = usePage().props;
     const [query, setQuery] = useState(search ?? '');
     const isFirstRender = useRef(true);
@@ -41,20 +41,6 @@ export default function Discover({ beans, sort, search, roasters, stats }) {
                     Bagaimana rasa bean ini menurutmu? Bagikan metode seduh, catatan rasa, ukuran gilingan — dan temukan
                     resep yang paling cocok untuk bean-nya sebelum kamu membeli.
                 </p>
-
-                <dl className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
-                    {[
-                        ['Bean', stats.beans],
-                        ['Ulasan', stats.reviews],
-                        ['Resep', stats.recipes],
-                        ['Pencinta kopi', stats.users],
-                    ].map(([label, value]) => (
-                        <div key={label} className="card-surface px-4 py-3 text-center">
-                            <dt className="eyebrow">{label}</dt>
-                            <dd className="mt-1 font-display text-[22px] font-bold">{value}</dd>
-                        </div>
-                    ))}
-                </dl>
 
                 <div className="mt-8 max-w-xl">
                     <label htmlFor="bean-search" className="sr-only">
@@ -110,7 +96,7 @@ export default function Discover({ beans, sort, search, roasters, stats }) {
                         />
                     ) : (
                         <>
-                            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                            <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3">
                                 {beans.data.map((bean) => (
                                     <BeanCard key={bean.id} bean={bean} />
                                 ))}

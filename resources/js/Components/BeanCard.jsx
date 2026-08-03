@@ -16,12 +16,12 @@ export default function BeanCard({ bean }) {
 
     return (
         <Link href={route('beans.show', bean.id)} className="block focus:outline-none">
-            <Card clickable className="flex h-full flex-col p-6" >
+            <Card clickable className="flex h-full flex-col p-4 sm:p-6" >
                 {bean.photo_url && (
                     <img
                         src={bean.photo_url}
                         alt={bean.name}
-                        className="-mx-6 -mt-6 mb-4 h-36 w-[calc(100%+3rem)] rounded-t-md object-cover"
+                        className="-mx-4 -mt-4 mb-4 h-28 w-[calc(100%+2rem)] rounded-t-md object-cover sm:-mx-6 sm:-mt-6 sm:h-36 sm:w-[calc(100%+3rem)]"
                     />
                 )}
                 <div className="flex items-start justify-between gap-2">

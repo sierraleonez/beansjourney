@@ -1,8 +1,13 @@
 import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 
 /**
  * Accessible overlay: closes on Escape and backdrop click. Used for the mobile nav drawer
- * and the account-deletion confirmation.
+ * and the account-deletion confirmation. Rendered via a portal to `document.body` so it can
+ * never get trapped inside an ancestor's stacking context (e.g. the sticky, z-indexed
+ * header) — a `position: fixed` descendant of a `position: sticky` + `z-index` element only
+ * stacks within that ancestor's own context, which is what caused the drawer to render
+ * underneath the page on mobile.
  */
 export default function Modal({ open, onClose, title, labelledBy, children, wide = false }) {
     useEffect(() => {
@@ -21,7 +26,7 @@ export default function Modal({ open, onClose, title, labelledBy, children, wide
 
     if (!open) return null;
 
-    return (
+    return createPortal(
         <div
             className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-espresso/40 p-4 backdrop-blur-sm"
             onMouseDown={(event) => {
@@ -53,6 +58,7 @@ export default function Modal({ open, onClose, title, labelledBy, children, wide
                 </div>
                 {children}
             </div>
-        </div>
+        </div>,
+        document.body,
     );
 }
