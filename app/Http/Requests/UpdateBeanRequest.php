@@ -2,26 +2,25 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreBeanRequest extends FormRequest
+class UpdateBeanRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return $this->user()?->hasVerifiedEmail() ?? false;
+        return $this->user() !== null;
     }
 
     public function rules(): array
     {
         return [
-            'roastery_name' => ['required', 'string', 'max:255'],
-            'roastery_location' => ['nullable', 'string', 'max:255'],
-            'roastery_instagram' => ['nullable', 'string', 'max:255'],
-            'roastery_website' => ['nullable', 'string', 'max:255'],
             'name' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
-            'photos' => ['nullable', 'array', 'max:5'],
+            'photos' => ['nullable', 'array'],
             'photos.*' => ['image', 'max:4096'],
+            'remove_photo_ids' => ['nullable', 'array'],
+            'remove_photo_ids.*' => ['integer', 'exists:bean_photos,id'],
             'process_id' => ['nullable', 'integer', 'exists:processes,id'],
             'origin_id' => ['nullable', 'integer', 'exists:origins,id'],
             'variety' => ['nullable', 'string', 'max:255'],
@@ -32,5 +31,24 @@ class StoreBeanRequest extends FormRequest
             'purchased_on' => ['nullable', 'date'],
             'altitude' => ['nullable', 'string', 'max:255'],
         ];
+    }
+
+    public function withValidator(Validator $validator): void
+    {
+        $validator->after(function (Validator $validator) {
+            $bean = $this->route('bean');
+
+            if (! $bean) {
+                return;
+            }
+
+            $removeCount = count($this->input('remove_photo_ids', []));
+            $newCount = count($this->file('photos', []));
+            $remainingCount = $bean->photos()->count() - $removeCount + $newCount;
+
+            if ($remainingCount > 5) {
+                $validator->errors()->add('photos', 'Maksimal 5 foto per bean.');
+            }
+        });
     }
 }

@@ -24,7 +24,7 @@ class BeanPolicy
 
     public function update(User $user, Bean $bean): bool
     {
-        return $user->isAdmin();
+        return $user->isAdmin() || $user->id === $bean->created_by;
     }
 
     public function delete(User $user, Bean $bean): bool

@@ -1,4 +1,5 @@
-import { useForm } from '@inertiajs/react';
+import { useState } from 'react';
+import { Link, useForm } from '@inertiajs/react';
 import AppLayout from '../../Layouts/AppLayout';
 import Card from '../../Components/Card';
 import Input from '../../Components/Input';
@@ -8,95 +9,77 @@ import PhotoPicker from '../../Components/PhotoPicker';
 
 const MAX_PHOTOS = 5;
 
-export default function BeanCreate({ roasteries = [], processes = [], origins = [], roastLevels = [], purposes = [] }) {
-    const { data, setData, post, processing, errors, reset } = useForm({
-        roastery_name: '',
-        roastery_location: '',
-        roastery_instagram: '',
-        roastery_website: '',
-        name: '',
-        description: '',
+const toDateInput = (value) => (value ? String(value).slice(0, 10) : '');
+
+export default function BeanEdit({ bean, processes = [], origins = [], roastLevels = [], purposes = [] }) {
+    const [removedIds, setRemovedIds] = useState([]);
+
+    const { data, setData, post, processing, errors } = useForm({
+        name: bean.name ?? '',
+        description: bean.description ?? '',
         photos: [],
-        process_id: '',
-        origin_id: '',
-        variety: '',
-        flavour_perception: '',
-        roast_date: '',
-        roast_level_id: '',
-        purpose_id: '',
-        purchased_on: '',
-        altitude: '',
+        remove_photo_ids: [],
+        process_id: bean.process?.id ?? '',
+        origin_id: bean.origin?.id ?? '',
+        variety: bean.variety ?? '',
+        flavour_perception: bean.flavour_perception ?? '',
+        roast_date: toDateInput(bean.roast_date),
+        roast_level_id: bean.roast_level?.id ?? '',
+        purpose_id: bean.purpose?.id ?? '',
+        purchased_on: toDateInput(bean.purchased_on),
+        altitude: bean.altitude ?? '',
+        _method: 'patch',
     });
 
     const set = (key) => (event) => setData(key, event.target.value);
 
+    const remainingPhotos = bean.photos ?? [];
+    const keptCount = remainingPhotos.filter((photo) => !removedIds.includes(photo.id)).length;
+    const remainingSlots = MAX_PHOTOS - keptCount - data.photos.length;
+
+    const toggleRemove = (photoId) => {
+        const next = removedIds.includes(photoId)
+            ? removedIds.filter((id) => id !== photoId)
+            : [...removedIds, photoId];
+
+        setRemovedIds(next);
+        setData('remove_photo_ids', next);
+    };
+
     const submit = (event) => {
         event.preventDefault();
-        post(route('beans.store'), {
+        post(route('beans.update', bean.id), {
             forceFormData: true,
             preserveScroll: true,
-            onSuccess: () => reset(),
         });
     };
 
     return (
         <AppLayout>
+            <nav aria-label="Navigasi breadcrumb" className="pt-6">
+                <ol className="flex items-center gap-1.5 text-[12px] text-mocha">
+                    <li>
+                        <Link href="/roasters" className="hover:text-brown">Roaster</Link>
+                    </li>
+                    <li aria-hidden="true">›</li>
+                    <li>
+                        <Link href={route('beans.show', bean.id)} className="hover:text-brown">
+                            {bean.name}
+                        </Link>
+                    </li>
+                    <li aria-hidden="true">›</li>
+                    <li aria-current="page" className="font-semibold text-espresso">Edit</li>
+                </ol>
+            </nav>
+
             <section className="mx-auto max-w-2xl py-10">
-                <h1 className="text-display">Tambahkan Bean</h1>
+                <h1 className="text-display">Edit Bean</h1>
                 <p className="mt-2 text-[14px] text-mocha">
-                    Tambahkan bean ke katalog. Kalau roasterynya belum ada, kami akan membuatkannya — keduanya langsung
-                    muncul di katalog.
+                    Perbarui detail {bean.name}. Roastery pemilik bean ini tidak bisa diubah dari sini.
                 </p>
 
                 <Card className="mt-8 p-6 sm:p-8">
                     <form onSubmit={submit} className="space-y-5">
-                        <div>
-                            <SearchableSelect
-                                creatable
-                                name="roastery_name"
-                                label="Roastery"
-                                value={data.roastery_name}
-                                onChange={(val) => setData('roastery_name', val)}
-                                options={roasteries}
-                                error={errors.roastery_name}
-                                placeholder="misalnya Sweet Bloom Coffee Roasters"
-                                hint="Dibuat otomatis kalau belum ada."
-                                required
-                            />
-                        </div>
-
-                        <div className="rounded-lg border-[1.5px] border-line bg-card/60 p-4">
-                            <p className="mb-3 text-[12.5px] font-semibold text-espresso">
-                                Info roastery baru (opsional, hanya dipakai kalau roastery ini belum ada)
-                            </p>
-                            <div className="grid gap-4 sm:grid-cols-3">
-                                <Input
-                                    name="roastery_location"
-                                    label="Lokasi"
-                                    value={data.roastery_location}
-                                    onChange={set('roastery_location')}
-                                    error={errors.roastery_location}
-                                    placeholder="Bandung, Indonesia"
-                                />
-                                <Input
-                                    name="roastery_instagram"
-                                    label="Instagram"
-                                    value={data.roastery_instagram}
-                                    onChange={set('roastery_instagram')}
-                                    error={errors.roastery_instagram}
-                                    placeholder="@namaroastery"
-                                />
-                                <Input
-                                    name="roastery_website"
-                                    label="Website"
-                                    value={data.roastery_website}
-                                    onChange={set('roastery_website')}
-                                    error={errors.roastery_website}
-                                    placeholder="https://namaroastery.com"
-                                />
-                            </div>
-                        </div>
-
                         <Input
                             name="name"
                             label="Nama bean"
@@ -122,10 +105,39 @@ export default function BeanCreate({ roasteries = [], processes = [], origins = 
                             {errors.description && <p className="mt-1 text-[12.5px] font-medium text-error">{errors.description}</p>}
                         </div>
 
+                        {remainingPhotos.length > 0 && (
+                            <div>
+                                <span className="mb-1.5 block text-[12.5px] font-semibold text-espresso">Foto saat ini</span>
+                                <div className="flex flex-wrap gap-3">
+                                    {remainingPhotos.map((photo) => {
+                                        const removed = removedIds.includes(photo.id);
+                                        return (
+                                            <div key={photo.id} className="relative h-20 w-20 shrink-0">
+                                                <img
+                                                    src={photo.url}
+                                                    alt="Foto bean"
+                                                    className={`h-full w-full rounded-md object-cover ${removed ? 'opacity-30' : ''}`}
+                                                />
+                                                <button
+                                                    type="button"
+                                                    aria-label={removed ? 'Batalkan hapus foto ini' : 'Hapus foto ini'}
+                                                    onClick={() => toggleRemove(photo.id)}
+                                                    className={`absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full text-[12px] font-bold text-white shadow ${removed ? 'bg-mocha' : 'bg-espresso'}`}
+                                                >
+                                                    {removed ? '↺' : '✕'}
+                                                </button>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        )}
+
                         <PhotoPicker
+                            id="edit-photos"
                             photos={data.photos}
                             onChange={(photos) => setData('photos', photos)}
-                            remainingSlots={MAX_PHOTOS - data.photos.length}
+                            remainingSlots={remainingSlots}
                             error={errors.photos}
                         />
 
@@ -192,7 +204,7 @@ export default function BeanCreate({ roasteries = [], processes = [], origins = 
                         </div>
 
                         <Button type="submit" loading={processing}>
-                            Tambahkan Bean ke Katalog
+                            Simpan Perubahan
                         </Button>
                     </form>
                 </Card>

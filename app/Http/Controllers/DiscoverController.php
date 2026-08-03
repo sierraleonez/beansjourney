@@ -17,7 +17,7 @@ class DiscoverController extends Controller
         $search = trim((string) $request->query('q', ''));
 
         $query = Bean::query()
-            ->with('roastery:id,name,location', 'process:id,name', 'origin:id,name', 'roastLevel:id,name')
+            ->with('photos', 'roastery:id,name,location', 'process:id,name', 'origin:id,name', 'roastLevel:id,name')
             ->withCount(['reviews', 'recipes'])
             ->withAvg('reviews as average_rating', 'rating')
             ->when($search !== '', fn ($q) => $q->where(function ($inner) use ($search) {

@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Storage;
 
 class Bean extends Model
 {
@@ -26,11 +25,10 @@ class Bean extends Model
         'purpose_id',
         'purchased_on',
         'altitude',
-        'photo_path',
         'created_by',
     ];
 
-    protected $appends = ['photo_url'];
+    protected $appends = ['photo_url', 'photo_urls'];
 
     protected function casts(): array
     {
@@ -42,7 +40,17 @@ class Bean extends Model
 
     public function getPhotoUrlAttribute(): ?string
     {
-        return $this->photo_path ? Storage::disk('public')->url($this->photo_path) : null;
+        return $this->photos->first()?->url;
+    }
+
+    public function getPhotoUrlsAttribute(): array
+    {
+        return $this->photos->pluck('url')->values()->all();
+    }
+
+    public function photos(): HasMany
+    {
+        return $this->hasMany(BeanPhoto::class)->orderBy('id');
     }
 
     public function roastery(): BelongsTo

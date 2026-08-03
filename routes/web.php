@@ -29,9 +29,15 @@ Route::get('/my-beans', [BeanController::class, 'mine'])
     ->middleware(['auth'])
     ->name('beans.mine');
 Route::get('/beans/{bean}', [BeanController::class, 'show'])->name('beans.show');
+Route::get('/beans/{bean}/edit', [BeanController::class, 'edit'])
+    ->middleware(['auth', 'verified'])
+    ->name('beans.edit');
 Route::post('/beans', [BeanController::class, 'store'])
     ->middleware(['auth', 'verified'])
     ->name('beans.store');
+Route::patch('/beans/{bean}', [BeanController::class, 'update'])
+    ->middleware(['auth', 'verified'])
+    ->name('beans.update');
 
 Route::post('/beans/{bean}/reviews', [ReviewController::class, 'store'])
     ->middleware(['auth', 'verified'])

@@ -26,6 +26,7 @@ class RoasteryController extends Controller
     public function show(Request $request, Roastery $roastery): Response
     {
         $beans = $roastery->beans()
+            ->with('photos')
             ->withCount(['reviews', 'recipes'])
             ->withAvg('reviews as average_rating', 'rating')
             ->orderByDesc('created_at')

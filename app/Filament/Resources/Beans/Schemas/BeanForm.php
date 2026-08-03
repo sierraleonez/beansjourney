@@ -28,11 +28,14 @@ class BeanForm
                 Textarea::make('description')
                     ->rows(3)
                     ->columnSpanFull(),
-                FileUpload::make('photo_path')
-                    ->label('Photo')
+                FileUpload::make('photos')
+                    ->label('Photos')
                     ->image()
+                    ->multiple()
+                    ->reorderable()
                     ->disk('public')
                     ->directory('beans')
+                    ->relationship('photos', 'path')
                     ->columnSpanFull(),
                 Select::make('process_id')
                     ->label('Proses')

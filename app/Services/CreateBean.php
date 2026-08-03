@@ -12,7 +12,7 @@ class CreateBean
     {
     }
 
-    public function create(User $actor, string $roasteryName, array $data, array $roasteryInfo = []): Bean
+    public function create(User $actor, string $roasteryName, array $data, array $roasteryInfo = [], array $photoPaths = []): Bean
     {
         $roastery = $this->createRoastery->findOrCreate(
             $actor,
@@ -27,6 +27,10 @@ class CreateBean
         ]));
 
         $bean->save();
+
+        foreach ($photoPaths as $path) {
+            $bean->photos()->create(['path' => $path]);
+        }
 
         ActivityLog::record($actor, 'created', $bean);
 

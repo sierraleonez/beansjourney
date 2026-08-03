@@ -27,6 +27,59 @@ const roastVariant = {
     Dark: 'dark',
 };
 
+const fieldLabels = {
+    name: 'nama',
+    description: 'deskripsi',
+    process_id: 'proses',
+    origin_id: 'asal',
+    variety: 'varietas',
+    flavour_perception: 'catatan rasa',
+    roast_date: 'tanggal sangrai',
+    roast_level_id: 'tingkat sangrai',
+    purpose_id: 'peruntukan',
+    purchased_on: 'tanggal dibeli',
+    altitude: 'ketinggian',
+};
+
+const actionLabels = {
+    created: 'menambahkan bean ini',
+    restored: 'memulihkan bean ini',
+};
+
+function describeChange(entry) {
+    const fields = Object.keys(entry.meta?.changes ?? {});
+
+    if (fields.length > 0) {
+        const labels = fields.map((field) => fieldLabels[field] ?? field);
+        return `mengubah ${labels.join(', ')}`;
+    }
+
+    return actionLabels[entry.action] ?? 'memperbarui bean ini';
+}
+
+function ChangeLog({ entries = [] }) {
+    if (entries.length === 0) {
+        return null;
+    }
+
+    return (
+        <div className="card-surface p-6">
+            <div className="flex items-center gap-3">
+                <h2 className="text-[17px]">Riwayat perubahan</h2>
+                <span className="h-px flex-1 bg-line" />
+            </div>
+            <ul className="mt-4 space-y-2.5">
+                {entries.map((entry) => (
+                    <li key={entry.id} className="text-[13px] text-mocha">
+                        <span className="font-semibold text-espresso">{entry.user?.name ?? 'Seseorang'}</span>{' '}
+                        {describeChange(entry)} — {formatDate(entry.created_at)}
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+}
+
 function Specs({ bean }) {
     const specs = [
         ['Asal', bean.origin?.name],
@@ -64,18 +117,32 @@ function Specs({ bean }) {
 }
 
 function BeanMedia({ bean }) {
-    if (!bean.photo_url && !bean.description) {
+    const photos = bean.photo_urls ?? [];
+
+    if (photos.length === 0 && !bean.description) {
         return null;
     }
 
     return (
         <div className="card-surface flex flex-col gap-5 p-6 sm:flex-row">
-            {bean.photo_url && (
+            {photos.length === 1 && (
                 <img
-                    src={bean.photo_url}
+                    src={photos[0]}
                     alt={bean.name}
                     className="h-48 w-full rounded-md object-cover sm:h-auto sm:w-56 sm:flex-shrink-0"
                 />
+            )}
+            {photos.length > 1 && (
+                <div className="flex gap-2 overflow-x-auto sm:w-56 sm:flex-shrink-0 sm:flex-col sm:overflow-visible">
+                    {photos.map((url, index) => (
+                        <img
+                            key={url}
+                            src={url}
+                            alt={`${bean.name} — foto ${index + 1}`}
+                            className="h-28 w-28 shrink-0 rounded-md object-cover sm:h-auto sm:w-full"
+                        />
+                    ))}
+                </div>
             )}
             {bean.description && (
                 <p className="text-[14px] leading-relaxed text-espresso">{bean.description}</p>
@@ -117,7 +184,7 @@ function WriteGate({ canWrite, type, beanId }) {
     );
 }
 
-export default function BeanShow({ bean, tab, canWrite, reviews, recipes }) {
+export default function BeanShow({ bean, tab, canWrite, canEdit, reviews, recipes, topReviews, topRecipes, changeLog }) {
     const { auth } = usePage().props;
     const rating = bean.reviews_avg_rating ? Number(bean.reviews_avg_rating).toFixed(1) : null;
     const tabLink = (name) => route('beans.show', { bean: bean.id, tab: name });
@@ -159,6 +226,14 @@ export default function BeanShow({ bean, tab, canWrite, reviews, recipes }) {
                             {bean.purpose && <Pill variant="neutral">Untuk {bean.purpose.name}</Pill>}
                         </div>
                     </div>
+                    {canEdit && (
+                        <Link
+                            href={route('beans.edit', bean.id)}
+                            className="text-[12.5px] font-semibold text-brown hover:text-caramel"
+                        >
+                            Edit bean
+                        </Link>
+                    )}
                 </div>
 
                 <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_300px]">
@@ -189,26 +264,54 @@ export default function BeanShow({ bean, tab, canWrite, reviews, recipes }) {
                                 <>
                                     <BeanMedia bean={bean} />
                                     <Specs bean={bean} />
-                                    <div className="grid gap-5 sm:grid-cols-2">
-                                        <Card className="p-5">
-                                            <h3 className="text-[17px]">Ulasan</h3>
-                                            <p className="mt-1 text-[12.5px] text-mocha">
-                                                {bean.reviews_count} ulasan untuk bean ini.
-                                            </p>
-                                            <Link href={tabLink('reviews')} className="btn-ghost mt-4">
-                                                Baca ulasan
-                                            </Link>
-                                        </Card>
-                                        <Card className="p-5">
-                                            <h3 className="text-[17px]">Resep</h3>
-                                            <p className="mt-1 text-[12.5px] text-mocha">
-                                                {bean.recipes_count} resep untuk menyeduhnya dengan baik.
-                                            </p>
-                                            <Link href={tabLink('recipes')} className="btn-ghost mt-4">
-                                                Cari racikan
-                                            </Link>
-                                        </Card>
+
+                                    <div>
+                                        <div className="flex items-center justify-between gap-3">
+                                            <h3 className="text-[17px]">Ulasan teratas</h3>
+                                        </div>
+                                        {(topReviews ?? []).length === 0 ? (
+                                            <EmptyState
+                                                className="mt-3"
+                                                title="Belum ada ulasan"
+                                                message="Jadilah yang pertama menulis ulasan untuk bean ini."
+                                                icon="⭐"
+                                            />
+                                        ) : (
+                                            <div className="mt-3 space-y-4">
+                                                {(topReviews ?? []).map((review) => (
+                                                    <ReviewCard key={review.id} review={review} />
+                                                ))}
+                                            </div>
+                                        )}
+                                        <Link href={tabLink('reviews')} className="btn-ghost mt-4">
+                                            Lihat semua ulasan
+                                        </Link>
                                     </div>
+
+                                    <div>
+                                        <div className="flex items-center justify-between gap-3">
+                                            <h3 className="text-[17px]">Resep teratas</h3>
+                                        </div>
+                                        {(topRecipes ?? []).length === 0 ? (
+                                            <EmptyState
+                                                className="mt-3"
+                                                title="Belum ada resep"
+                                                message="Bagikan cara kamu menyeduh bean ini."
+                                                icon="☕"
+                                            />
+                                        ) : (
+                                            <div className="mt-3 space-y-4">
+                                                {(topRecipes ?? []).map((recipe) => (
+                                                    <RecipeCard key={recipe.id} recipe={recipe} />
+                                                ))}
+                                            </div>
+                                        )}
+                                        <Link href={tabLink('recipes')} className="btn-ghost mt-4">
+                                            Lihat semua resep
+                                        </Link>
+                                    </div>
+
+                                    <ChangeLog entries={changeLog ?? []} />
                                 </>
                             )}
 
