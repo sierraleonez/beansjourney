@@ -4,9 +4,13 @@ namespace Database\Seeders;
 
 use App\Models\Bean;
 use App\Models\Comment;
+use App\Models\Origin;
+use App\Models\Process;
+use App\Models\Purpose;
 use App\Models\Recipe;
 use App\Models\Review;
 use App\Models\Roastery;
+use App\Models\RoastLevel;
 use App\Models\User;
 use App\Models\Vote;
 use Illuminate\Database\Seeder;
@@ -15,6 +19,8 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
+        $this->seedMasterData();
+
         $admin = User::factory()->create([
             'name' => 'Admin',
             'email' => 'admin@beansjourney.test',
@@ -76,6 +82,29 @@ class DatabaseSeeder extends Seeder
                     ]);
                 }
             }
+        }
+    }
+
+    private function seedMasterData(): void
+    {
+        foreach (['Natural', 'Washed', 'Honey', 'Anaerobic', 'Giling Basah (Wet-Hulled)', 'Semi-Washed'] as $name) {
+            Process::firstOrCreate(['name' => $name]);
+        }
+
+        foreach ([
+            'Aceh Gayo', 'Sumatra Mandailing', 'Toraja', 'Flores Bajawa', 'Kintamani Bali',
+            'Java Preanger', 'Wamena Papua', 'Ethiopia', 'Kenya', 'Kolombia', 'Brazil',
+            'Guatemala', 'Kosta Rika', 'Yaman', 'Panama', 'Rwanda',
+        ] as $name) {
+            Origin::firstOrCreate(['name' => $name]);
+        }
+
+        foreach (['Light', 'Light-Medium', 'Medium', 'Medium-Dark', 'Dark'] as $name) {
+            RoastLevel::firstOrCreate(['name' => $name]);
+        }
+
+        foreach (['Espresso', 'Filter', 'Omni'] as $name) {
+            Purpose::firstOrCreate(['name' => $name]);
         }
     }
 }

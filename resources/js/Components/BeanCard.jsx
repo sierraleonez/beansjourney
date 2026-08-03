@@ -31,14 +31,14 @@ export default function BeanCard({ bean }) {
                         </p>
                         <h3 className="mt-1 text-[22px] leading-snug">{bean.name}</h3>
                     </div>
-                    {bean.roast_profile && (
-                        <Pill variant={roastVariant[bean.roast_profile] ?? 'neutral'}>{bean.roast_profile}</Pill>
+                    {bean.roast_level && (
+                        <Pill variant={roastVariant[bean.roast_level.name] ?? 'neutral'}>{bean.roast_level.name}</Pill>
                     )}
                 </div>
 
                 <div className="mt-3 flex flex-wrap gap-2">
-                    {bean.origin && <Pill variant="neutral">{bean.origin}</Pill>}
-                    {bean.process && <Pill variant="neutral">{bean.process}</Pill>}
+                    {bean.origin && <Pill variant="neutral">{bean.origin.name}</Pill>}
+                    {bean.process && <Pill variant="neutral">{bean.process.name}</Pill>}
                 </div>
 
                 <div className="mt-auto flex items-center justify-between pt-5">

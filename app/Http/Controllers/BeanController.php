@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBeanRequest;
 use App\Models\Bean;
+use App\Models\Origin;
+use App\Models\Process;
+use App\Models\Purpose;
+use App\Models\Roastery;
+use App\Models\RoastLevel;
 use App\Services\CreateBean;
 use App\Support\PostPresenter;
 use Illuminate\Http\RedirectResponse;
@@ -23,7 +28,14 @@ class BeanController extends Controller
 
         $bean->loadCount(['reviews', 'recipes']);
         $bean->loadAvg('reviews', 'rating');
-        $bean->load('roastery:id,name,location,contact', 'creator:id,name');
+        $bean->load(
+            'roastery:id,name,location,contact',
+            'creator:id,name',
+            'process:id,name',
+            'origin:id,name',
+            'roastLevel:id,name',
+            'purpose:id,name',
+        );
 
         $payload = [
             'bean' => $bean,
@@ -42,14 +54,30 @@ class BeanController extends Controller
 
     public function create(): Response
     {
-        return Inertia::render('Beans/Create');
+        return Inertia::render('Beans/Create', [
+            'roasteries' => Roastery::query()->orderBy('name')->get(['id', 'name'])
+                ->map(fn (Roastery $roastery) => ['value' => $roastery->name, 'label' => $roastery->name])
+                ->values(),
+            'processes' => Process::query()->orderBy('name')->get(['id', 'name'])
+                ->map(fn (Process $process) => ['value' => $process->id, 'label' => $process->name])
+                ->values(),
+            'origins' => Origin::query()->orderBy('name')->get(['id', 'name'])
+                ->map(fn (Origin $origin) => ['value' => $origin->id, 'label' => $origin->name])
+                ->values(),
+            'roastLevels' => RoastLevel::query()->orderBy('id')->get(['id', 'name'])
+                ->map(fn (RoastLevel $roastLevel) => ['value' => $roastLevel->id, 'label' => $roastLevel->name])
+                ->values(),
+            'purposes' => Purpose::query()->orderBy('name')->get(['id', 'name'])
+                ->map(fn (Purpose $purpose) => ['value' => $purpose->id, 'label' => $purpose->name])
+                ->values(),
+        ]);
     }
 
     public function mine(Request $request): Response
     {
         $beans = Bean::query()
             ->where('created_by', $request->user()->id)
-            ->with('roastery:id,name,location')
+            ->with('roastery:id,name,location', 'process:id,name', 'origin:id,name', 'roastLevel:id,name', 'purpose:id,name')
             ->withCount(['reviews', 'recipes'])
             ->withAvg('reviews as average_rating', 'rating')
             ->orderByDesc('created_at')

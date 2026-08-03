@@ -34,26 +34,32 @@ class BeanForm
                     ->disk('public')
                     ->directory('beans')
                     ->columnSpanFull(),
-                TextInput::make('process')
-                    ->maxLength(255),
-                TextInput::make('origin')
-                    ->maxLength(255),
+                Select::make('process_id')
+                    ->label('Proses')
+                    ->relationship('process', 'name')
+                    ->searchable()
+                    ->preload(),
+                Select::make('origin_id')
+                    ->label('Asal')
+                    ->relationship('origin', 'name')
+                    ->searchable()
+                    ->preload(),
                 TextInput::make('variety')
                     ->maxLength(255),
                 Textarea::make('flavour_perception')
                     ->rows(3)
                     ->columnSpanFull(),
                 DatePicker::make('roast_date'),
-                Select::make('roast_profile')
-                    ->options([
-                        'Light' => 'Light',
-                        'Light-Medium' => 'Light-Medium',
-                        'Medium' => 'Medium',
-                        'Medium-Dark' => 'Medium-Dark',
-                        'Dark' => 'Dark',
-                    ]),
-                TextInput::make('purpose')
-                    ->maxLength(255),
+                Select::make('roast_level_id')
+                    ->label('Tingkat Sangrai')
+                    ->relationship('roastLevel', 'name')
+                    ->searchable()
+                    ->preload(),
+                Select::make('purpose_id')
+                    ->label('Peruntukan')
+                    ->relationship('purpose', 'name')
+                    ->searchable()
+                    ->preload(),
                 DatePicker::make('purchased_on'),
                 TextInput::make('altitude')
                     ->maxLength(255),

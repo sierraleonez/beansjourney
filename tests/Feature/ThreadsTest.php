@@ -4,8 +4,12 @@ namespace Tests\Feature;
 
 use App\Models\Bean;
 use App\Models\Comment;
+use App\Models\Origin;
+use App\Models\Process;
+use App\Models\Purpose;
 use App\Models\Recipe;
 use App\Models\Review;
+use App\Models\RoastLevel;
 use App\Models\User;
 use Inertia\Testing\AssertableInertia as Assert;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -17,15 +21,20 @@ class ThreadsTest extends TestCase
 
     public function test_bean_detail_shows_all_cap2_fields(): void
     {
+        $process = Process::factory()->create(['name' => 'Natural']);
+        $origin = Origin::factory()->create(['name' => 'Ethiopia']);
+        $roastLevel = RoastLevel::factory()->create(['name' => 'Light']);
+        $purpose = Purpose::factory()->create(['name' => 'Filter']);
+
         $bean = Bean::factory()->create([
             'name' => 'Ethiopia Bishan Beke',
-            'process' => 'Natural',
-            'origin' => 'Ethiopia',
+            'process_id' => $process->id,
+            'origin_id' => $origin->id,
             'variety' => 'Heirloom',
             'flavour_perception' => 'Blueberry, florals, bright acidity.',
             'roast_date' => '2026-07-01',
-            'roast_profile' => 'Light',
-            'purpose' => 'Filter',
+            'roast_level_id' => $roastLevel->id,
+            'purpose_id' => $purpose->id,
             'purchased_on' => '2026-07-10',
             'altitude' => '1,900m',
         ]);
@@ -35,13 +44,13 @@ class ThreadsTest extends TestCase
             ->assertInertia(fn (Assert $page) => $page
                 ->component('Beans/Show')
                 ->where('bean.name', 'Ethiopia Bishan Beke')
-                ->where('bean.process', 'Natural')
-                ->where('bean.origin', 'Ethiopia')
+                ->where('bean.process.name', 'Natural')
+                ->where('bean.origin.name', 'Ethiopia')
                 ->where('bean.variety', 'Heirloom')
                 ->where('bean.flavour_perception', 'Blueberry, florals, bright acidity.')
                 ->where('bean.roast_date', '2026-07-01T00:00:00.000000Z')
-                ->where('bean.roast_profile', 'Light')
-                ->where('bean.purpose', 'Filter')
+                ->where('bean.roast_level.name', 'Light')
+                ->where('bean.purpose.name', 'Filter')
                 ->where('bean.purchased_on', '2026-07-10T00:00:00.000000Z')
                 ->where('bean.altitude', '1,900m'));
     }

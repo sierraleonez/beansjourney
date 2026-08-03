@@ -2,7 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\Origin;
+use App\Models\Process;
+use App\Models\Purpose;
 use App\Models\Roastery;
+use App\Models\RoastLevel;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -18,13 +22,13 @@ class BeanFactory extends Factory
         return [
             'roastery_id' => Roastery::factory(),
             'name' => fake()->unique()->words(3, true),
-            'process' => fake()->randomElement(['Natural', 'Washed', 'Honey', null]),
-            'origin' => fake()->optional()->country(),
+            'process_id' => fake()->optional()->passthrough(Process::factory()),
+            'origin_id' => fake()->optional()->passthrough(Origin::factory()),
             'variety' => fake()->optional()->randomElement(['Heirloom', 'Bourbon', 'Caturra', 'Gesha']),
             'flavour_perception' => fake()->optional()->sentence(),
             'roast_date' => fake()->optional()->date(),
-            'roast_profile' => fake()->optional()->randomElement(['Light', 'Medium', 'Medium-Dark', 'Dark']),
-            'purpose' => fake()->optional()->randomElement(['Espresso', 'Filter', 'Omni']),
+            'roast_level_id' => fake()->optional()->passthrough(RoastLevel::factory()),
+            'purpose_id' => fake()->optional()->passthrough(Purpose::factory()),
             'purchased_on' => fake()->optional()->date(),
             'altitude' => fake()->optional()->randomElement(['1,200m', '1,600m', '2,000m']),
             'created_by' => User::factory(),

@@ -17,13 +17,13 @@ class DiscoverController extends Controller
         $search = trim((string) $request->query('q', ''));
 
         $query = Bean::query()
-            ->with('roastery:id,name,location')
+            ->with('roastery:id,name,location', 'process:id,name', 'origin:id,name', 'roastLevel:id,name')
             ->withCount(['reviews', 'recipes'])
             ->withAvg('reviews as average_rating', 'rating')
             ->when($search !== '', fn ($q) => $q->where(function ($inner) use ($search) {
                 $inner->where('name', 'like', "%{$search}%")
-                    ->orWhere('origin', 'like', "%{$search}%")
                     ->orWhere('variety', 'like', "%{$search}%")
+                    ->orWhereHas('origin', fn ($r) => $r->where('name', 'like', "%{$search}%"))
                     ->orWhereHas('roastery', fn ($r) => $r->where('name', 'like', "%{$search}%"));
             }));
 

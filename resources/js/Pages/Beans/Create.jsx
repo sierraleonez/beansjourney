@@ -3,8 +3,9 @@ import AppLayout from '../../Layouts/AppLayout';
 import Card from '../../Components/Card';
 import Input from '../../Components/Input';
 import Button from '../../Components/Button';
+import SearchableSelect from '../../Components/SearchableSelect';
 
-export default function BeanCreate() {
+export default function BeanCreate({ roasteries = [], processes = [], origins = [], roastLevels = [], purposes = [] }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         roastery_name: '',
         roastery_location: '',
@@ -13,13 +14,13 @@ export default function BeanCreate() {
         name: '',
         description: '',
         photo: null,
-        process: '',
-        origin: '',
+        process_id: '',
+        origin_id: '',
         variety: '',
         flavour_perception: '',
         roast_date: '',
-        roast_profile: '',
-        purpose: '',
+        roast_level_id: '',
+        purpose_id: '',
         purchased_on: '',
         altitude: '',
     });
@@ -47,11 +48,13 @@ export default function BeanCreate() {
                 <Card className="mt-8 p-6 sm:p-8">
                     <form onSubmit={submit} className="space-y-5">
                         <div>
-                            <Input
+                            <SearchableSelect
+                                creatable
                                 name="roastery_name"
                                 label="Roastery"
                                 value={data.roastery_name}
-                                onChange={set('roastery_name')}
+                                onChange={(val) => setData('roastery_name', val)}
+                                options={roasteries}
                                 error={errors.roastery_name}
                                 placeholder="misalnya Sweet Bloom Coffee Roasters"
                                 hint="Dibuat otomatis kalau belum ada."
@@ -131,13 +134,49 @@ export default function BeanCreate() {
                         </div>
 
                         <div className="grid gap-5 sm:grid-cols-2">
-                            <Input name="process" label="Proses" value={data.process} onChange={set('process')} error={errors.process} placeholder="Natural, Washed…" />
-                            <Input name="origin" label="Asal" value={data.origin} onChange={set('origin')} error={errors.origin} placeholder="Ethiopia" />
+                            <SearchableSelect
+                                name="process_id"
+                                label="Proses"
+                                value={data.process_id}
+                                onChange={(val) => setData('process_id', val)}
+                                options={processes}
+                                error={errors.process_id}
+                                placeholder="Natural, Washed…"
+                                emptyText="Proses tidak ditemukan."
+                            />
+                            <SearchableSelect
+                                name="origin_id"
+                                label="Asal"
+                                value={data.origin_id}
+                                onChange={(val) => setData('origin_id', val)}
+                                options={origins}
+                                error={errors.origin_id}
+                                placeholder="Ethiopia"
+                                emptyText="Asal tidak ditemukan."
+                            />
                             <Input name="variety" label="Varietas" value={data.variety} onChange={set('variety')} error={errors.variety} placeholder="Heirloom" />
-                            <Input name="roast_profile" label="Tingkat sangrai" value={data.roast_profile} onChange={set('roast_profile')} error={errors.roast_profile} placeholder="Light, Medium, Dark…" />
+                            <SearchableSelect
+                                name="roast_level_id"
+                                label="Tingkat sangrai"
+                                value={data.roast_level_id}
+                                onChange={(val) => setData('roast_level_id', val)}
+                                options={roastLevels}
+                                error={errors.roast_level_id}
+                                placeholder="Light, Medium, Dark…"
+                                emptyText="Tingkat sangrai tidak ditemukan."
+                            />
                             <Input name="roast_date" label="Tanggal sangrai" type="date" value={data.roast_date} onChange={set('roast_date')} error={errors.roast_date} />
                             <Input name="purchased_on" label="Tanggal dibeli" type="date" value={data.purchased_on} onChange={set('purchased_on')} error={errors.purchased_on} />
-                            <Input name="purpose" label="Peruntukan" value={data.purpose} onChange={set('purpose')} error={errors.purpose} placeholder="Filter, Espresso…" />
+                            <SearchableSelect
+                                name="purpose_id"
+                                label="Peruntukan"
+                                value={data.purpose_id}
+                                onChange={(val) => setData('purpose_id', val)}
+                                options={purposes}
+                                error={errors.purpose_id}
+                                placeholder="Filter, Espresso…"
+                                emptyText="Peruntukan tidak ditemukan."
+                            />
                             <Input name="altitude" label="Ketinggian" value={data.altitude} onChange={set('altitude')} error={errors.altitude} placeholder="1900–2200m" />
                         </div>
 

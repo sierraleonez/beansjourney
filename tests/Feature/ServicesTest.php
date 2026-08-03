@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Bean;
 use App\Models\Comment;
+use App\Models\Origin;
 use App\Models\Recipe;
 use App\Models\Review;
 use App\Models\Roastery;
@@ -23,14 +24,16 @@ class ServicesTest extends TestCase
     public function test_create_bean_creates_roastery_and_attributes_bean(): void
     {
         $user = User::factory()->create();
+        $origin = Origin::factory()->create(['name' => 'Ethiopia']);
 
         $bean = app(CreateBean::class)->create($user, 'Monogram Coffee', [
             'name' => 'Ethiopia Bishan Beke',
-            'origin' => 'Ethiopia',
+            'origin_id' => $origin->id,
         ]);
 
         $this->assertInstanceOf(Bean::class, $bean);
         $this->assertSame('Monogram Coffee', $bean->roastery->name);
+        $this->assertSame('Ethiopia', $bean->origin->name);
         $this->assertSame($user->id, $bean->created_by);
         $this->assertSame(1, Roastery::count());
     }
