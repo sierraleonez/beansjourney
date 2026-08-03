@@ -3,9 +3,20 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreRecipeRequest extends FormRequest
 {
+    public const GRIND_SIZES = [
+        'Sangat Halus',
+        'Halus',
+        'Sedang-Halus',
+        'Sedang',
+        'Sedang-Kasar',
+        'Kasar',
+        'Sangat Kasar',
+    ];
+
     public function authorize(): bool
     {
         return $this->user()?->hasVerifiedEmail() ?? false;
@@ -20,8 +31,8 @@ class StoreRecipeRequest extends FormRequest
             'process' => ['nullable', 'string', 'max:10000'],
             'tasting_notes' => ['nullable', 'string', 'max:5000'],
             'dose_ratio' => ['nullable', 'string', 'max:100'],
-            'grind_size' => ['nullable', 'string', 'max:100'],
-            'water_temp' => ['nullable', 'string', 'max:100'],
+            'grind_size' => ['nullable', 'string', Rule::in(self::GRIND_SIZES)],
+            'water_temp' => ['nullable', 'numeric', 'min:0', 'max:100'],
         ];
     }
 }

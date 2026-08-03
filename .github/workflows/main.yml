@@ -1,0 +1,99 @@
+name: Deploy Laravel App (Artifact Method)
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '_bmad/**'
+      - '_bmad-output/**'
+      - tests
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    # 1. Setup PHP & Composer Dependencies (Required for Wayfinder)
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.4' # Match your local/production PHP version
+        extensions: mbstring, bcmath, ctype, fileinfo, json, openssl, pdo, pdo_mysql, tokenizer, xml
+
+    - name: Install Composer Dependencies
+      run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader
+
+    # 2. Setup Node & Build React Assets
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+
+    - name: Install NPM Dependencies (Clean Install)
+      run: npm ci # <-- Switched back to the faster, strict clean install!
+
+    - name: Build Inertia Static Assets (Wayfinder can now safely call php artisan)
+      run: npm run build # Creates public/build
+
+    # 3. Upload the 'public/build' directory as a GitHub Artifact
+    - name: Upload Build Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: assets-build
+        path: public/build/
+        retention-days: 1
+
+    # 4. SSH into your server, pull Git code, and fetch the artifact
+    - name: Execute Remote Deployment via SSH
+      uses: appleboy/ssh-action@v1.0.3
+      env:
+        GITHUB_RUN_ID: ${{ github.run_id }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        host: ${{ secrets.SERVER_HOST }}
+        username: ${{ secrets.SERVER_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: ${{ secrets.SERVER_PORT }}
+        envs: GITHUB_RUN_ID, GITHUB_TOKEN
+        script: |
+          cd htdocs
+
+          # Put Laravel in maintenance mode
+          php artisan down --refresh=15 --retry=60
+
+          # Pull the core code changes (ignoring public/build since it's not in git)
+          git pull origin main
+
+          # Create public/build folder if it doesn't exist
+          mkdir -p public/build
+
+          # Download the zip artifact using GitHub's API
+          curl -L \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/${{ github.repository }}/actions/runs/$GITHUB_RUN_ID/artifacts \
+            -o artifacts.json
+
+          # Extract the direct download URL from JSON and download the zip file
+          DOWNLOAD_URL=$(grep -o '"archive_download_url": "[^"]*' artifacts.json | head -n 1 | sed 's/"archive_download_url": "//')
+          curl -L -H "Authorization: Bearer $GITHUB_TOKEN" "$DOWNLOAD_URL" -o assets.zip
+
+          # Extract assets directly into your public/build folder and clean up zip files
+          unzip -o assets.zip -d public/build/
+          rm assets.zip artifacts.json
+
+          # Run standard production optimizations
+          php artisan migrate --force
+          php artisan config:cache
+          php artisan route:cache
+          php artisan view:cache
+
+          # Bring application back online
+          php artisan up
