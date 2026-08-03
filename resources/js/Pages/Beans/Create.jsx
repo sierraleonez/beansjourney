@@ -7,6 +7,9 @@ import Button from '../../Components/Button';
 export default function BeanCreate() {
     const { data, setData, post, processing, errors, reset } = useForm({
         roastery_name: '',
+        roastery_location: '',
+        roastery_instagram: '',
+        roastery_website: '',
         name: '',
         description: '',
         photo: null,
@@ -55,6 +58,39 @@ export default function BeanCreate() {
                                 required
                             />
                         </div>
+
+                        <div className="rounded-lg border-[1.5px] border-line bg-card/60 p-4">
+                            <p className="mb-3 text-[12.5px] font-semibold text-espresso">
+                                Info roastery baru (opsional, hanya dipakai kalau roastery ini belum ada)
+                            </p>
+                            <div className="grid gap-4 sm:grid-cols-3">
+                                <Input
+                                    name="roastery_location"
+                                    label="Lokasi"
+                                    value={data.roastery_location}
+                                    onChange={set('roastery_location')}
+                                    error={errors.roastery_location}
+                                    placeholder="Bandung, Indonesia"
+                                />
+                                <Input
+                                    name="roastery_instagram"
+                                    label="Instagram"
+                                    value={data.roastery_instagram}
+                                    onChange={set('roastery_instagram')}
+                                    error={errors.roastery_instagram}
+                                    placeholder="@namaroastery"
+                                />
+                                <Input
+                                    name="roastery_website"
+                                    label="Website"
+                                    value={data.roastery_website}
+                                    onChange={set('roastery_website')}
+                                    error={errors.roastery_website}
+                                    placeholder="https://namaroastery.com"
+                                />
+                            </div>
+                        </div>
+
                         <Input
                             name="name"
                             label="Nama bean"

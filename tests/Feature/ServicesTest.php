@@ -46,6 +46,43 @@ class ServicesTest extends TestCase
         $this->assertSame($roastery->id, Bean::first()->roastery_id);
     }
 
+    public function test_create_bean_passes_location_and_social_to_new_roastery(): void
+    {
+        $user = User::factory()->create();
+
+        $bean = app(CreateBean::class)->create($user, 'Sweet Bloom Coffee', [
+            'name' => 'Ethiopia Bishan Beke',
+        ], [
+            'location' => 'Denver, USA',
+            'social' => ['instagram' => '@sweetbloomcoffee', 'website' => 'https://sweetbloomcoffee.com'],
+        ]);
+
+        $this->assertSame('Denver, USA', $bean->roastery->location);
+        $this->assertSame([
+            'instagram' => '@sweetbloomcoffee',
+            'website' => 'https://sweetbloomcoffee.com',
+        ], $bean->roastery->social);
+    }
+
+    public function test_create_bean_does_not_overwrite_existing_roastery_location_and_social(): void
+    {
+        $user = User::factory()->create();
+        $roastery = Roastery::factory()->create([
+            'name' => 'Monogram Coffee',
+            'location' => 'Chicago, USA',
+            'social' => ['instagram' => '@monogramcoffee'],
+        ]);
+
+        app(CreateBean::class)->create($user, 'Monogram Coffee', ['name' => 'Another Bean'], [
+            'location' => null,
+            'social' => null,
+        ]);
+
+        $roastery->refresh();
+        $this->assertSame('Chicago, USA', $roastery->location);
+        $this->assertSame(['instagram' => '@monogramcoffee'], $roastery->social);
+    }
+
     public function test_create_bean_reuses_and_restores_trashed_roastery(): void
     {
         $user = User::factory()->create();

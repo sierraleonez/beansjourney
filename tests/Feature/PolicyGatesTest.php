@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Bean;
 use App\Models\Recipe;
 use App\Models\Review;
+use App\Models\Roastery;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -177,6 +178,60 @@ class PolicyGatesTest extends TestCase
 
         $admin = User::factory()->create(['role' => 'admin']);
         $this->assertTrue($admin->can('update', $bean));
+    }
+
+    public function test_creator_can_edit_own_roastery(): void
+    {
+        $creator = User::factory()->create();
+        $roastery = Roastery::factory()->create(['created_by' => $creator->id]);
+
+        $this->assertTrue($creator->can('update', $roastery));
+
+        $this->actingAs($creator)
+            ->patch(route('roasteries.update', $roastery), [
+                'location' => 'Jakarta, Indonesia',
+                'instagram' => '@roastery',
+                'website' => 'https://roastery.example.com',
+            ])
+            ->assertRedirect(route('roasteries.show', $roastery));
+
+        $roastery->refresh();
+        $this->assertSame('Jakarta, Indonesia', $roastery->location);
+        $this->assertSame([
+            'instagram' => '@roastery',
+            'website' => 'https://roastery.example.com',
+        ], $roastery->social);
+        $this->assertDatabaseHas('activity_logs', [
+            'user_id' => $creator->id,
+            'action' => 'updated',
+            'subject_type' => Roastery::class,
+            'subject_id' => $roastery->id,
+        ]);
+    }
+
+    public function test_non_creator_cannot_edit_roastery(): void
+    {
+        $creator = User::factory()->create();
+        $intruder = User::factory()->create();
+        $roastery = Roastery::factory()->create(['created_by' => $creator->id]);
+
+        $this->assertFalse($intruder->can('update', $roastery));
+
+        $this->actingAs($intruder)
+            ->get(route('roasteries.edit', $roastery))
+            ->assertForbidden();
+
+        $this->actingAs($intruder)
+            ->patch(route('roasteries.update', $roastery), ['location' => 'Somewhere'])
+            ->assertForbidden();
+    }
+
+    public function test_admin_can_edit_any_roastery(): void
+    {
+        $admin = User::factory()->create(['role' => 'admin']);
+        $roastery = Roastery::factory()->create();
+
+        $this->assertTrue($admin->can('update', $roastery));
     }
 
     public function test_recipe_route_validation_rejects_unknown_brew_method(): void
