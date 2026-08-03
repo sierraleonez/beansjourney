@@ -20,9 +20,11 @@ class BeansTable
                     ->label('Roastery')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('origin')
+                TextColumn::make('origin.name')
+                    ->label('Asal')
                     ->toggleable(),
-                TextColumn::make('roast_profile')
+                TextColumn::make('roastLevel.name')
+                    ->label('Tingkat Sangrai')
                     ->toggleable(),
                 TextColumn::make('reviews_count')
                     ->label('Reviews')

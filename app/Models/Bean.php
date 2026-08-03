@@ -17,13 +17,13 @@ class Bean extends Model
         'roastery_id',
         'name',
         'description',
-        'process',
-        'origin',
+        'process_id',
+        'origin_id',
         'variety',
         'flavour_perception',
         'roast_date',
-        'roast_profile',
-        'purpose',
+        'roast_level_id',
+        'purpose_id',
         'purchased_on',
         'altitude',
         'photo_path',
@@ -48,6 +48,26 @@ class Bean extends Model
     public function roastery(): BelongsTo
     {
         return $this->belongsTo(Roastery::class);
+    }
+
+    public function process(): BelongsTo
+    {
+        return $this->belongsTo(Process::class);
+    }
+
+    public function origin(): BelongsTo
+    {
+        return $this->belongsTo(Origin::class);
+    }
+
+    public function roastLevel(): BelongsTo
+    {
+        return $this->belongsTo(RoastLevel::class);
+    }
+
+    public function purpose(): BelongsTo
+    {
+        return $this->belongsTo(Purpose::class);
     }
 
     public function creator(): BelongsTo

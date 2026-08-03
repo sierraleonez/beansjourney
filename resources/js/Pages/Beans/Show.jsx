@@ -29,12 +29,12 @@ const roastVariant = {
 
 function Specs({ bean }) {
     const specs = [
-        ['Asal', bean.origin],
+        ['Asal', bean.origin?.name],
         ['Varietas', bean.variety],
-        ['Proses', bean.process],
-        ['Tingkat sangrai', bean.roast_profile],
+        ['Proses', bean.process?.name],
+        ['Tingkat sangrai', bean.roast_level?.name],
         ['Tanggal sangrai', formatDate(bean.roast_date)],
-        ['Peruntukan', bean.purpose],
+        ['Peruntukan', bean.purpose?.name],
         ['Tanggal dibeli', formatDate(bean.purchased_on)],
         ['Ketinggian', bean.altitude],
     ];
@@ -154,9 +154,9 @@ export default function BeanShow({ bean, tab, canWrite, reviews, recipes }) {
                             ) : (
                                 <span className="text-[13px] text-mocha">Belum ada ulasan</span>
                             )}
-                            {bean.roast_profile && <Pill variant={roastVariant[bean.roast_profile] ?? 'neutral'}>{bean.roast_profile}</Pill>}
-                            {bean.origin && <Pill variant="neutral">{bean.origin}</Pill>}
-                            {bean.purpose && <Pill variant="neutral">Untuk {bean.purpose}</Pill>}
+                            {bean.roast_level && <Pill variant={roastVariant[bean.roast_level.name] ?? 'neutral'}>{bean.roast_level.name}</Pill>}
+                            {bean.origin && <Pill variant="neutral">{bean.origin.name}</Pill>}
+                            {bean.purpose && <Pill variant="neutral">Untuk {bean.purpose.name}</Pill>}
                         </div>
                     </div>
                 </div>
