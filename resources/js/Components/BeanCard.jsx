@@ -2,6 +2,7 @@ import { Link } from '@inertiajs/react';
 import Card from './Card';
 import Pill from './Pill';
 import { StarRating } from './StarRating';
+import BeanPhotoPlaceholder from './BeanPhotoPlaceholder';
 import beans from '../routes/beans';
 
 const roastVariant = {
@@ -18,22 +19,26 @@ export default function BeanCard({ bean }) {
     return (
         <Link href={beans.show.url(bean.id)} className="block focus:outline-none">
             <Card clickable className="flex h-full flex-col p-4 sm:p-6" >
-                {bean.photo_url && (
+                {bean.photo_url ? (
                     <img
                         src={bean.photo_url}
                         alt={bean.name}
                         className="-mx-4 -mt-4 mb-4 h-28 w-[calc(100%+2rem)] rounded-t-md object-cover sm:-mx-6 sm:-mt-6 sm:h-36 sm:w-[calc(100%+3rem)]"
                     />
+                ) : (
+                    <BeanPhotoPlaceholder className="-mx-4 -mt-4 mb-4 h-28 w-[calc(100%+2rem)] rounded-t-md sm:-mx-6 sm:-mt-6 sm:h-36 sm:w-[calc(100%+3rem)]" />
                 )}
                 <div className="flex items-start justify-between gap-2">
-                    <div>
-                        <p className="text-[11px] font-bold uppercase tracking-[0.6px] text-mocha">
+                    <div className="min-w-0 flex-1">
+                        <p className="truncate text-[11px] font-bold uppercase tracking-[0.6px] text-mocha">
                             {bean.roastery?.name}
                         </p>
-                        <h3 className="mt-1 text-[22px] leading-snug">{bean.name}</h3>
+                        <h3 className="mt-1 line-clamp-2 text-[18px] leading-snug sm:text-[22px]">{bean.name}</h3>
                     </div>
                     {bean.roast_level && (
-                        <Pill variant={roastVariant[bean.roast_level.name] ?? 'neutral'}>{bean.roast_level.name}</Pill>
+                        <Pill variant={roastVariant[bean.roast_level.name] ?? 'neutral'} className="shrink-0">
+                            {bean.roast_level.name}
+                        </Pill>
                     )}
                 </div>
 
@@ -42,18 +47,19 @@ export default function BeanCard({ bean }) {
                     {bean.process && <Pill variant="neutral">{bean.process.name}</Pill>}
                 </div>
 
-                <div className="mt-auto flex items-center justify-between pt-5">
-                    <div className="flex items-center gap-2">
+                <div className="mt-auto flex flex-col gap-1.5 pt-4 sm:flex-row sm:items-center sm:justify-between sm:gap-2 sm:pt-5">
+                    <div className="flex items-center gap-1.5">
                         {rating ? (
                             <>
-                                <StarRating rating={Number(rating)} />
+                                <StarRating rating={Number(rating)} className="hidden sm:inline-flex" />
+                                <span aria-hidden="true" className="text-caramel sm:hidden">★</span>
                                 <span className="text-[12.5px] font-bold text-espresso">{rating}</span>
                             </>
                         ) : (
                             <span className="text-[12.5px] text-mocha">Bean baru</span>
                         )}
                     </div>
-                    <span className="text-[12px] text-mocha">
+                    <span className="text-[11px] text-mocha sm:text-[12px]">
                         {bean.reviews_count} ulasan · {bean.recipes_count} resep
                     </span>
                 </div>
