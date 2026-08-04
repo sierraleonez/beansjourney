@@ -22,6 +22,7 @@ class RecipeThreadController extends Controller
         $recipe->loadCount(['votes', 'comments']);
 
         $viewerId = $request->user()?->id;
+        $recipe->voted_by_user = $viewerId ? $recipe->votes()->where('user_id', $viewerId)->exists() : false;
 
         return Inertia::render('Recipes/Show', [
             'recipe' => PostPresenter::recipe($recipe, $viewerId),

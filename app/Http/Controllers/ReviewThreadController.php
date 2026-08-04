@@ -23,6 +23,7 @@ class ReviewThreadController extends Controller
 
         $viewerId = $request->user()?->id;
         $review->votes_count = $review->votes_count ?? $review->votes()->count();
+        $review->voted_by_user = $viewerId ? $review->votes()->where('user_id', $viewerId)->exists() : false;
 
         return Inertia::render('Reviews/Show', [
             'review' => PostPresenter::review($review, $viewerId),
