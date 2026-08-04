@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        $this->seedMasterData();
+        self::seedMasterData();
 
         $admin = User::factory()->create([
             'name' => 'Admin',
@@ -85,7 +85,7 @@ class DatabaseSeeder extends Seeder
         }
     }
 
-    private function seedMasterData(): void
+    public static function seedMasterData(): void
     {
         foreach (['Natural', 'Washed', 'Honey', 'Anaerobic', 'Giling Basah (Wet-Hulled)', 'Semi-Washed'] as $name) {
             Process::firstOrCreate(['name' => $name]);
