@@ -3,7 +3,7 @@ import AppLayout from '../../Layouts/AppLayout';
 import BeanCard from '../../Components/BeanCard';
 import LoadMore from '../../Components/LoadMore';
 import EmptyState from '../../Components/EmptyState';
-import beans from '../../routes/beans';
+import beanRoutes from '../../routes/beans';
 
 export default function BeanMine({ beans }) {
     return (
@@ -16,7 +16,7 @@ export default function BeanMine({ beans }) {
                             Bean yang sudah kamu tambahkan ke katalog.
                         </p>
                     </div>
-                    <Link href={beans.create.url()} className="btn-primary">
+                    <Link href={beanRoutes.create.url()} className="btn-primary">
                         Tambahkan Bean
                     </Link>
                 </div>
