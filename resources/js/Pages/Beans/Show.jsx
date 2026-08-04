@@ -14,6 +14,7 @@ import { register } from '../../routes';
 import ReviewCard from '../../Components/ReviewCard';
 import RecipeCard from '../../Components/RecipeCard';
 import { StarRating } from '../../Components/StarRating';
+import BeanPhotoPlaceholder from '../../Components/BeanPhotoPlaceholder';
 import { cn, formatDate } from '../../lib/utils';
 
 const tabs = ['overview', 'reviews', 'recipes'];
@@ -128,6 +129,9 @@ function BeanMedia({ bean }) {
 
     return (
         <div className="card-surface flex flex-col gap-5 p-6 sm:flex-row">
+            {photos.length === 0 && (
+                <BeanPhotoPlaceholder className="h-48 w-full rounded-md sm:h-auto sm:w-56 sm:flex-shrink-0" />
+            )}
             {photos.length === 1 && (
                 <img
                     src={photos[0]}

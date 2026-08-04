@@ -78,7 +78,7 @@ export default function RecipeShow({ recipe, bean, comments, commentCount, canRe
                                     <Pill variant="caramel">{brewLabels[recipe.brew_method] ?? recipe.brew_method}</Pill>
                                     {recipe.dose_ratio && <Pill variant="neutral">Dosis {recipe.dose_ratio}</Pill>}
                                     {recipe.grind_size && <Pill variant="neutral">Gilingan {recipe.grind_size}</Pill>}
-                                    {recipe.water_temp && <Pill variant="neutral">{recipe.water_temp}</Pill>}
+                                    {recipe.water_temp && <Pill variant="neutral">Suhu {recipe.water_temp}°C</Pill>}
                                 </div>
 
                                 {Object.keys(tools).length > 0 && (
