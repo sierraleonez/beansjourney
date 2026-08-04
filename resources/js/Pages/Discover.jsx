@@ -6,7 +6,7 @@ import SortControl from '../Components/SortControl';
 import LoadMore from '../Components/LoadMore';
 import EmptyState from '../Components/EmptyState';
 import Card from '../Components/Card';
-import beans from '../routes/beans';
+import beanRoutes from '../routes/beans';
 import verification from '../routes/verification';
 import { register } from '../routes';
 import roasteries from '../routes/roasteries';
@@ -120,7 +120,7 @@ export default function Discover({ beans, sort, search, roasters }) {
                         </p>
                         {auth.user ? (
                             auth.user.email_verified_at ? (
-                                <Link href={beans.create.url()} className="btn-primary mt-5">
+                                <Link href={beanRoutes.create.url()} className="btn-primary mt-5">
                                     Tambahkan Bean
                                 </Link>
                             ) : (

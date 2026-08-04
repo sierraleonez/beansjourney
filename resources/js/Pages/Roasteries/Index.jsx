@@ -4,7 +4,7 @@ import Card from '../../Components/Card';
 import EmptyState from '../../Components/EmptyState';
 import LoadMore from '../../Components/LoadMore';
 import Pill from '../../Components/Pill';
-import roasteries from '../../routes/roasteries';
+import roasteryRoutes from '../../routes/roasteries';
 
 export default function RoasteryIndex({ roasteries }) {
     return (
@@ -26,7 +26,7 @@ export default function RoasteryIndex({ roasteries }) {
                 <>
                     <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                         {roasteries.data.map((roastery) => (
-                            <Link key={roastery.id} href={roasteries.show.url(roastery.id)}>
+                            <Link key={roastery.id} href={roasteryRoutes.show.url(roastery.id)}>
                                 <Card clickable className="flex h-full flex-col p-6">
                                     <h2 className="text-[22px]">{roastery.name}</h2>
                                     <div className="mt-2 flex flex-wrap gap-2">
