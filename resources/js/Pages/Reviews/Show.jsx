@@ -8,6 +8,8 @@ import CommentThread from '../../Components/CommentThread';
 import ThreadReplyComposer from '../../Components/ThreadReplyComposer';
 import { StarRating } from '../../Components/StarRating';
 import { timeAgo } from '../../lib/utils';
+import roasteries from '../../routes/roasteries';
+import beans from '../../routes/beans';
 
 export default function ReviewShow({ review, bean, comments, commentCount, canReply, isAuthor }) {
     const threadAuthorId = review.author?.id;
@@ -21,13 +23,13 @@ export default function ReviewShow({ review, bean, comments, commentCount, canRe
                     </li>
                     <li aria-hidden="true">›</li>
                     <li>
-                        <Link href={bean.roastery ? route('roasteries.show', bean.roastery.id) : '/roasters'} className="hover:text-brown">
+                        <Link href={bean.roastery ? roasteries.show.url(bean.roastery.id) : '/roasters'} className="hover:text-brown">
                             {bean.roastery?.name ?? 'Roaster tidak diketahui'}
                         </Link>
                     </li>
                     <li aria-hidden="true">›</li>
                     <li>
-                        <Link href={route('beans.show', bean.id)} className="hover:text-brown">
+                        <Link href={beans.show.url(bean.id)} className="hover:text-brown">
                             {bean.name}
                         </Link>
                     </li>
@@ -97,7 +99,7 @@ export default function ReviewShow({ review, bean, comments, commentCount, canRe
                         <Card className="p-5">
                             <h3 className="text-[17px]">{bean.name}</h3>
                             <p className="mt-1 text-[12.5px] text-mocha">{bean.roastery?.name ?? 'Roaster tidak diketahui'}</p>
-                            <Link href={route('beans.show', bean.id)} className="btn-ghost mt-4 w-full">
+                            <Link href={beans.show.url(bean.id)} className="btn-ghost mt-4 w-full">
                                 Lihat halaman bean
                             </Link>
                         </Card>

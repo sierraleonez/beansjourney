@@ -3,6 +3,7 @@ import AppLayout from '../../Layouts/AppLayout';
 import Card from '../../Components/Card';
 import Input from '../../Components/Input';
 import Button from '../../Components/Button';
+import roasteries from '../../routes/roasteries';
 
 export default function RoasteryEdit({ roastery }) {
     const { data, setData, patch, processing, errors } = useForm({
@@ -16,7 +17,7 @@ export default function RoasteryEdit({ roastery }) {
 
     const submit = (event) => {
         event.preventDefault();
-        patch(route('roasteries.update', roastery.id), {
+        patch(roasteries.update.url(roastery.id), {
             preserveScroll: true,
         });
     };
@@ -30,7 +31,7 @@ export default function RoasteryEdit({ roastery }) {
                     </li>
                     <li aria-hidden="true">›</li>
                     <li>
-                        <Link href={route('roasteries.show', roastery.id)} className="hover:text-brown">
+                        <Link href={roasteries.show.url(roastery.id)} className="hover:text-brown">
                             {roastery.name}
                         </Link>
                     </li>

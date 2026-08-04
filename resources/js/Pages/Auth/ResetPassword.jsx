@@ -2,6 +2,8 @@ import AuthShell from '../../Layouts/AuthShell';
 import Input from '../../Components/Input';
 import Button from '../../Components/Button';
 import { Head, useForm } from '@inertiajs/react';
+import password from '../../routes/password';
+import { login } from '../../routes';
 
 export default function ResetPassword({ token, email }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -13,7 +15,7 @@ export default function ResetPassword({ token, email }) {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('password.store'), {
+        post(password.store.url(), {
             onFinish: () => reset('password', 'password_confirmation'),
         });
     };
@@ -24,7 +26,7 @@ export default function ResetPassword({ token, email }) {
             title="Pilih kata sandi baru"
             subtitle="Buat yang bagus — kamu akan memakainya untuk masuk mulai sekarang."
             footer={
-                <a href={route('login')} className="font-semibold text-caramel hover:text-caramel-hover">
+                <a href={login.url()} className="font-semibold text-caramel hover:text-caramel-hover">
                     Kembali ke halaman masuk
                 </a>
             }
@@ -34,7 +36,7 @@ export default function ResetPassword({ token, email }) {
             {errors.token && (
                 <div className="mb-4 rounded-md border border-error bg-error/10 px-3 py-2 text-[13px] font-medium text-error">
                     <p>{errors.token}</p>
-                    <a href={route('password.request')} className="mt-1 inline-block font-semibold text-caramel hover:text-caramel-hover">
+                    <a href={password.request.url()} className="mt-1 inline-block font-semibold text-caramel hover:text-caramel-hover">
                         Kirim tautan atur ulang baru
                     </a>
                 </div>

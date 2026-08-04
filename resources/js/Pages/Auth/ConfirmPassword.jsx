@@ -2,6 +2,7 @@ import AuthShell from '../../Layouts/AuthShell';
 import Input from '../../Components/Input';
 import Button from '../../Components/Button';
 import { Head, useForm } from '@inertiajs/react';
+import password from '../../routes/password';
 
 export default function ConfirmPassword() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -10,7 +11,7 @@ export default function ConfirmPassword() {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('password.confirm'), {
+        post(password.confirm.url(), {
             onFinish: () => reset('password'),
         });
     };

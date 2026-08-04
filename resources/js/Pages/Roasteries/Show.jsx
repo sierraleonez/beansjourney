@@ -5,6 +5,7 @@ import Card from '../../Components/Card';
 import EmptyState from '../../Components/EmptyState';
 import LoadMore from '../../Components/LoadMore';
 import Pill from '../../Components/Pill';
+import roasteries from '../../routes/roasteries';
 
 export default function RoasteryShow({ roastery, beans }) {
     const social = roastery.social ?? {};
@@ -47,7 +48,7 @@ export default function RoasteryShow({ roastery, beans }) {
                             <h2 className="text-[17px]">Tentang roastery</h2>
                             {canEdit && (
                                 <Link
-                                    href={route('roasteries.edit', roastery.id)}
+                                    href={roasteries.edit.url(roastery.id)}
                                     className="text-[12.5px] font-semibold text-brown hover:text-caramel"
                                 >
                                     Edit info roastery

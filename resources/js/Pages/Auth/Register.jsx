@@ -2,6 +2,7 @@ import AuthShell from '../../Layouts/AuthShell';
 import Input from '../../Components/Input';
 import Button from '../../Components/Button';
 import { Head, Link, useForm } from '@inertiajs/react';
+import { register, login } from '../../routes';
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -13,7 +14,7 @@ export default function Register() {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('register'), {
+        post(register.url(), {
             onFinish: () => reset('password', 'password_confirmation'),
         });
     };
@@ -24,7 +25,7 @@ export default function Register() {
             title="Buat akunmu"
             subtitle="Rumah bagi pencinta kopi specialty."
             footer={
-                <Link href={route('login')} className="font-semibold text-caramel hover:text-caramel-hover">
+                <Link href={login.url()} className="font-semibold text-caramel hover:text-caramel-hover">
                     Sudah punya akun? Masuk
                 </Link>
             }

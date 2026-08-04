@@ -141,6 +141,11 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
+"@laravel/vite-plugin-wayfinder@^0.1.7":
+  version "0.1.7"
+  resolved "https://registry.npmjs.org/@laravel/vite-plugin-wayfinder/-/vite-plugin-wayfinder-0.1.7.tgz"
+  integrity sha512-yZYIr1iwuCQ7LFI+GsJk9vacw1HWMp3ZlDlW0pdfz3zXyKeu4US7oH79KmQQ031L0cYaSyaUMo/Ha1D4BosKqw==
+
 "@napi-rs/wasm-runtime@^1.2.0":
   version "1.2.1"
   resolved "https://registry.npmjs.org/@napi-rs/wasm-runtime/-/wasm-runtime-1.2.1.tgz"

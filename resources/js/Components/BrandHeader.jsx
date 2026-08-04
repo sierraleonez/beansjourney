@@ -4,6 +4,8 @@ import Logo from './Logo';
 import Avatar from './Avatar';
 import Modal from './Modal';
 import { cn } from '../lib/utils';
+import { login, register, logout } from '../routes';
+import profile from '../routes/profile';
 
 const baseNavLinks = [
     { href: '/', label: 'Jelajahi' },
@@ -73,7 +75,7 @@ export default function BrandHeader() {
                                     className="card-surface absolute right-0 mt-2 w-52 overflow-hidden p-1.5"
                                 >
                                     <Link
-                                        href={route('profile.edit')}
+                                        href={profile.edit.url()}
                                         role="menuitem"
                                         onClick={() => setMenuOpen(false)}
                                         className="block rounded-md px-3 py-2 text-sm text-espresso hover:bg-card"
@@ -95,7 +97,7 @@ export default function BrandHeader() {
                                         role="menuitem"
                                         onClick={() => {
                                             setMenuOpen(false);
-                                            router.post(route('logout'));
+                                            router.post(logout.url());
                                         }}
                                         className="block w-full rounded-md px-3 py-2 text-left text-sm text-error hover:bg-card"
                                     >
@@ -106,10 +108,10 @@ export default function BrandHeader() {
                         </div>
                     ) : (
                         <div className="hidden items-center gap-2 sm:flex">
-                            <Link href={route('login')} className="btn-ghost">
+                            <Link href={login.url()} className="btn-ghost">
                                 Masuk
                             </Link>
-                            <Link href={route('register')} className="btn-primary">
+                            <Link href={register.url()} className="btn-primary">
                                 Gabung Gratis
                             </Link>
                         </div>
@@ -147,10 +149,10 @@ export default function BrandHeader() {
                     ))}
                     {!auth.user && (
                         <div className="mt-4 flex flex-col gap-2">
-                            <Link href={route('login')} className="btn-ghost" onClick={() => setDrawerOpen(false)}>
+                            <Link href={login.url()} className="btn-ghost" onClick={() => setDrawerOpen(false)}>
                                 Log In
                             </Link>
-                            <Link href={route('register')} className="btn-primary" onClick={() => setDrawerOpen(false)}>
+                            <Link href={register.url()} className="btn-primary" onClick={() => setDrawerOpen(false)}>
                                 Join Free
                             </Link>
                         </div>

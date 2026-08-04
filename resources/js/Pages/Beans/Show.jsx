@@ -8,6 +8,9 @@ import EmptyState from '../../Components/EmptyState';
 import GateBanner from '../../Components/GateBanner';
 import WriteReviewForm from '../../Components/WriteReviewForm';
 import WriteRecipeForm from '../../Components/WriteRecipeForm';
+import beans from '../../routes/beans';
+import roasteries from '../../routes/roasteries';
+import { register } from '../../routes';
 import ReviewCard from '../../Components/ReviewCard';
 import RecipeCard from '../../Components/RecipeCard';
 import { StarRating } from '../../Components/StarRating';
@@ -187,7 +190,7 @@ function WriteGate({ canWrite, type, beanId }) {
 export default function BeanShow({ bean, tab, canWrite, canEdit, reviews, recipes, topReviews, topRecipes, changeLog }) {
     const { auth } = usePage().props;
     const rating = bean.reviews_avg_rating ? Number(bean.reviews_avg_rating).toFixed(1) : null;
-    const tabLink = (name) => route('beans.show', { bean: bean.id, tab: name });
+    const tabLink = (name) => beans.show.url(bean.id, { query: { tab: name } });
 
     return (
         <AppLayout>
@@ -198,7 +201,7 @@ export default function BeanShow({ bean, tab, canWrite, canEdit, reviews, recipe
                     </li>
                     <li aria-hidden="true">›</li>
                     <li>
-                        <Link href={bean.roastery ? route('roasteries.show', bean.roastery.id) : '/roasters'} className="hover:text-brown">
+                        <Link href={bean.roastery ? roasteries.show.url(bean.roastery.id) : '/roasters'} className="hover:text-brown">
                             {bean.roastery?.name ?? 'Roaster tidak diketahui'}
                         </Link>
                     </li>
@@ -228,7 +231,7 @@ export default function BeanShow({ bean, tab, canWrite, canEdit, reviews, recipe
                     </div>
                     {canEdit && (
                         <Link
-                            href={route('beans.edit', bean.id)}
+                            href={beans.edit.url(bean.id)}
                             className="text-[12.5px] font-semibold text-brown hover:text-caramel"
                         >
                             Edit bean
@@ -394,7 +397,7 @@ export default function BeanShow({ bean, tab, canWrite, canEdit, reviews, recipe
                                 <p className="mt-1 text-[12.5px] text-mocha">{bean.roastery.location}</p>
                             )}
                             {bean.roastery && (
-                                <Link href={route('roasteries.show', bean.roastery.id)} className="btn-ghost mt-4 w-full">
+                                <Link href={roasteries.show.url(bean.roastery.id)} className="btn-ghost mt-4 w-full">
                                     Lihat semua bean
                                 </Link>
                             )}
@@ -405,7 +408,7 @@ export default function BeanShow({ bean, tab, canWrite, canEdit, reviews, recipe
                                 <p className="mt-2 text-[13px] text-bg/80">
                                     Daftar untuk menulis ulasan, membagikan resep, dan mendukung yang menurutmu oke.
                                 </p>
-                                <Link href={route('register')} className="btn-primary mt-5">
+                                <Link href={register.url()} className="btn-primary mt-5">
                                     Gabung Gratis
                                 </Link>
                             </div>

@@ -1,4 +1,6 @@
 import { router } from '@inertiajs/react';
+import { login } from '../routes';
+import verification from '../routes/verification';
 
 /**
  * Dark gradient banner that replaces write forms for guests / unverified users
@@ -6,7 +8,8 @@ import { router } from '@inertiajs/react';
  */
 export default function GateBanner({ action, message, cta, redirectTo, variant = 'guest' }) {
     const go = () => {
-        router.visit(route(redirectTo ?? 'login', { redirect: window.location.href }));
+        const target = redirectTo === 'verification.notice' ? verification.notice : login;
+        router.visit(target.url({ query: { redirect: window.location.href } }));
     };
 
     const ctaLabel = variant === 'guest' ? (cta ?? 'Masuk') : (cta ?? 'Verifikasi email');

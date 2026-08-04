@@ -4,6 +4,8 @@ import Button from '../../../Components/Button';
 import Input from '../../../Components/Input';
 import Pill from '../../../Components/Pill';
 import { cn } from '../../../lib/utils';
+import profile from '../../../routes/profile';
+import verification from '../../../routes/verification';
 
 const roastLevels = ['Light', 'Light-Medium', 'Medium', 'Medium-Dark', 'Dark'];
 const roastLabels = {
@@ -55,7 +57,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
 
     const submit = (e) => {
         e.preventDefault();
-        patch(route('profile.update'));
+        patch(profile.update.url());
     };
 
     const toggleFlavor = (flavor) => {
@@ -95,7 +97,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                 {mustVerifyEmail && user.email_verified_at === null && (
                     <p className="rounded-md border border-line bg-card px-3 py-2 text-[12.5px] text-mocha">
                         Alamat emailmu belum diverifikasi.{' '}
-                        <Link href={route('verification.send')} method="post" as="button" className="font-semibold text-caramel hover:text-caramel-hover">
+                        <Link href={verification.send.url()} method="post" as="button" className="font-semibold text-caramel hover:text-caramel-hover">
                             Klik di sini untuk mengirim ulang email verifikasi.
                         </Link>
                     </p>

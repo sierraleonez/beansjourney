@@ -4,6 +4,7 @@ import Avatar from './Avatar';
 import Pill from './Pill';
 import VoteButton from './VoteButton';
 import { timeAgo } from '../lib/utils';
+import recipes from '../routes/recipes';
 
 const brewLabels = {
     americano: 'Americano',
@@ -56,7 +57,7 @@ export default function RecipeCard({ recipe }) {
 
                 <p className="mt-3 flex items-center gap-3 text-[12px] font-semibold text-mocha">
                     <span>{recipe.votes_count} dukungan</span>
-                    <Link href={route('recipes.show', recipe.id)} className="text-caramel hover:text-caramel-hover">
+                    <Link href={recipes.show.url(recipe.id)} className="text-caramel hover:text-caramel-hover">
                         Buka utas · {recipe.comment_count} komentar →
                     </Link>
                 </p>

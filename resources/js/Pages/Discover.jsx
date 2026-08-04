@@ -6,6 +6,10 @@ import SortControl from '../Components/SortControl';
 import LoadMore from '../Components/LoadMore';
 import EmptyState from '../Components/EmptyState';
 import Card from '../Components/Card';
+import beans from '../routes/beans';
+import verification from '../routes/verification';
+import { register } from '../routes';
+import roasteries from '../routes/roasteries';
 
 export default function Discover({ beans, sort, search, roasters }) {
     const { auth } = usePage().props;
@@ -116,16 +120,16 @@ export default function Discover({ beans, sort, search, roasters }) {
                         </p>
                         {auth.user ? (
                             auth.user.email_verified_at ? (
-                                <Link href={route('beans.create')} className="btn-primary mt-5">
+                                <Link href={beans.create.url()} className="btn-primary mt-5">
                                     Tambahkan Bean
                                 </Link>
                             ) : (
-                                <Link href={route('verification.notice')} className="btn-primary mt-5">
+                                <Link href={verification.notice.url()} className="btn-primary mt-5">
                                     Verifikasi emailmu
                                 </Link>
                             )
                         ) : (
-                            <Link href={route('register')} className="btn-primary mt-5">
+                            <Link href={register.url()} className="btn-primary mt-5">
                                 Gabung Gratis
                             </Link>
                         )}
@@ -137,7 +141,7 @@ export default function Discover({ beans, sort, search, roasters }) {
                             {roasters.map((roastery) => (
                                 <li key={roastery.id}>
                                     <Link
-                                        href={route('roasteries.show', roastery.id)}
+                                        href={roasteries.show.url(roastery.id)}
                                         className="flex items-center justify-between gap-2 py-2.5 hover:text-brown"
                                     >
                                         <span className="text-sm font-semibold">{roastery.name}</span>

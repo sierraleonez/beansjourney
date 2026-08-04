@@ -2,6 +2,7 @@ import { Link } from '@inertiajs/react';
 import Card from './Card';
 import Pill from './Pill';
 import { StarRating } from './StarRating';
+import beans from '../routes/beans';
 
 const roastVariant = {
     Light: 'light',
@@ -15,7 +16,7 @@ export default function BeanCard({ bean }) {
     const rating = bean.average_rating ? Number(bean.average_rating).toFixed(1) : null;
 
     return (
-        <Link href={route('beans.show', bean.id)} className="block focus:outline-none">
+        <Link href={beans.show.url(bean.id)} className="block focus:outline-none">
             <Card clickable className="flex h-full flex-col p-4 sm:p-6" >
                 {bean.photo_url && (
                     <img

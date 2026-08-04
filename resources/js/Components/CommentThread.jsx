@@ -4,6 +4,7 @@ import Avatar from './Avatar';
 import Button from './Button';
 import VoteButton from './VoteButton';
 import { timeAgo } from '../lib/utils';
+import comments from '../routes/comments';
 
 function DeletedPlaceholder() {
     return <span className="italic text-mocha">[dihapus]</span>;
@@ -22,7 +23,7 @@ function CommentItem({ comment, commentableType, commentableId, canReply, thread
         if (!replyBody.trim()) return;
         setPosting(true);
         router.post(
-            route('comments.store'),
+            comments.store.url(),
             {
                 commentable_type: commentableType,
                 commentable_id: commentableId,
@@ -45,7 +46,7 @@ function CommentItem({ comment, commentableType, commentableId, canReply, thread
 
     const remove = () => {
         if (window.confirm('Hapus komentar ini? Balasannya akan tetap terlihat.')) {
-            router.delete(route('comments.destroy', comment.id), { preserveScroll: true });
+            router.delete(comments.destroy.url(comment.id), { preserveScroll: true });
         }
     };
 

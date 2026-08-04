@@ -5,6 +5,7 @@ import Input from './Input';
 import Pill from './Pill';
 import SearchableSelect from './SearchableSelect';
 import { cn } from '../lib/utils';
+import recipes from '../routes/recipes';
 
 const methods = [
     { value: 'americano', label: 'Americano' },
@@ -72,7 +73,7 @@ export default function WriteRecipeForm({ beanId }) {
 
     const submit = (event) => {
         event.preventDefault();
-        post(route('recipes.store', beanId), {
+        post(recipes.store.url(beanId), {
             preserveScroll: true,
             onSuccess: () => reset(),
         });

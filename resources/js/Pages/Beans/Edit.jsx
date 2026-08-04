@@ -6,6 +6,7 @@ import Input from '../../Components/Input';
 import Button from '../../Components/Button';
 import SearchableSelect from '../../Components/SearchableSelect';
 import PhotoPicker from '../../Components/PhotoPicker';
+import beans from '../../routes/beans';
 
 const MAX_PHOTOS = 5;
 
@@ -48,7 +49,7 @@ export default function BeanEdit({ bean, processes = [], origins = [], roastLeve
 
     const submit = (event) => {
         event.preventDefault();
-        post(route('beans.update', bean.id), {
+        post(beans.update.url(bean.id), {
             forceFormData: true,
             preserveScroll: true,
         });
@@ -63,7 +64,7 @@ export default function BeanEdit({ bean, processes = [], origins = [], roastLeve
                     </li>
                     <li aria-hidden="true">›</li>
                     <li>
-                        <Link href={route('beans.show', bean.id)} className="hover:text-brown">
+                        <Link href={beans.show.url(bean.id)} className="hover:text-brown">
                             {bean.name}
                         </Link>
                     </li>

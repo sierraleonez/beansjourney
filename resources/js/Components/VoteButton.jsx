@@ -1,5 +1,7 @@
 import { router, usePage } from '@inertiajs/react';
 import { cn } from '../lib/utils';
+import { login } from '../routes';
+import votes from '../routes/votes';
 
 /**
  * Upvote-only toggle (AD-3): one row per user/votable; clicking again deletes it.
@@ -12,12 +14,12 @@ export default function VoteButton({ votableType, votableId, votesCount, votedBy
 
     const handleClick = () => {
         if (!auth.user) {
-            router.visit(route('login', { redirect: window.location.href }));
+            router.visit(login.url({ query: { redirect: window.location.href } }));
 
             return;
         }
         router.post(
-            route('votes.toggle'),
+            votes.toggle.url(),
             { votable_type: votableType, votable_id: votableId },
             { preserveScroll: true },
         );

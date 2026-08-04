@@ -3,6 +3,7 @@ import { useRef } from 'react';
 import Card from '../../../Components/Card';
 import Button from '../../../Components/Button';
 import Input from '../../../Components/Input';
+import password from '../../../routes/password';
 
 export default function UpdatePasswordForm({ className = '' }) {
     const passwordInput = useRef();
@@ -25,7 +26,7 @@ export default function UpdatePasswordForm({ className = '' }) {
     const updatePassword = (e) => {
         e.preventDefault();
 
-        put(route('password.update'), {
+        put(password.update.url(), {
             preserveScroll: true,
             onSuccess: () => reset(),
             onError: (errs) => {

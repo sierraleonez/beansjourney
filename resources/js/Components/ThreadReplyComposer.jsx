@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { router, usePage } from '@inertiajs/react';
 import Button from './Button';
 import GateBanner from './GateBanner';
+import comments from '../routes/comments';
 
 export default function ThreadReplyComposer({ commentableType, commentableId, canReply }) {
     const { auth } = usePage().props;
@@ -30,7 +31,7 @@ export default function ThreadReplyComposer({ commentableType, commentableId, ca
         if (!body.trim()) return;
         setLoading(true);
         router.post(
-            route('comments.store'),
+            comments.store.url(),
             {
                 commentable_type: commentableType,
                 commentable_id: commentableId,

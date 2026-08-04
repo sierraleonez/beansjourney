@@ -4,6 +4,7 @@ import Card from '../../../Components/Card';
 import Button from '../../../Components/Button';
 import Input from '../../../Components/Input';
 import Modal from '../../../Components/Modal';
+import profile from '../../../routes/profile';
 
 export default function DeleteUserForm({ className = '' }) {
     const [confirming, setConfirming] = useState(false);
@@ -24,7 +25,7 @@ export default function DeleteUserForm({ className = '' }) {
     const deleteUser = (e) => {
         e.preventDefault();
 
-        destroy(route('profile.destroy'), {
+        destroy(profile.destroy.url(), {
             preserveScroll: true,
             onSuccess: () => closeModal(),
             onError: () => passwordInput.current?.focus(),

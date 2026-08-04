@@ -3,6 +3,7 @@ import Button from './Button';
 import Card from './Card';
 import Input from './Input';
 import { StarRatingInput } from './StarRating';
+import reviews from '../routes/reviews';
 
 export default function WriteReviewForm({ beanId }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -13,7 +14,7 @@ export default function WriteReviewForm({ beanId }) {
 
     const submit = (event) => {
         event.preventDefault();
-        post(route('reviews.store', beanId), {
+        post(reviews.store.url(beanId), {
             preserveScroll: true,
             onSuccess: () => reset(),
         });

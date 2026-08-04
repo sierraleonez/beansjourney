@@ -2,6 +2,8 @@ import AuthShell from '../../Layouts/AuthShell';
 import Input from '../../Components/Input';
 import Button from '../../Components/Button';
 import { Head, Link, useForm } from '@inertiajs/react';
+import { login, register } from '../../routes';
+import password from '../../routes/password';
 
 export default function Login({ status, canResetPassword }) {
     const redirect = new URL(window.location.href).searchParams.get('redirect') ?? '';
@@ -14,7 +16,7 @@ export default function Login({ status, canResetPassword }) {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('login'), {
+        post(login.url(), {
             onFinish: () => reset('password'),
         });
     };
@@ -27,11 +29,11 @@ export default function Login({ status, canResetPassword }) {
             footer={
                 canResetPassword && (
                     <>
-                        <Link href={route('password.request')} className="font-semibold text-caramel hover:text-caramel-hover">
+                        <Link href={password.request.url()} className="font-semibold text-caramel hover:text-caramel-hover">
                             Lupa kata sandi?
                         </Link>
                         {' · '}
-                        <Link href={route('register')} className="font-semibold text-caramel hover:text-caramel-hover">
+                        <Link href={register.url()} className="font-semibold text-caramel hover:text-caramel-hover">
                             Gabung Gratis
                         </Link>
                     </>

@@ -2,6 +2,8 @@ import AuthShell from '../../Layouts/AuthShell';
 import Input from '../../Components/Input';
 import Button from '../../Components/Button';
 import { Head, useForm } from '@inertiajs/react';
+import password from '../../routes/password';
+import { login } from '../../routes';
 
 export default function ForgotPassword({ status }) {
     const { data, setData, post, processing, errors } = useForm({
@@ -10,7 +12,7 @@ export default function ForgotPassword({ status }) {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('password.email'));
+        post(password.email.url());
     };
 
     return (
@@ -19,7 +21,7 @@ export default function ForgotPassword({ status }) {
             title="Atur ulang kata sandimu"
             subtitle="Beri tahu kami email yang kamu gunakan saat mendaftar, dan kami akan mengirimkan tautan atur ulang."
             footer={
-                <a href={route('login')} className="font-semibold text-caramel hover:text-caramel-hover">
+                <a href={login.url()} className="font-semibold text-caramel hover:text-caramel-hover">
                     Kembali ke halaman masuk
                 </a>
             }

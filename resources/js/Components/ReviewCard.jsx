@@ -5,6 +5,7 @@ import Pill from './Pill';
 import VoteButton from './VoteButton';
 import { StarRating } from './StarRating';
 import { timeAgo } from '../lib/utils';
+import reviews from '../routes/reviews';
 
 export default function ReviewCard({ review }) {
     return (
@@ -32,7 +33,7 @@ export default function ReviewCard({ review }) {
                 <p className="mt-2 whitespace-pre-line text-[14px] leading-relaxed text-espresso">{review.body}</p>
                 <p className="mt-3 flex items-center gap-3 text-[12px] font-semibold text-mocha">
                     <span>{review.votes_count} dukungan</span>
-                    <Link href={route('reviews.show', review.id)} className="text-caramel hover:text-caramel-hover">
+                    <Link href={reviews.show.url(review.id)} className="text-caramel hover:text-caramel-hover">
                         Buka utas · {review.comment_count} komentar →
                     </Link>
                 </p>

@@ -5,6 +5,7 @@ import Input from '../../Components/Input';
 import Button from '../../Components/Button';
 import SearchableSelect from '../../Components/SearchableSelect';
 import PhotoPicker from '../../Components/PhotoPicker';
+import beans from '../../routes/beans';
 
 const MAX_PHOTOS = 5;
 
@@ -32,7 +33,7 @@ export default function BeanCreate({ roasteries = [], processes = [], origins = 
 
     const submit = (event) => {
         event.preventDefault();
-        post(route('beans.store'), {
+        post(beans.store.url(), {
             forceFormData: true,
             preserveScroll: true,
             onSuccess: () => reset(),
