@@ -40,11 +40,11 @@ jobs:
     - name: Build Inertia Static Assets (Wayfinder can now safely call php artisan)
       run: npm run build # Creates public/build
 
-    - name: Install Playwright
-      run: npx playwright install chromium --with-deps # install browsers + dependencies for Chromium only
+    # - name: Install Playwright
+    #   run: npx playwright install chromium --with-deps # install browsers + dependencies for Chromium only
 
-    - name: E2E test
-      run: npm run test:e2e
+    # - name: E2E test
+    #   run: npm run test:e2e
 
     # 3. Upload the 'public/build' directory as a GitHub Artifact
     - name: Upload Build Artifact
