@@ -7,7 +7,6 @@ on:
     paths-ignore:
       - '_bmad/**'
       - '_bmad-output/**'
-      - tests
 
 jobs:
   build-and-deploy:
@@ -40,6 +39,9 @@ jobs:
 
     - name: Build Inertia Static Assets (Wayfinder can now safely call php artisan)
       run: npm run build # Creates public/build
+
+    - name: E2E test
+      run: npm run test:e2e
 
     # 3. Upload the 'public/build' directory as a GitHub Artifact
     - name: Upload Build Artifact
@@ -89,6 +91,12 @@ jobs:
           unzip -o assets.zip -d public/build/
           rm assets.zip artifacts.json
 
+          # Install composer dependency
+          composer install --no-dev
+
+          # Run unit test
+          php artisan test
+
           # Run standard production optimizations
           php artisan migrate --force
           php artisan config:cache
@@ -97,3 +105,15 @@ jobs:
 
           # Bring application back online
           php artisan up
+
+    - name: Check the deployed service URL
+      uses: jtalk/url-health-check-action@v5
+      with:
+        # Check the following URLs one by one sequentially
+        url: https://beansjourney.eventaries.cloud
+        # Follow redirects, or just report success on 3xx status codes
+        follow-redirect: false # Optional, defaults to "false"
+        # Fail this action after this many failed attempts
+        max-attempts: 3 # Optional, defaults to 1
+        # Delay between retries
+        retry-delay: 5s # Optional, only applicable to max-attempts > 1
