@@ -89,11 +89,13 @@ jobs:
           SESSION_DRIVER: array
         run: php artisan test
 
-      # - name: Install Playwright
-      #   run: npx playwright install chromium --with-deps
-      #
-      # - name: E2E test
-      #   run: npm run test:e2e
+      - name: Install Playwright
+        run: npx playwright install chromium --with-deps
+      
+      - name: E2E test
+        env:
+          E2E_SKIP_BUILD: '1' 
+        run: npm run test:e2e
 
       # ------------------------------------------------------------------
       # 4. Kirim aset ke server via rsync (SEBELUM maintenance mode)
