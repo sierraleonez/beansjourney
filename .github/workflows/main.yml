@@ -1,4 +1,4 @@
-name: Deploy Laravel App (Artifact Method)
+name: Deploy Laravel App (rsync)
 
 on:
   push:
@@ -8,115 +8,165 @@ on:
       - '_bmad/**'
       - '_bmad-output/**'
 
+# Cegah dua deployment berjalan bersamaan ke server yang sama.
+# Run yang lebih lama akan dibatalkan saat ada push baru.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
 jobs:
-  build-and-deploy:
+  build-test-deploy:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      actions: read
+
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-    # 1. Setup PHP & Composer Dependencies (Required for Wayfinder)
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.4' # Match your local/production PHP version
-        extensions: mbstring, bcmath, ctype, fileinfo, json, openssl, pdo, pdo_mysql, tokenizer, xml
+      # ------------------------------------------------------------------
+      # 1. PHP & Composer
+      # ------------------------------------------------------------------
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: mbstring, bcmath, ctype, fileinfo, json, openssl, pdo, pdo_mysql, pdo_sqlite, tokenizer, xml
+          coverage: none
 
-    - name: Install Composer Dependencies
-      run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader
+      - name: Get Composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> "$GITHUB_OUTPUT"
 
-    # 2. Setup Node & Build React Assets
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '22'
+      - name: Cache Composer packages
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
 
-    - name: Install NPM Dependencies (Clean Install)
-      run: npm ci # <-- Switched back to the faster, strict clean install!
+      # Catatan: --no-scripts DIHAPUS dari versi lama.
+      # Wayfinder memanggil `php artisan` saat `npm run build`, dan artisan
+      # butuh package:discover (yang dijalankan oleh script post-autoload-dump)
+      # agar service provider paketnya terdaftar.
+      - name: Install Composer Dependencies
+        run: composer install --no-ansi --no-interaction --no-progress --prefer-dist --optimize-autoloader
 
-    - name: Build Inertia Static Assets (Wayfinder can now safely call php artisan)
-      run: npm run build # Creates public/build
+      # `php artisan` butuh .env + APP_KEY agar tidak error saat dipanggil Wayfinder
+      - name: Prepare .env
+        run: |
+          cp .env.example .env
+          php artisan key:generate
 
-    # - name: Install Playwright
-    #   run: npx playwright install chromium --with-deps # install browsers + dependencies for Chromium only
+      # ------------------------------------------------------------------
+      # 2. Node & build aset
+      # ------------------------------------------------------------------
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
 
-    # - name: E2E test
-    #   run: npm run test:e2e
+      - name: Install NPM Dependencies
+        run: npm ci
 
-    # 3. Upload the 'public/build' directory as a GitHub Artifact
-    - name: Upload Build Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: assets-build
-        path: public/build/
-        retention-days: 1
+      - name: Build Inertia Static Assets
+        run: npm run build
 
-    # 4. SSH into your server, pull Git code, and fetch the artifact
-    - name: Execute Remote Deployment via SSH
-      uses: appleboy/ssh-action@v1.0.3
-      env:
-        GITHUB_RUN_ID: ${{ github.run_id }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        host: ${{ secrets.SERVER_HOST }}
-        username: ${{ secrets.SERVER_USER }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        port: ${{ secrets.SERVER_PORT }}
-        envs: GITHUB_RUN_ID, GITHUB_TOKEN
-        script: |
-          cd htdocs
+      # ------------------------------------------------------------------
+      # 3. Test — dijalankan DI RUNNER, bukan di server produksi
+      # ------------------------------------------------------------------
+      # Sesuaikan bagian env ini dengan setup test-mu. SQLite in-memory adalah
+      # default yang aman: tidak ada risiko menyentuh database produksi.
+      - name: Run Tests
+        env:
+          APP_ENV: testing
+          DB_CONNECTION: sqlite
+          DB_DATABASE: ':memory:'
+          CACHE_STORE: array
+          QUEUE_CONNECTION: sync
+          SESSION_DRIVER: array
+        run: php artisan test
 
-          # Put Laravel in maintenance mode
-          php artisan down --refresh=15 --retry=60
+      # - name: Install Playwright
+      #   run: npx playwright install chromium --with-deps
+      #
+      # - name: E2E test
+      #   run: npm run test:e2e
 
-          # Pull the core code changes (ignoring public/build since it's not in git)
-          git pull origin main
+      # ------------------------------------------------------------------
+      # 4. Kirim aset ke server via rsync (SEBELUM maintenance mode)
+      # ------------------------------------------------------------------
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_deploy
+          chmod 600 ~/.ssh/id_deploy
+          # Untuk keamanan lebih baik, ganti ssh-keyscan dengan host key tetap
+          # yang disimpan di secrets: echo "${{ secrets.SSH_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
+          ssh-keyscan -p ${{ secrets.SERVER_PORT }} ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts 2>/dev/null
 
-          # Create public/build folder if it doesn't exist
-          mkdir -p public/build
+      # Aset dikirim ke folder staging `public/build.new`, bukan langsung ke
+      # `public/build`. Transfer bisa memakan waktu; situs tetap online dan
+      # menyajikan aset lama sampai swap atomik di step berikutnya.
+      - name: Sync build assets to staging folder
+        run: |
+          rsync -az --delete \
+            -e "ssh -p ${{ secrets.SERVER_PORT }} -i ~/.ssh/id_deploy -o StrictHostKeyChecking=yes" \
+            public/build/ \
+            ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:htdocs/public/build.new/
 
-          # Download the zip artifact using GitHub's API
-          curl -L \
-            -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer $GITHUB_TOKEN" \
-            -H "X-GitHub-Api-Version: 2022-11-28" \
-            https://api.github.com/repos/${{ github.repository }}/actions/runs/$GITHUB_RUN_ID/artifacts \
-            -o artifacts.json
+      # ------------------------------------------------------------------
+      # 5. Deployment di server
+      # ------------------------------------------------------------------
+      - name: Execute Remote Deployment via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SERVER_PORT }}
+          script_stop: true
+          script: |
+            set -euo pipefail
+            cd htdocs
 
-          # Extract the direct download URL from JSON and download the zip file
-          DOWNLOAD_URL=$(grep -o '"archive_download_url": "[^"]*' artifacts.json | head -n 1 | sed 's/"archive_download_url": "//')
-          curl -L -H "Authorization: Bearer $GITHUB_TOKEN" "$DOWNLOAD_URL" -o assets.zip
+            # Apa pun yang terjadi — sukses maupun gagal di tengah jalan —
+            # aplikasi tidak akan tertinggal dalam maintenance mode.
+            trap 'php artisan up || true' EXIT
 
-          # Extract assets directly into your public/build folder and clean up zip files
-          unzip -o assets.zip -d public/build/
-          rm assets.zip artifacts.json
+            php artisan down --refresh=15 --retry=60
 
-          # Install composer dependency
-          composer install --no-dev
+            git pull origin main
 
-          # Run unit test
-          php artisan test
+            # Swap atomik: tidak ada momen di mana public/build berisi
+            # campuran aset lama dan baru.
+            rm -rf public/build.old
+            if [ -d public/build ]; then
+              mv public/build public/build.old
+            fi
+            mv public/build.new public/build
 
-          # Run standard production optimizations
-          php artisan migrate --force
-          php artisan config:cache
-          php artisan route:cache
-          php artisan view:cache
+            composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
 
-          # Bring application back online
-          php artisan up
+            php artisan migrate --force
 
-    - name: Check the deployed service URL
-      uses: jtalk/url-health-check-action@v5
-      with:
-        # Check the following URLs one by one sequentially
-        url: https://beansjourney.eventaries.cloud
-        # Follow redirects, or just report success on 3xx status codes
-        follow-redirect: false # Optional, defaults to "false"
-        # Fail this action after this many failed attempts
-        max-attempts: 3 # Optional, defaults to 1
-        # Delay between retries
-        retry-delay: 5s # Optional, only applicable to max-attempts > 1
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+
+            # Rollback aset kalau ada langkah di atas yang gagal ditangani
+            # trap; hapus cadangan hanya setelah semua berhasil.
+            rm -rf public/build.old
+
+      # ------------------------------------------------------------------
+      # 6. Verifikasi
+      # ------------------------------------------------------------------
+      - name: Check the deployed service URL
+        uses: jtalk/url-health-check-action@v5
+        with:
+          url: https://beansjourney.eventaries.cloud
+          follow-redirect: false
+          max-attempts: 5
+          retry-delay: 5s
