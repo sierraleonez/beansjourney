@@ -39,10 +39,13 @@ return [
         ],
 
         'public' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage',
-            'visibility' => 'public',
+            'driver' => 'cos',
+            'secret_id' => env('COS_SECRET_ID'),
+            'secret_key' => env('COS_SECRET_KEY'),
+            'bucket' => env('COS_BUCKET'),
+            'app_id' => env('COS_APP_ID'),
+            'region' => env('COS_REGION', 'ap-jakarta'),
+            'cdn' => env('COS_CDN_DOMAIN'),
             'throw' => false,
             'report' => false,
         ],
