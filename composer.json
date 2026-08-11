@@ -14,6 +14,7 @@
         "laravel/tinker": "^3.0",
         "laravel/wayfinder": "^0.1.20",
         "nyholm/psr7": "^1.8",
+        "overtrue/laravel-filesystem-cos": "^4.0",
         "railsware/mailtrap-php": "^3.13",
         "symfony/http-client": "^8.1",
         "tightenco/ziggy": "^2.0"
