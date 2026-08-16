@@ -31,6 +31,12 @@ export default function BeanCreate({ roasteries = [], processes = [], origins = 
 
     const set = (key) => (event) => setData(key, event.target.value);
 
+    const roasteryName = data.roastery_name.trim();
+    const isExistingRoastery = roasteries.some(
+        (roastery) => roastery.label.toLowerCase() === roasteryName.toLowerCase(),
+    );
+    const showNewRoasteryFields = roasteryName !== '' && !isExistingRoastery;
+
     const submit = (event) => {
         event.preventDefault();
         post(beans.store.url(), {
@@ -66,37 +72,39 @@ export default function BeanCreate({ roasteries = [], processes = [], origins = 
                             />
                         </div>
 
-                        <div className="rounded-lg border-[1.5px] border-line bg-card/60 p-4">
-                            <p className="mb-3 text-[12.5px] font-semibold text-espresso">
-                                Info roastery baru (opsional, hanya dipakai kalau roastery ini belum ada)
-                            </p>
-                            <div className="grid gap-4 sm:grid-cols-3">
-                                <Input
-                                    name="roastery_location"
-                                    label="Lokasi"
-                                    value={data.roastery_location}
-                                    onChange={set('roastery_location')}
-                                    error={errors.roastery_location}
-                                    placeholder="Bandung, Indonesia"
-                                />
-                                <Input
-                                    name="roastery_instagram"
-                                    label="Instagram"
-                                    value={data.roastery_instagram}
-                                    onChange={set('roastery_instagram')}
-                                    error={errors.roastery_instagram}
-                                    placeholder="@namaroastery"
-                                />
-                                <Input
-                                    name="roastery_website"
-                                    label="Website"
-                                    value={data.roastery_website}
-                                    onChange={set('roastery_website')}
-                                    error={errors.roastery_website}
-                                    placeholder="https://namaroastery.com"
-                                />
+                        {showNewRoasteryFields && (
+                            <div className="rounded-lg border-[1.5px] border-line bg-card/60 p-4">
+                                <p className="mb-3 text-[12.5px] font-semibold text-espresso">
+                                    Roastery baru — lengkapi detailnya
+                                </p>
+                                <div className="grid gap-4 sm:grid-cols-3">
+                                    <Input
+                                        name="roastery_location"
+                                        label="Lokasi"
+                                        value={data.roastery_location}
+                                        onChange={set('roastery_location')}
+                                        error={errors.roastery_location}
+                                        placeholder="Bandung, Indonesia"
+                                    />
+                                    <Input
+                                        name="roastery_instagram"
+                                        label="Instagram"
+                                        value={data.roastery_instagram}
+                                        onChange={set('roastery_instagram')}
+                                        error={errors.roastery_instagram}
+                                        placeholder="@namaroastery"
+                                    />
+                                    <Input
+                                        name="roastery_website"
+                                        label="Website"
+                                        value={data.roastery_website}
+                                        onChange={set('roastery_website')}
+                                        error={errors.roastery_website}
+                                        placeholder="https://namaroastery.com"
+                                    />
+                                </div>
                             </div>
-                        </div>
+                        )}
 
                         <Input
                             name="name"
