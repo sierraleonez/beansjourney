@@ -28,14 +28,16 @@ class CreateRoastery
 
     public function findOrCreate(User $actor, string $name, ?string $location = null, ?array $social = null): Roastery
     {
-        if ($roastery = Roastery::where('name', $name)->first()) {
+        $name = trim($name);
+
+        if ($roastery = $this->findByName($name)) {
             return $roastery;
         }
 
         try {
             return $this->create($actor, $name, null, $social, $location);
         } catch (UniqueConstraintViolationException) {
-            $roastery = Roastery::withTrashed()->where('name', $name)->firstOrFail();
+            $roastery = Roastery::withTrashed()->whereRaw('LOWER(name) = ?', [mb_strtolower($name)])->firstOrFail();
 
             if ($roastery->trashed()) {
                 $roastery->restore();
@@ -43,5 +45,14 @@ class CreateRoastery
 
             return $roastery;
         }
+    }
+
+    /**
+     * Case-insensitive lookup so "Blue Bottle" and "blue bottle" resolve to the same roastery
+     * instead of the DB's case-sensitive unique index letting a near-duplicate slip through.
+     */
+    public function findByName(string $name): ?Roastery
+    {
+        return Roastery::whereRaw('LOWER(name) = ?', [mb_strtolower(trim($name))])->first();
     }
 }
